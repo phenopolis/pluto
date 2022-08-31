@@ -4,8 +4,8 @@ A fast and convenient image processing library in Crystal
 
 #### Currently supported
 
-- BPM
 - JPEG (through [GD](https://github.com/libgd/libgd))
+- PPM
 
 ## Installation
 
