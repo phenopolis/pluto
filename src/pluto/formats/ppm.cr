@@ -33,7 +33,7 @@ module Pluto::Formats::PPM
     end
   end
 
-  def to_ppm
+  def to_ppm : String
     String.build do |string|
       string << "P6\n"
       string << @width << " " << @height << "\n"
