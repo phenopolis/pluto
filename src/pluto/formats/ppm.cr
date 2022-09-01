@@ -40,7 +40,7 @@ module Pluto::Formats::PPM
       string << "255\n"
       @height.times do |y|
         @width.times do |x|
-          pixel = pixels[y][x]
+          pixel = @pixels[y][x]
           red = ((pixel & 0xFF000000) >> 24).to_u8
           green = ((pixel & 0x00FF0000) >> 16).to_u8
           blue = ((pixel & 0x0000FF00) >> 8).to_u8
