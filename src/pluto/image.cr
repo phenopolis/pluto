@@ -2,6 +2,7 @@ require "./filters/*"
 require "./formats/*"
 
 class Pluto::Image
+  include Filters::ChangeBrightness
   include Filters::SwapChannels
 
   include Formats::JPEG
