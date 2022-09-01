@@ -1,6 +1,9 @@
+require "./filters/*"
 require "./formats/*"
 
 class Pluto::Image
+  include Filters::SwapChannels
+
   include Formats::JPEG
   include Formats::PPM
 
