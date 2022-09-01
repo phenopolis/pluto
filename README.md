@@ -1,11 +1,15 @@
 # Pluto
 
-A fast and convenient image processing library in Crystal
+A fast and convenient image processing library
 
 #### Currently supported
 
-- JPEG (through [GD](https://github.com/libgd/libgd))
-- PPM
+- Image filters
+  - Changing brightness
+  - Swapping channels
+- Image formats
+  - JPEG (through [GD](https://github.com/libgd/libgd))
+  - PPM
 
 ## Installation
 
