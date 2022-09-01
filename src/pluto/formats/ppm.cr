@@ -2,7 +2,7 @@ require "../image"
 
 module Pluto::Formats::PPM
   macro included
-    def self.from_ppm(image_data : String) : self
+    def self.from_ppm(image_data : String) : Image
       io = IO::Memory.new(image_data)
 
       _magic_number = io.gets("\n", chomp: true)

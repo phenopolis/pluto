@@ -2,7 +2,7 @@ require "gd"
 
 module Pluto::Formats::JPEG
   macro included
-    def self.from_jpeg(image_data) : self
+    def self.from_jpeg(image_data) : Image
       gd_image_pointer = LibGD.image_create_from_jpeg_ptr(image_data.bytesize, image_data)
       gd_image = gd_image_pointer.value
 

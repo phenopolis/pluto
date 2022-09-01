@@ -5,11 +5,11 @@ module Pluto::Filters::SwapChannels
     Blue
   end
 
-  def swap_channels(a : Channel, b : Channel) : self
+  def swap_channels(a : Channel, b : Channel) : Image
     self.class.new(@pixels.clone, @width, @height, @type).swap_channels!(a, b)
   end
 
-  def swap_channels!(a : Channel, b : Channel) : self
+  def swap_channels!(a : Channel, b : Channel) : Image
     case {a, b}
     when {Channel::Red, Channel::Green}, {Channel::Green, Channel::Red}
       @height.times do |y|
