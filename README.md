@@ -6,6 +6,7 @@ A fast and convenient image processing library
 
 - Image filters
   - Changing brightness
+  - Changing contrast
   - Swapping channels
 - Image formats
   - JPEG (through [GD](https://github.com/libgd/libgd))
