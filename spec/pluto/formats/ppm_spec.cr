@@ -9,7 +9,7 @@ describe Pluto::Formats::PPM do
       image.pixels[240][320].should eq 4005796096
       image.width.should eq 640
       image.height.should eq 480
-      image.type.should eq Image::Type::RGB
+      image.kind.should eq Image::Kind::RGB
     end
   end
 

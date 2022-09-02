@@ -6,7 +6,7 @@ module Pluto::Filters::SwapChannels
   end
 
   def swap_channels(a : Channel, b : Channel) : Image
-    self.class.new(@pixels.clone, @width, @height, @type).swap_channels!(a, b)
+    self.class.new(@pixels.clone, @width, @height, @kind).swap_channels!(a, b)
   end
 
   def swap_channels!(a : Channel, b : Channel) : Image

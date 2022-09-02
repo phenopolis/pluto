@@ -18,7 +18,7 @@ module Pluto::Formats::JPEG
 
       LibGD.image_destroy(gd_image_pointer)
 
-      new(pixels, width, height, Type::RGB)
+      new(pixels, width, height, Kind::RGB)
     end
   end
 

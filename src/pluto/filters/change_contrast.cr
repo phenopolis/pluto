@@ -1,6 +1,6 @@
 module Pluto::Filters::ChangeContrast
   def change_contrast(value : Int32) : Image
-    self.class.new(@pixels.clone, @width, @height, @type).change_contrast!(value)
+    self.class.new(@pixels.clone, @width, @height, @kind).change_contrast!(value)
   end
 
   def change_contrast!(value : Int32) : Image

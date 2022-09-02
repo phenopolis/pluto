@@ -12,15 +12,15 @@ class Pluto::Image
   getter pixels : Array(Array(UInt32))
   getter width : Int32
   getter height : Int32
-  getter type : Type
+  getter kind : Kind
 
-  enum Type
+  enum Kind
     Binary
     Grayscale
     RGB
     RGBA
   end
 
-  def initialize(@pixels, @width, @height, @type)
+  def initialize(@pixels, @width, @height, @kind)
   end
 end
