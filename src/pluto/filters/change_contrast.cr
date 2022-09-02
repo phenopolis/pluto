@@ -1,9 +1,9 @@
 module Pluto::Filters::ChangeContrast
-  def change_contrast(value : Int32) : Image
+  def change_contrast(value : Float64) : Image
     self.class.new(@pixels.clone, @width, @height, @kind).change_contrast!(value)
   end
 
-  def change_contrast!(value : Int32) : Image
+  def change_contrast!(value : Float64) : Image
     factor = (259 * (value + 255)) / (255 * (259 - value))
     @height.times do |y|
       @width.times do |x|
