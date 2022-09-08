@@ -18,9 +18,8 @@ describe Pluto::Formats::JPEG do
       data_before = File.read("samples/pluto.jpg")
       data_after = Pluto::Image.from_jpeg(data_before).to_jpeg
 
-      data_after.size.should eq 61892
+      data_after.size.should eq 46728
       data_after.includes?("JFIF").should be_true
-      data_after.includes?("<CREATOR: gd-jpeg v1.0 (using IJG JPEG v80), quality = 100").should be_true
     end
   end
 end

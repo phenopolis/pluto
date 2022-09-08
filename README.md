@@ -9,7 +9,7 @@ A fast and convenient image processing library
   - Changing contrast
   - Swapping channels
 - Image formats
-  - JPEG (through [GD](https://github.com/libgd/libgd))
+  - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PPM
 
 ## Installation
