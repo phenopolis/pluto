@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Filters::ChangeBrightness do
+describe Pluto::Operations::ChangeBrightness do
   describe "#change_brightness" do
     it "works" do
       data = File.read("samples/pluto.ppm")

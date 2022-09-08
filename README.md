@@ -4,13 +4,13 @@ A fast and convenient image processing library
 
 #### Currently supported
 
-- Image filters
-  - Changing brightness
-  - Changing contrast
-  - Swapping channels
 - Image formats
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PPM
+- Image operations
+  - Changing brightness
+  - Changing contrast
+  - Swapping channels
 
 ## Installation
 

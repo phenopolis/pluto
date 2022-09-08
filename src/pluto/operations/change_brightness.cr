@@ -1,4 +1,4 @@
-module Pluto::Filters::ChangeBrightness
+module Pluto::Operations::ChangeBrightness
   def change_brightness(value : Float64) : Image
     self.class.new(@pixels.clone, @width, @height, @kind).change_brightness!(value)
   end

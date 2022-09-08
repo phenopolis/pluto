@@ -1,10 +1,10 @@
-require "./filters/*"
+require "./operations/*"
 require "./formats/*"
 
 class Pluto::Image
-  include Filters::ChangeBrightness
-  include Filters::ChangeContrast
-  include Filters::SwapChannels
+  include Operations::ChangeBrightness
+  include Operations::ChangeContrast
+  include Operations::SwapChannels
 
   include Formats::JPEG
   include Formats::PPM

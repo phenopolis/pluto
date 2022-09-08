@@ -1,4 +1,4 @@
-module Pluto::Filters::SwapChannels
+module Pluto::Operations::SwapChannels
   enum Channel
     Red
     Green

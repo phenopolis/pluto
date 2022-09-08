@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Filters::SwapChannels do
+describe Pluto::Operations::SwapChannels do
   describe "#swap_channels" do
     it "works" do
       rgb_data = File.read("samples/california_rgb.ppm")
