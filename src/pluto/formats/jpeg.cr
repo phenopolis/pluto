@@ -1,4 +1,4 @@
-require "./jpeg/*"
+require "./bindings/lib_jpeg_turbo"
 
 module Pluto::Formats::JPEG
   macro included
@@ -54,6 +54,7 @@ module Pluto::Formats::JPEG
       end
     end
 
+    buffer = Array(UInt8).new.to_unsafe
     LibJPEGTurbo.compress2(
       handle,
       image_data,
@@ -61,9 +62,9 @@ module Pluto::Formats::JPEG
       0,
       @height,
       LibJPEGTurbo::PixelFormat::RGB,
-      out buffer,
+      pointerof(buffer),
       out size,
-      LibJPEGTurbo::Subsampling::S420,
+      LibJPEGTurbo::Subsampling::S444,
       quality,
       0
     )

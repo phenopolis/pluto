@@ -30,7 +30,7 @@ lib LibJPEGTurbo
     ABGR
     ARGB
     CMYK
-    UNKNOWN = -1
+    Unknown = -1
   end
 
   enum Subsampling
