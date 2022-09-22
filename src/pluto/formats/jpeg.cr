@@ -10,8 +10,8 @@ module Pluto::Formats::JPEG
         image_data.bytesize,
         out width,
         out height,
-        out subsampling,
-        out colorspace
+        out _subsampling,
+        out _colorspace
       )
       buffer = Bytes.new(width * height * 3, 0)
       LibJPEGTurbo.decompress2(
