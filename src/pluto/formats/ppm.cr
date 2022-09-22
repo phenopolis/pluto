@@ -26,7 +26,7 @@ module Pluto::Formats::PPM
           end
         end
 
-        new(pixels, width, height, Kind::RGB)
+        new(pixels, width, height)
       else
         raise "The image doesn't have width or height"
       end

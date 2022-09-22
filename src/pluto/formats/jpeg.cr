@@ -34,7 +34,7 @@ module Pluto::Formats::JPEG
         red | green | blue
       end.each_slice(width).to_a
 
-      new(pixels, width, height, Kind::RGB)
+      new(pixels, width, height)
     end
   end
 
