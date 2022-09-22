@@ -6,41 +6,24 @@ module Pluto::Operations::SwapChannels
   end
 
   def swap_channels(a : Channel, b : Channel) : Image
-    self.class.new(@pixels.clone, @width, @height).swap_channels!(a, b)
+    self.class.new(
+      @red.clone,
+      @green.clone,
+      @blue.clone,
+      @alpha.clone,
+      @width,
+      @height
+    ).swap_channels!(a, b)
   end
 
   def swap_channels!(a : Channel, b : Channel) : Image
     case {a, b}
     when {Channel::Red, Channel::Green}, {Channel::Green, Channel::Red}
-      @height.times do |y|
-        @width.times do |x|
-          pixel = @pixels[y][x]
-          red = (pixel & 0xFF000000) >> 8
-          green = (pixel & 0x00FF0000) << 8
-          blue = (pixel & 0x0000FF00)
-          @pixels[y][x] = red | green | blue
-        end
-      end
+      @red, @green = @green, @red
     when {Channel::Green, Channel::Blue}, {Channel::Blue, Channel::Green}
-      @height.times do |y|
-        @width.times do |x|
-          pixel = @pixels[y][x]
-          red = (pixel & 0xFF000000)
-          green = (pixel & 0x00FF0000) >> 8
-          blue = (pixel & 0x0000FF00) << 8
-          @pixels[y][x] = red | green | blue
-        end
-      end
-    when {Channel::Blue, Channel::Red}, {Channel::Red, Channel::Blue}
-      @height.times do |y|
-        @width.times do |x|
-          pixel = @pixels[y][x]
-          red = (pixel & 0xFF000000) >> 16
-          green = (pixel & 0x00FF0000)
-          blue = (pixel & 0x0000FF00) << 16
-          @pixels[y][x] = red | green | blue
-        end
-      end
+      @green, @blue = @blue, @green
+    when {Channel::Red, Channel::Blue}, {Channel::Blue, Channel::Red}
+      @red, @blue = @blue, @red
     end
     self
   end

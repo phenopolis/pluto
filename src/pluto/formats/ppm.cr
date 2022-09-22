@@ -11,22 +11,27 @@ module Pluto::Formats::PPM
       _maximum_color_value = io.gets("\n", chomp: true)
 
       if width && height
-        pixels = Array.new(height) { Array.new(width, 0u32) }
+        red = Array.new(height) { Array.new(width, 0u8) }
+        green = Array.new(height) { Array.new(width, 0u8) }
+        blue = Array.new(height) { Array.new(width, 0u8) }
+        alpha = Array.new(height) { Array.new(width, 0u8) }
 
         height.times do |y|
           width.times do |x|
-            red = io.read_byte.try &.to_u32
-            green = io.read_byte.try &.to_u32
-            blue = io.read_byte.try &.to_u32
-            if red && green && blue
-              pixels[y][x] = red << 24 | green << 16 | blue << 8
+            red_byte = io.read_byte
+            green_byte = io.read_byte
+            blue_byte = io.read_byte
+            if red_byte && green_byte && blue_byte
+              red[y][x] = red_byte
+              green[y][x] = green_byte
+              blue[y][x] = blue_byte
             else
               raise "The image ends prematurely"
             end
           end
         end
 
-        new(pixels, width, height)
+        new(red, green, blue, alpha, width, height)
       else
         raise "The image doesn't have width or height"
       end
@@ -40,13 +45,9 @@ module Pluto::Formats::PPM
       string << "255\n"
       @height.times do |y|
         @width.times do |x|
-          pixel = @pixels[y][x]
-          red = ((pixel & 0xFF000000) >> 24).to_u8
-          green = ((pixel & 0x00FF0000) >> 16).to_u8
-          blue = ((pixel & 0x0000FF00) >> 8).to_u8
-          string.write_byte(red)
-          string.write_byte(green)
-          string.write_byte(blue)
+          string.write_byte(@red[y][x])
+          string.write_byte(@green[y][x])
+          string.write_byte(@blue[y][x])
         end
       end
     end

@@ -27,14 +27,21 @@ module Pluto::Formats::JPEG
       )
       LibJPEGTurbo.destroy(handle)
 
-      pixels = buffer.each_slice(3).map do |pixel|
-        red = pixel[0].to_u32 << 24
-        green = pixel[1].to_u32 << 16
-        blue = pixel[2].to_u32 << 8
-        red | green | blue
-      end.each_slice(width).to_a
+      red = Array.new(height) { Array.new(width, 0u8) }
+      green = Array.new(height) { Array.new(width, 0u8) }
+      blue = Array.new(height) { Array.new(width, 0u8) }
+      alpha = Array.new(height) { Array.new(width, 0u8) }
+      pixels = buffer.each_slice(3).each_slice(width).to_a
 
-      new(pixels, width, height)
+      height.times do |y|
+        width.times do |x|
+          red[y][x] = pixels[y][x][0]
+          green[y][x] = pixels[y][x][1]
+          blue[y][x] = pixels[y][x][2]
+        end
+      end
+
+      new(red, green, blue, alpha, width, height)
     end
   end
 
@@ -43,13 +50,9 @@ module Pluto::Formats::JPEG
     image_data = String.build do |string|
       @height.times do |y|
         @width.times do |x|
-          pixel = @pixels[y][x]
-          red = ((pixel & 0xFF000000) >> 24).to_u8
-          green = ((pixel & 0x00FF0000) >> 16).to_u8
-          blue = ((pixel & 0x0000FF00) >> 8).to_u8
-          string.write_byte(red)
-          string.write_byte(green)
-          string.write_byte(blue)
+          string.write_byte(@red[y][x])
+          string.write_byte(@green[y][x])
+          string.write_byte(@blue[y][x])
         end
       end
     end

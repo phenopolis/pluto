@@ -5,12 +5,20 @@ describe Pluto::Operations::ChangeBrightness do
     it "works" do
       data = File.read("samples/pluto.ppm")
       image = Pluto::Image.from_ppm(data)
-      brightened_image = image.change_brightness(1.2)
-      darkened_image = image.change_brightness(0.8)
+      brightened_image = image.change_brightness(1.4)
+      darkened_image = image.change_brightness(0.6)
 
-      image.pixels[240][320].should eq 4005796096
-      brightened_image.pixels[240][320].should eq 4293572352
-      darkened_image.pixels[240][320].should eq 3197925888
+      image.red[240][320].should eq 238
+      image.green[240][320].should eq 195
+      image.blue[240][320].should eq 153
+
+      brightened_image.red[240][320].should eq 255
+      brightened_image.green[240][320].should eq 255
+      brightened_image.blue[240][320].should eq 214
+
+      darkened_image.red[240][320].should eq 142
+      darkened_image.green[240][320].should eq 117
+      darkened_image.blue[240][320].should eq 91
     end
   end
 
@@ -19,9 +27,19 @@ describe Pluto::Operations::ChangeBrightness do
       data = File.read("samples/pluto.ppm")
       image = Pluto::Image.from_ppm(data)
 
-      image.pixels[240][320].should eq 4005796096
-      image.change_brightness!(1.2).pixels[240][320].should eq 4293572352
-      image.change_brightness!(0.8).pixels[240][320].should eq 3434844672
+      image.red[240][320].should eq 238
+      image.green[240][320].should eq 195
+      image.blue[240][320].should eq 153
+
+      image.change_brightness!(1.4)
+      image.red[240][320].should eq 255
+      image.green[240][320].should eq 255
+      image.blue[240][320].should eq 214
+
+      image.change_brightness!(0.6)
+      image.red[240][320].should eq 153
+      image.green[240][320].should eq 153
+      image.blue[240][320].should eq 128
     end
   end
 end

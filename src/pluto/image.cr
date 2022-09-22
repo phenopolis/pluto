@@ -9,10 +9,13 @@ class Pluto::Image
   include Formats::JPEG
   include Formats::PPM
 
-  getter pixels : Array(Array(UInt32))
+  getter red : Array(Array(UInt8))
+  getter green : Array(Array(UInt8))
+  getter blue : Array(Array(UInt8))
+  getter alpha : Array(Array(UInt8))
   getter width : Int32
   getter height : Int32
 
-  def initialize(@pixels, @width, @height)
+  def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
 end

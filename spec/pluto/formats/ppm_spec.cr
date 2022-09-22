@@ -6,7 +6,9 @@ describe Pluto::Formats::PPM do
       data = File.read("samples/pluto.ppm")
       image = Pluto::Image.from_ppm(data)
 
-      image.pixels[240][320].should eq 4005796096
+      image.red[240][320].should eq 238
+      image.green[240][320].should eq 195
+      image.blue[240][320].should eq 153
       image.width.should eq 640
       image.height.should eq 480
     end
