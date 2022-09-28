@@ -44,4 +44,4 @@ A fast and convenient image processing library
 
 ## Contributors
 
-- [Andrei Zhigalkin](https://github.com/your-github-user) - creator and maintainer
+- [Andrei Zhigalkin](https://github.com/sanks64) - creator and maintainer
