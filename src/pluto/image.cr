@@ -17,10 +17,10 @@ class Pluto::Image
     Blue
   end
 
-  getter red : Array(Array(UInt8))
-  getter green : Array(Array(UInt8))
-  getter blue : Array(Array(UInt8))
-  getter alpha : Array(Array(UInt8))
+  getter red : Array(UInt8)
+  getter green : Array(UInt8)
+  getter blue : Array(UInt8)
+  getter alpha : Array(UInt8)
   getter width : Int32
   getter height : Int32
 

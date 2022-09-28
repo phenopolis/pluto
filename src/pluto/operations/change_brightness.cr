@@ -11,15 +11,10 @@ module Pluto::Operations::ChangeBrightness
   end
 
   def change_brightness!(value : Float64) : Image
-    @height.times do |y|
-      @width.times do |x|
-        red_byte = Math.min(255, (@red[y][x] * value)).to_u8
-        green_byte = Math.min(255, (@green[y][x] * value)).to_u8
-        blue_byte = Math.min(255, (@blue[y][x] * value)).to_u8
-        @red[y][x] = red_byte
-        @green[y][x] = green_byte
-        @blue[y][x] = blue_byte
-      end
+    (@width * @height).times do |index|
+      @red[index] = Math.min(255, (@red[index] * value)).to_u8
+      @green[index] = Math.min(255, (@green[index] * value)).to_u8
+      @blue[index] = Math.min(255, (@blue[index] * value)).to_u8
     end
     self
   end

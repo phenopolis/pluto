@@ -14,7 +14,7 @@ module Pluto::Operations::ApplyVerticalBlur
     w = @width
     h = @height
     r = value
-    channels = [@red, @green, @blue, @alpha].map(&.flatten.map(&.to_i))
+    channels = [@red, @green, @blue, @alpha].map(&.map(&.to_i))
     blurred_channels = [] of Array(UInt8)
 
     channels.each do |scl|
@@ -49,10 +49,10 @@ module Pluto::Operations::ApplyVerticalBlur
       blurred_channels << tcl
     end
 
-    @red = blurred_channels[0].each_slice(width).to_a
-    @green = blurred_channels[1].each_slice(width).to_a
-    @blue = blurred_channels[2].each_slice(width).to_a
-    @alpha = blurred_channels[3].each_slice(width).to_a
+    @red = blurred_channels[0].to_a
+    @green = blurred_channels[1].to_a
+    @blue = blurred_channels[2].to_a
+    @alpha = blurred_channels[3].to_a
 
     self
   end

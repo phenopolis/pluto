@@ -8,17 +8,17 @@ describe Pluto::Operations::ChangeBrightness do
       brightened_image = image.change_brightness(1.4)
       darkened_image = image.change_brightness(0.6)
 
-      image.red[240][320].should eq 238
-      image.green[240][320].should eq 195
-      image.blue[240][320].should eq 153
+      image.red[image.width * 240 + 320].should eq 238
+      image.green[image.width * 240 + 320].should eq 195
+      image.blue[image.width * 240 + 320].should eq 153
 
-      brightened_image.red[240][320].should eq 255
-      brightened_image.green[240][320].should eq 255
-      brightened_image.blue[240][320].should eq 214
+      brightened_image.red[image.width * 240 + 320].should eq 255
+      brightened_image.green[image.width * 240 + 320].should eq 255
+      brightened_image.blue[image.width * 240 + 320].should eq 214
 
-      darkened_image.red[240][320].should eq 142
-      darkened_image.green[240][320].should eq 117
-      darkened_image.blue[240][320].should eq 91
+      darkened_image.red[image.width * 240 + 320].should eq 142
+      darkened_image.green[image.width * 240 + 320].should eq 117
+      darkened_image.blue[image.width * 240 + 320].should eq 91
     end
   end
 
@@ -27,19 +27,19 @@ describe Pluto::Operations::ChangeBrightness do
       data = File.read("samples/pluto.ppm")
       image = Pluto::Image.from_ppm(data)
 
-      image.red[240][320].should eq 238
-      image.green[240][320].should eq 195
-      image.blue[240][320].should eq 153
+      image.red[image.width * 240 + 320].should eq 238
+      image.green[image.width * 240 + 320].should eq 195
+      image.blue[image.width * 240 + 320].should eq 153
 
       image.change_brightness!(1.4)
-      image.red[240][320].should eq 255
-      image.green[240][320].should eq 255
-      image.blue[240][320].should eq 214
+      image.red[image.width * 240 + 320].should eq 255
+      image.green[image.width * 240 + 320].should eq 255
+      image.blue[image.width * 240 + 320].should eq 214
 
       image.change_brightness!(0.6)
-      image.red[240][320].should eq 153
-      image.green[240][320].should eq 153
-      image.blue[240][320].should eq 128
+      image.red[image.width * 240 + 320].should eq 153
+      image.green[image.width * 240 + 320].should eq 153
+      image.blue[image.width * 240 + 320].should eq 128
     end
   end
 end
