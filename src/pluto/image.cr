@@ -2,6 +2,8 @@ require "./operations/*"
 require "./formats/*"
 
 class Pluto::Image
+  include Operations::ApplyHorizontalBlur
+  include Operations::ApplyVerticalBlur
   include Operations::ChangeBrightness
   include Operations::ChangeContrast
   include Operations::SwapChannels
