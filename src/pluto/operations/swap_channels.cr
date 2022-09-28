@@ -1,11 +1,5 @@
 module Pluto::Operations::SwapChannels
-  enum Channel
-    Red
-    Green
-    Blue
-  end
-
-  def swap_channels(a : Channel, b : Channel) : Image
+  def swap_channels(a : Image::Channel, b : Image::Channel) : Image
     self.class.new(
       @red.clone,
       @green.clone,
@@ -16,13 +10,13 @@ module Pluto::Operations::SwapChannels
     ).swap_channels!(a, b)
   end
 
-  def swap_channels!(a : Channel, b : Channel) : Image
+  def swap_channels!(a : Image::Channel, b : Image::Channel) : Image
     case {a, b}
-    when {Channel::Red, Channel::Green}, {Channel::Green, Channel::Red}
+    when {Image::Channel::Red, Image::Channel::Green}, {Image::Channel::Green, Image::Channel::Red}
       @red, @green = @green, @red
-    when {Channel::Green, Channel::Blue}, {Channel::Blue, Channel::Green}
+    when {Image::Channel::Green, Image::Channel::Blue}, {Image::Channel::Blue, Image::Channel::Green}
       @green, @blue = @blue, @green
-    when {Channel::Red, Channel::Blue}, {Channel::Blue, Channel::Red}
+    when {Image::Channel::Red, Image::Channel::Blue}, {Image::Channel::Blue, Image::Channel::Red}
       @red, @blue = @blue, @red
     end
     self

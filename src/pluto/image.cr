@@ -9,6 +9,12 @@ class Pluto::Image
   include Formats::JPEG
   include Formats::PPM
 
+  enum Channel
+    Red
+    Green
+    Blue
+  end
+
   getter red : Array(Array(UInt8))
   getter green : Array(Array(UInt8))
   getter blue : Array(Array(UInt8))
