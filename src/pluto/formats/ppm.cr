@@ -1,5 +1,3 @@
-require "../image"
-
 module Pluto::Formats::PPM
   macro included
     def self.from_ppm(image_data : String) : Image

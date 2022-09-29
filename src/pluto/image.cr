@@ -1,15 +1,16 @@
-require "./operations/*"
+require "./bindings/*"
 require "./formats/*"
+require "./operations/*"
 
 class Pluto::Image
+  include Formats::JPEG
+  include Formats::PPM
+
   include Operations::ApplyHorizontalBlur
   include Operations::ApplyVerticalBlur
   include Operations::ChangeBrightness
   include Operations::ChangeContrast
   include Operations::SwapChannels
-
-  include Formats::JPEG
-  include Formats::PPM
 
   enum Channel
     Red

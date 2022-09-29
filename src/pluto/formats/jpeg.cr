@@ -1,5 +1,3 @@
-require "./bindings/lib_jpeg_turbo"
-
 module Pluto::Formats::JPEG
   macro included
     def self.from_jpeg(image_data : String) : Image
