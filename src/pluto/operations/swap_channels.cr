@@ -1,13 +1,6 @@
 module Pluto::Operations::SwapChannels
   def swap_channels(a : Image::Channel, b : Image::Channel) : Image
-    self.class.new(
-      @red.clone,
-      @green.clone,
-      @blue.clone,
-      @alpha.clone,
-      @width,
-      @height
-    ).swap_channels!(a, b)
+    clone.swap_channels!(a, b)
   end
 
   def swap_channels!(a : Image::Channel, b : Image::Channel) : Image

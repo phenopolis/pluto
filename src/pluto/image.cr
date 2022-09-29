@@ -27,4 +27,15 @@ class Pluto::Image
 
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
+
+  def clone : Image
+    self.class.new(
+      @red.clone,
+      @green.clone,
+      @blue.clone,
+      @alpha.clone,
+      @width,
+      @height
+    )
+  end
 end

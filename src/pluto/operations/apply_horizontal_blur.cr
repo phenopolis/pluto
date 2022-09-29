@@ -1,13 +1,6 @@
 module Pluto::Operations::ApplyHorizontalBlur
   def apply_horizontal_blur(value : Int32) : Image
-    self.class.new(
-      @red.clone,
-      @green.clone,
-      @blue.clone,
-      @alpha.clone,
-      @width,
-      @height
-    ).apply_horizontal_blur!(value)
+    clone.apply_horizontal_blur!(value)
   end
 
   def apply_horizontal_blur!(value : Int32) : Image

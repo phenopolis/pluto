@@ -1,13 +1,6 @@
 module Pluto::Operations::ChangeContrast
   def change_contrast(value : Float64) : Image
-    self.class.new(
-      @red.clone,
-      @green.clone,
-      @blue.clone,
-      @alpha.clone,
-      @width,
-      @height
-    ).change_contrast!(value)
+    clone.change_contrast!(value)
   end
 
   def change_contrast!(value : Float64) : Image

@@ -1,13 +1,6 @@
 module Pluto::Operations::ApplyVerticalBlur
   def apply_vertical_blur(value : Int32) : Image
-    self.class.new(
-      @red.clone,
-      @green.clone,
-      @blue.clone,
-      @alpha.clone,
-      @width,
-      @height
-    ).apply_vertical_blur!(value)
+    clone.apply_vertical_blur!(value)
   end
 
   def apply_vertical_blur!(value : Int32) : Image
