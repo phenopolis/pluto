@@ -6,6 +6,8 @@ class Pluto::Image
   include Formats::JPEG
   include Formats::PPM
 
+  include Operations::ApplyBoxBlur
+  include Operations::ApplyGaussianBlur
   include Operations::ApplyHorizontalBlur
   include Operations::ApplyVerticalBlur
   include Operations::ChangeBrightness
