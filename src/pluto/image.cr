@@ -20,12 +20,12 @@ class Pluto::Image
     Blue
   end
 
-  getter red : Array(UInt8)
-  getter green : Array(UInt8)
-  getter blue : Array(UInt8)
-  getter alpha : Array(UInt8)
-  getter width : Int32
-  getter height : Int32
+  property red : Array(UInt8)
+  property green : Array(UInt8)
+  property blue : Array(UInt8)
+  property alpha : Array(UInt8)
+  property width : Int32
+  property height : Int32
 
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
