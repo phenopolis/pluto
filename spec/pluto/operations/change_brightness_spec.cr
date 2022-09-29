@@ -3,43 +3,33 @@ require "../../spec_helper"
 describe Pluto::Operations::ChangeBrightness do
   describe "#change_brightness" do
     it "works" do
-      data = File.read("samples/pluto.ppm")
-      image = Pluto::Image.from_ppm(data)
-      brightened_image = image.change_brightness(1.4)
-      darkened_image = image.change_brightness(0.6)
+      original_data = SpecHelper.read_sample("pluto.ppm")
+      brightened_data = SpecHelper.read_sample("pluto_brightness_brightened.ppm")
+      darkened_data = SpecHelper.read_sample("pluto_brightness_darkened.ppm")
 
-      image.red[image.width * 240 + 320].should eq 238
-      image.green[image.width * 240 + 320].should eq 195
-      image.blue[image.width * 240 + 320].should eq 153
+      original_image = Pluto::Image.from_ppm(original_data)
+      brightened_image = original_image.change_brightness(1.4)
+      darkened_image = original_image.change_brightness(0.6)
 
-      brightened_image.red[image.width * 240 + 320].should eq 255
-      brightened_image.green[image.width * 240 + 320].should eq 255
-      brightened_image.blue[image.width * 240 + 320].should eq 214
-
-      darkened_image.red[image.width * 240 + 320].should eq 142
-      darkened_image.green[image.width * 240 + 320].should eq 117
-      darkened_image.blue[image.width * 240 + 320].should eq 91
+      original_image.to_ppm.should eq original_data
+      brightened_image.to_ppm.should eq brightened_data
+      darkened_image.to_ppm.should eq darkened_data
     end
   end
 
   describe "#change_brightness!" do
     it "works" do
-      data = File.read("samples/pluto.ppm")
-      image = Pluto::Image.from_ppm(data)
+      original_data = SpecHelper.read_sample("pluto.ppm")
+      brightened_data = SpecHelper.read_sample("pluto_brightness_brightened.ppm")
+      darkened_data = SpecHelper.read_sample("pluto_brightness_darkened.ppm")
 
-      image.red[image.width * 240 + 320].should eq 238
-      image.green[image.width * 240 + 320].should eq 195
-      image.blue[image.width * 240 + 320].should eq 153
-
+      image = Pluto::Image.from_ppm(original_data)
       image.change_brightness!(1.4)
-      image.red[image.width * 240 + 320].should eq 255
-      image.green[image.width * 240 + 320].should eq 255
-      image.blue[image.width * 240 + 320].should eq 214
+      image.to_ppm.should eq brightened_data
 
+      image = Pluto::Image.from_ppm(original_data)
       image.change_brightness!(0.6)
-      image.red[image.width * 240 + 320].should eq 153
-      image.green[image.width * 240 + 320].should eq 153
-      image.blue[image.width * 240 + 320].should eq 128
+      image.to_ppm.should eq darkened_data
     end
   end
 end

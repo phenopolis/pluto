@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Formats::JPEG do
   describe ".from_jpeg" do
     it "works" do
-      data = File.read("samples/pluto.jpg")
+      data = SpecHelper.read_sample("pluto.jpg")
       image = Pluto::Image.from_jpeg(data)
 
       image.red[image.width * 240 + 320].should eq 238
@@ -16,11 +16,11 @@ describe Pluto::Formats::JPEG do
 
   describe "#to_jpeg" do
     it "works" do
-      data_before = File.read("samples/pluto.jpg")
-      data_after = Pluto::Image.from_jpeg(data_before).to_jpeg
+      original_data = SpecHelper.read_sample("pluto.jpg")
 
-      data_after.size.should eq 61830
-      data_after.includes?("JFIF").should be_true
+      jpeg_data = Pluto::Image.from_jpeg(original_data).to_jpeg
+      jpeg_data.size.should eq 61830
+      jpeg_data.includes?("JFIF").should be_true
     end
   end
 end

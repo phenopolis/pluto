@@ -3,21 +3,23 @@ require "../../spec_helper"
 describe Pluto::Operations::ApplyVerticalBlur do
   describe "#apply_vertical_blur" do
     it "works" do
-      data = File.read("samples/pluto.ppm")
-      blurred_data = File.read("samples/pluto_vertical_blur_10.ppm")
-      image = Pluto::Image.from_ppm(data)
-      blurred_image = image.apply_vertical_blur(10)
+      original_data = SpecHelper.read_sample("pluto.ppm")
+      blurred_data = SpecHelper.read_sample("pluto_vertical_blur.ppm")
 
-      image.to_ppm.should eq data
+      original_image = Pluto::Image.from_ppm(original_data)
+      blurred_image = original_image.apply_vertical_blur(10)
+
+      original_image.to_ppm.should eq original_data
       blurred_image.to_ppm.should eq blurred_data
     end
   end
 
   describe "#apply_vertical_blur!" do
     it "works" do
-      data = File.read("samples/pluto.ppm")
-      blurred_data = File.read("samples/pluto_vertical_blur_10.ppm")
-      image = Pluto::Image.from_ppm(data)
+      original_data = SpecHelper.read_sample("pluto.ppm")
+      blurred_data = SpecHelper.read_sample("pluto_vertical_blur.ppm")
+
+      image = Pluto::Image.from_ppm(original_data)
       image.apply_vertical_blur!(10)
 
       image.to_ppm.should eq blurred_data
