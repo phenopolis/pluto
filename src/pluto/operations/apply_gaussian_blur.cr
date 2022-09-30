@@ -1,9 +1,9 @@
 module Pluto::Operations::ApplyGaussianBlur
-  def apply_gaussian_blur(value : Float64) : Image
+  def apply_gaussian_blur(value : Int32) : Image
     clone.apply_gaussian_blur!(value)
   end
 
-  def apply_gaussian_blur!(value : Float64) : Image
+  def apply_gaussian_blur!(value : Int32) : Image
     sigma = value
     n = 3
 
