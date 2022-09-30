@@ -17,7 +17,7 @@ module Pluto::Operations::ApplyHorizontalBlur
         ti = i * w; li = ti; ri = ti + r
         fv = scl[ti]; lv = scl[ti + w - 1]; val = (r + 1) * fv
         (0..r - 1).each do |j|
-          val = scl[ti + j]
+          val += scl[ti + j]
         end
         (0..r).each do
           val += scl[ri] - fv
