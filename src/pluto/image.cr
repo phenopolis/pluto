@@ -15,12 +15,6 @@ class Pluto::Image
   include Operation::HorizontalBlur
   include Operation::VerticalBlur
 
-  enum Channel
-    Red
-    Green
-    Blue
-  end
-
   property red : Array(UInt8)
   property green : Array(UInt8)
   property blue : Array(UInt8)
