@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Formats::JPEG do
+describe Pluto::Format::JPEG do
   describe ".from_jpeg" do
     it "works" do
       data = SpecHelper.read_sample("pluto.jpg")

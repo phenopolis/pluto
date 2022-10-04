@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operations::BilinearResize do
+describe Pluto::Operation::BilinearResize do
   describe "#bilinear_resize" do
     it "works" do
       original_data = SpecHelper.read_sample("pluto.ppm")

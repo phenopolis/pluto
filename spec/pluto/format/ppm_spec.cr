@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Formats::PPM do
+describe Pluto::Format::PPM do
   describe ".from_ppm" do
     it "works" do
       data = SpecHelper.read_sample("pluto.ppm")

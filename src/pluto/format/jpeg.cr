@@ -1,4 +1,4 @@
-module Pluto::Formats::JPEG
+module Pluto::Format::JPEG
   macro included
     def self.from_jpeg(image_data : String) : Image
       handle = LibJPEGTurbo.init_decompress

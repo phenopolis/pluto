@@ -1,4 +1,4 @@
-module Pluto::Operations::BilinearResize
+module Pluto::Operation::BilinearResize
   def bilinear_resize(width : Int32, height : Int32) : Image
     clone.bilinear_resize!(width, height)
   end

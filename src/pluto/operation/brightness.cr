@@ -1,9 +1,9 @@
-module Pluto::Operations::ChangeBrightness
-  def change_brightness(value : Float64) : Image
-    clone.change_brightness!(value)
+module Pluto::Operation::Brightness
+  def brightness(value : Float64) : Image
+    clone.brightness!(value)
   end
 
-  def change_brightness!(value : Float64) : Image
+  def brightness!(value : Float64) : Image
     (@width * @height).times do |index|
       @red[index] = Math.min(255, (@red[index] * value)).to_u8
       @green[index] = Math.min(255, (@green[index] * value)).to_u8

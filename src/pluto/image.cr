@@ -1,19 +1,19 @@
 require "./bindings/*"
-require "./formats/*"
-require "./operations/*"
+require "./format/*"
+require "./operation/*"
 
 class Pluto::Image
-  include Formats::JPEG
-  include Formats::PPM
+  include Format::JPEG
+  include Format::PPM
 
-  include Operations::ApplyBoxBlur
-  include Operations::ApplyGaussianBlur
-  include Operations::ApplyHorizontalBlur
-  include Operations::ApplyVerticalBlur
-  include Operations::BilinearResize
-  include Operations::ChangeBrightness
-  include Operations::ChangeContrast
-  include Operations::SwapChannels
+  include Operation::BilinearResize
+  include Operation::BoxBlur
+  include Operation::Brightness
+  include Operation::ChannelSwap
+  include Operation::Contrast
+  include Operation::GaussianBlur
+  include Operation::HorizontalBlur
+  include Operation::VerticalBlur
 
   enum Channel
     Red

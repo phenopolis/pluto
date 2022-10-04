@@ -1,4 +1,4 @@
-module Pluto::Formats::PPM
+module Pluto::Format::PPM
   macro included
     def self.from_ppm(image_data : String) : Image
       io = IO::Memory.new(image_data)

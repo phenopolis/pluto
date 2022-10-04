@@ -1,9 +1,9 @@
-module Pluto::Operations::SwapChannels
-  def swap_channels(a : Image::Channel, b : Image::Channel) : Image
-    clone.swap_channels!(a, b)
+module Pluto::Operation::ChannelSwap
+  def channel_swap(a : Image::Channel, b : Image::Channel) : Image
+    clone.channel_swap!(a, b)
   end
 
-  def swap_channels!(a : Image::Channel, b : Image::Channel) : Image
+  def channel_swap!(a : Image::Channel, b : Image::Channel) : Image
     case {a, b}
     when {Image::Channel::Red, Image::Channel::Green}, {Image::Channel::Green, Image::Channel::Red}
       @red, @green = @green, @red

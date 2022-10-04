@@ -1,9 +1,9 @@
-module Pluto::Operations::ChangeContrast
-  def change_contrast(value : Float64) : Image
-    clone.change_contrast!(value)
+module Pluto::Operation::Contrast
+  def contrast(value : Float64) : Image
+    clone.contrast!(value)
   end
 
-  def change_contrast!(value : Float64) : Image
+  def contrast!(value : Float64) : Image
     factor = (259 * (value + 255)) / (255 * (259 - value))
     (@width * @height).times do |index|
       @red[index] = Math.min(255, Math.max(0, factor * (@red[index].to_i - 128) + 128)).to_u8
