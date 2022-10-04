@@ -8,6 +8,7 @@ A fast and convenient image processing library
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PPM
 - Image operations
+  - Bilinear resize
   - Box blur
   - Brightness
   - Channel swap
