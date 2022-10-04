@@ -10,6 +10,7 @@ class Pluto::Image
   include Operations::ApplyGaussianBlur
   include Operations::ApplyHorizontalBlur
   include Operations::ApplyVerticalBlur
+  include Operations::BilinearResize
   include Operations::ChangeBrightness
   include Operations::ChangeContrast
   include Operations::SwapChannels
