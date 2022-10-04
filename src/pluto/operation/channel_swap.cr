@@ -9,8 +9,14 @@ module Pluto::Operation::ChannelSwap
       @red, @green = @green, @red
     when {Channel::Green, Channel::Blue}, {Channel::Blue, Channel::Green}
       @green, @blue = @blue, @green
-    when {Channel::Red, Channel::Blue}, {Channel::Blue, Channel::Red}
+    when {Channel::Blue, Channel::Red}, {Channel::Red, Channel::Blue}
       @red, @blue = @blue, @red
+    when {Channel::Alpha, Channel::Red}, {Channel::Red, Channel::Alpha}
+      @alpha, @red = @red, @alpha
+    when {Channel::Alpha, Channel::Green}, {Channel::Green, Channel::Alpha}
+      @alpha, @green = @green, @alpha
+    when {Channel::Alpha, Channel::Blue}, {Channel::Blue, Channel::Alpha}
+      @alpha, @blue = @blue, @alpha
     end
     self
   end
