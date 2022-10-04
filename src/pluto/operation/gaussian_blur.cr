@@ -8,13 +8,13 @@ module Pluto::Operation::GaussianBlur
     n = 3
 
     w_ideal = Math.sqrt((12 * sigma * sigma / n) + 1)
-    w_l = w_ideal.floor
+    w_l = w_ideal.floor.to_i
     w_l -= 1 if w_l % 2 == 0
 
     m_ideal = (12 * sigma * sigma - n * w_l * w_l - 4 * n * w_l - 3 * n) / (-4 * w_l - 4)
     m = m_ideal.round
 
-    sizes = [] of Float64
+    sizes = [] of Int32
     n.times do |i|
       sizes << if i < m
         w_l
@@ -23,9 +23,9 @@ module Pluto::Operation::GaussianBlur
       end
     end
 
-    box_blur!(((sizes[0] - 1) // 2).to_i)
-    box_blur!(((sizes[1] - 1) // 2).to_i)
-    box_blur!(((sizes[2] - 1) // 2).to_i)
+    box_blur!((sizes[0] - 1) // 2)
+    box_blur!((sizes[1] - 1) // 2)
+    box_blur!((sizes[2] - 1) // 2)
 
     self
   end
