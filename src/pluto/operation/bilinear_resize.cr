@@ -13,37 +13,51 @@ module Pluto::Operation::BilinearResize
     channels.each do |channel|
       resized_channel = Array.new(width * height) { 0u8 }
 
-      height.times do |y|
-        width.times do |x|
-          x_l = (x_ratio * x).floor.to_i
-          y_l = (y_ratio * y).floor.to_i
-          x_h = (x_ratio * x).ceil.to_i
-          y_h = (y_ratio * y).ceil.to_i
+      height.times do |h|
+        width.times do |w|
+          x = w * x_ratio
+          y = h * y_ratio
 
-          x_weight = (x_ratio * x) - x_l
-          y_weight = (y_ratio * y) - y_l
+          x_ceil = Math.min(@width - 1, x.ceil.to_i)
+          x_floor = x.floor.to_i
+          y_ceil = Math.min(@height - 1, y.ceil.to_i)
+          y_floor = y.floor.to_i
 
-          a = channel[@width * y_l + x_l]
-          b = channel[@width * y_l + x_h]
-          c = channel[@width * y_h + x_l]
-          d = channel[@width * y_h + x_h]
-
-          pixel = a * (1 - x_weight) * (1 - y_weight) +
-                  b * x_weight * (1 - y_weight) +
-                  c * y_weight * (1 - x_weight) +
-                  d * x_weight * y_weight
-
-          resized_channel[width * y + x] = pixel.to_u8
+          resized_channel[width * h + w] =
+            case
+            when x_ceil == x_floor && y_ceil == y_floor
+              x_index = x.to_i
+              y_index = y.to_i
+              channel[@width * y_index + x_index]
+            when x_ceil == x_floor
+              x_index = x.to_i
+              q_1 = channel[@width * y_ceil + x_index]
+              q_2 = channel[@width * y_floor + x_index]
+              (q_2 * (y_ceil - y) + q_1 * (y - y_floor)).to_u8
+            when y_ceil == y_floor
+              y_index = y.to_i
+              q_1 = channel[@width * y_index + x_ceil]
+              q_2 = channel[@width * y_index + x_floor]
+              (q_2 * (x_ceil - x) + q_1 * (x - x_floor)).to_u8
+            else
+              v_1 = channel[@width * y_floor + x_floor]
+              v_2 = channel[@width * y_floor + x_ceil]
+              v_3 = channel[@width * y_ceil + x_floor]
+              v_4 = channel[@width * y_ceil + x_ceil]
+              q_1 = v_1 * (x_ceil - x) + v_2 * (x - x_floor)
+              q_2 = v_3 * (x_ceil - x) + v_4 * (x - x_floor)
+              (q_1 * (y_ceil - y) + q_2 * (y - y_floor)).to_u8
+            end
         end
       end
 
       resized_channels << resized_channel
     end
 
-    @red = resized_channels[0].to_a
-    @green = resized_channels[1].to_a
-    @blue = resized_channels[2].to_a
-    @alpha = resized_channels[3].to_a
+    @red = resized_channels[0]
+    @green = resized_channels[1]
+    @blue = resized_channels[2]
+    @alpha = resized_channels[3]
     @width = width
     @height = height
 
