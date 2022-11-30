@@ -33,20 +33,20 @@ module Pluto::Operation::HorizontalBlur
       (0..value).each do
         c_v += channel.unsafe_fetch(r_i).to_i32 - f_v
         r_i += 1
-        buf.unsafe_put(c_i, (c_v * mul).round.to_u8)
+        buf.unsafe_put(c_i, (c_v * mul).to_u8)
         c_i += 1
       end
       (value + 1..@width - value - 1).each do
         c_v += (channel.unsafe_fetch(r_i).to_i32 - channel.unsafe_fetch(l_i).to_i32)
         r_i += 1
         l_i += 1
-        buf.unsafe_put(c_i, (c_v * mul).round.to_u8)
+        buf.unsafe_put(c_i, (c_v * mul).to_u8)
         c_i += 1
       end
       (@width - value..@width - 1).each do
         c_v += l_v - channel.unsafe_fetch(l_i).to_i32
         l_i += 1
-        buf.unsafe_put(c_i, (c_v * mul).round.to_u8)
+        buf.unsafe_put(c_i, (c_v * mul).to_u8)
         c_i += 1
       end
     end
