@@ -39,10 +39,10 @@ module Pluto::Format::PPM
       string << "P6\n"
       string << @width << " " << @height << "\n"
       string << "255\n"
-      (@width * @height).times do |index|
-        string.write_byte(@red[index])
-        string.write_byte(@green[index])
-        string.write_byte(@blue[index])
+      @pixels.each do |px|
+        string.write_byte(px.r)
+        string.write_byte(px.g)
+        string.write_byte(px.b)
       end
     end
   end
