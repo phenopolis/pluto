@@ -7,17 +7,17 @@ module Pluto::Operation::VerticalBlur
     channels = {@red, @green, @blue, @alpha}
 
     buffer = Bytes.new(channels[0].size, 0)
-    mul = 1 / (value + value + 1)
+    multiplier = 1 / (value + value + 1)
 
     channels.each do |channel|
-      vertical_blur_channel(channel, value, mul, buffer)
+      vertical_blur_channel(channel, value, multiplier, buffer)
       channel.@buffer.copy_from(buffer.to_unsafe, buffer.size)
     end
 
     self
   end
 
-  private def vertical_blur_channel(channel, value, mul, buf)
+  private def vertical_blur_channel(channel, value, multiplier, buf)
     @width.times do |x|
       c_i : Int32 = x
       l_i : Int32 = c_i
@@ -33,14 +33,14 @@ module Pluto::Operation::VerticalBlur
 
       (0..value).each do
         c_v += channel.unsafe_fetch(r_i).to_i32 - f_v
-        buf.unsafe_put(c_i, (c_v * mul).to_u8)
+        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
         r_i += @width
         c_i += @width
       end
 
       (value + 1..@height - value - 1).each do
         c_v += channel.unsafe_fetch(r_i).to_i32 - channel.unsafe_fetch(l_i).to_i32
-        buf.unsafe_put(c_i, (c_v * mul).to_u8)
+        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
         l_i += @width
         r_i += @width
         c_i += @width
@@ -48,7 +48,7 @@ module Pluto::Operation::VerticalBlur
 
       (@height - value..@height - 1).each do
         c_v += l_v - channel.unsafe_fetch(l_i).to_i32
-        buf.unsafe_put(c_i, (c_v * mul).to_u8)
+        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
         l_i += @width
         c_i += @width
       end
