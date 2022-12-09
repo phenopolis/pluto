@@ -23,9 +23,9 @@ module Pluto::Operation::GaussianBlur
       end
     end
 
-    box_blur!((sizes[0] - 1) // 2)
-    box_blur!((sizes[1] - 1) // 2)
-    box_blur!((sizes[2] - 1) // 2)
+    box_blur!((sizes.unsafe_fetch(0) - 1) // 2)
+    box_blur!((sizes.unsafe_fetch(1) - 1) // 2)
+    box_blur!((sizes.unsafe_fetch(2) - 1) // 2)
 
     self
   end

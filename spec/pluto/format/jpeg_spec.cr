@@ -6,21 +6,16 @@ describe Pluto::Format::JPEG do
       data = SpecHelper.read_sample("pluto.jpg")
       image = Pluto::Image.from_jpeg(data)
 
-      image.red[image.width * 240 + 320].should eq 238
-      image.green[image.width * 240 + 320].should eq 195
-      image.blue[image.width * 240 + 320].should eq 153
-      image.width.should eq 640
-      image.height.should eq 480
+      Digest::SHA1.hexdigest(image.to_jpeg).should eq "60b7ab88c98807171df33b9242043d1e082b9e1a"
     end
   end
 
   describe "#to_jpeg" do
     it "works" do
-      original_data = SpecHelper.read_sample("pluto.jpg")
+      data = SpecHelper.read_sample("pluto.jpg")
+      image = Pluto::Image.from_jpeg(data)
 
-      jpeg_data = Pluto::Image.from_jpeg(original_data).to_jpeg
-      jpeg_data.size.should eq 61830
-      jpeg_data.includes?("JFIF").should be_true
+      Digest::SHA1.hexdigest(image.to_jpeg).should eq "60b7ab88c98807171df33b9242043d1e082b9e1a"
     end
   end
 end

@@ -15,22 +15,20 @@ class Pluto::Image
   include Operation::HorizontalBlur
   include Operation::VerticalBlur
 
-  property red : Array(UInt8)
-  property green : Array(UInt8)
-  property blue : Array(UInt8)
-  property alpha : Array(UInt8)
+  property pixels : Array(RGBA)
   property width : Int32
   property height : Int32
 
-  def initialize(@red, @green, @blue, @alpha, @width, @height)
+  def initialize(@pixels, @width, @height)
+  end
+
+  def size : Int32
+    @width * @height
   end
 
   def clone : Image
     self.class.new(
-      @red.clone,
-      @green.clone,
-      @blue.clone,
-      @alpha.clone,
+      @pixels.clone,
       @width,
       @height
     )

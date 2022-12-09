@@ -4,54 +4,87 @@ module Pluto::Operation::VerticalBlur
   end
 
   def vertical_blur!(value : Int32) : Image
-    channels = {@red, @green, @blue, @alpha}
-
-    buffer = Bytes.new(channels[0].size, 0)
+    blurred_pixels = Slice.new(width * height) { RGBA.new(0, 0, 0, 255) }
     multiplier = 1 / (value + value + 1)
 
-    channels.each do |channel|
-      vertical_blur_channel(channel, value, multiplier, buffer)
-      channel.@buffer.copy_from(buffer.to_unsafe, buffer.size)
-    end
-
-    self
-  end
-
-  private def vertical_blur_channel(channel, value, multiplier, buf)
     @width.times do |x|
-      c_i : Int32 = x
-      l_i : Int32 = c_i
-      r_i : Int32 = c_i + value * @width
+      c_index : Int32 = x
+      l_index : Int32 = c_index
+      r_index : Int32 = c_index + value * @width
 
-      f_v : Int32 = channel.unsafe_fetch(c_i).to_i32
-      l_v : Int32 = channel.unsafe_fetch(c_i + @width * (@height - 1)).to_i32
-      c_v : Int32 = (value + 1) * f_v
+      f_pixel = @pixels.unsafe_fetch(c_index)
+      l_pixel = @pixels.unsafe_fetch(c_index + @width * (@height - 1))
 
-      (0..value - 1).each do |j|
-        c_v += channel.unsafe_fetch(c_i + j * @width)
+      r_sum : Int32 = (value + 1) * f_pixel.red
+      g_sum : Int32 = (value + 1) * f_pixel.green
+      b_sum : Int32 = (value + 1) * f_pixel.blue
+
+      (0..value - 1).each do
+        pixel = @pixels.unsafe_fetch(c_index)
+        r_sum += pixel.red
+        g_sum += pixel.green
+        b_sum += pixel.blue
       end
 
       (0..value).each do
-        c_v += channel.unsafe_fetch(r_i).to_i32 - f_v
-        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
-        r_i += @width
-        c_i += @width
+        pixel = @pixels.unsafe_fetch(r_index)
+        r_sum += pixel.red.to_i - f_pixel.red
+        g_sum += pixel.green.to_i - f_pixel.green
+        b_sum += pixel.blue.to_i - f_pixel.blue
+
+        blurred_pixel = RGBA.new(
+          (r_sum * multiplier).to_u8,
+          (g_sum * multiplier).to_u8,
+          (b_sum * multiplier).to_u8,
+          255
+        )
+        blurred_pixels.unsafe_put(c_index, blurred_pixel)
+
+        r_index += @width
+        c_index += @width
       end
 
       (value + 1..@height - value - 1).each do
-        c_v += channel.unsafe_fetch(r_i).to_i32 - channel.unsafe_fetch(l_i).to_i32
-        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
-        l_i += @width
-        r_i += @width
-        c_i += @width
+        r_index_pixel = @pixels.unsafe_fetch(r_index)
+        l_index_pixel = @pixels.unsafe_fetch(l_index)
+        r_sum += r_index_pixel.red.to_i - l_index_pixel.red
+        g_sum += r_index_pixel.green.to_i - l_index_pixel.green
+        b_sum += r_index_pixel.blue.to_i - l_index_pixel.blue
+
+        blurred_pixel = RGBA.new(
+          (r_sum * multiplier).to_u8,
+          (g_sum * multiplier).to_u8,
+          (b_sum * multiplier).to_u8,
+          255
+        )
+        blurred_pixels.unsafe_put(c_index, blurred_pixel)
+
+        l_index += @width
+        r_index += @width
+        c_index += @width
       end
 
       (@height - value..@height - 1).each do
-        c_v += l_v - channel.unsafe_fetch(l_i).to_i32
-        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
-        l_i += @width
-        c_i += @width
+        pixel = @pixels.unsafe_fetch(l_index)
+        r_sum += l_pixel.red.to_i - pixel.red
+        g_sum += l_pixel.green.to_i - pixel.green
+        b_sum += l_pixel.blue.to_i - pixel.blue
+
+        blurred_pixel = RGBA.new(
+          (r_sum * multiplier).to_u8,
+          (g_sum * multiplier).to_u8,
+          (b_sum * multiplier).to_u8,
+          255
+        )
+        blurred_pixels.unsafe_put(c_index, blurred_pixel)
+
+        l_index += @width
+        c_index += @width
       end
     end
+
+    @pixels.@buffer.copy_from(blurred_pixels.to_unsafe, width * height)
+
+    self
   end
 end

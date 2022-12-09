@@ -4,51 +4,87 @@ module Pluto::Operation::HorizontalBlur
   end
 
   def horizontal_blur!(value : Int32) : Image
-    channels = {@red, @green, @blue, @alpha}
-
-    buffer = Bytes.new(channels[0].size, 0)
+    blurred_pixels = Slice.new(width * height) { RGBA.new(0, 0, 0, 255) }
     multiplier = 1 / (value + value + 1)
 
-    channels.each do |channel|
-      horizontal_blur_channel(channel, value, multiplier, buffer)
-      channel.@buffer.copy_from(buffer.to_unsafe, buffer.size)
+    @height.times do |y|
+      c_index : Int32 = y * @width
+      l_index : Int32 = c_index
+      r_index : Int32 = c_index + value
+
+      f_pixel = @pixels.unsafe_fetch(c_index)
+      l_pixel = @pixels.unsafe_fetch(c_index + @width - 1)
+
+      r_sum : Int32 = (value + 1) * f_pixel.red
+      g_sum : Int32 = (value + 1) * f_pixel.green
+      b_sum : Int32 = (value + 1) * f_pixel.blue
+
+      (0..value - 1).each do
+        pixel = @pixels.unsafe_fetch(c_index)
+        r_sum += pixel.red
+        g_sum += pixel.green
+        b_sum += pixel.blue
+      end
+
+      (0..value).each do
+        pixel = @pixels.unsafe_fetch(r_index)
+        r_sum += pixel.red.to_i - f_pixel.red
+        g_sum += pixel.green.to_i - f_pixel.green
+        b_sum += pixel.blue.to_i - f_pixel.blue
+
+        blurred_pixel = RGBA.new(
+          (r_sum * multiplier).to_u8,
+          (g_sum * multiplier).to_u8,
+          (b_sum * multiplier).to_u8,
+          255
+        )
+        blurred_pixels.unsafe_put(c_index, blurred_pixel)
+
+        r_index += 1
+        c_index += 1
+      end
+
+      (value + 1..@width - value - 1).each do
+        r_index_pixel = @pixels.unsafe_fetch(r_index)
+        l_index_pixel = @pixels.unsafe_fetch(l_index)
+        r_sum += r_index_pixel.red.to_i - l_index_pixel.red
+        g_sum += r_index_pixel.green.to_i - l_index_pixel.green
+        b_sum += r_index_pixel.blue.to_i - l_index_pixel.blue
+
+        blurred_pixel = RGBA.new(
+          (r_sum * multiplier).to_u8,
+          (g_sum * multiplier).to_u8,
+          (b_sum * multiplier).to_u8,
+          255
+        )
+        blurred_pixels.unsafe_put(c_index, blurred_pixel)
+
+        l_index += 1
+        r_index += 1
+        c_index += 1
+      end
+
+      (@width - value..@width - 1).each do
+        pixel = @pixels.unsafe_fetch(l_index)
+        r_sum += l_pixel.red.to_i - pixel.red
+        g_sum += l_pixel.green.to_i - pixel.green
+        b_sum += l_pixel.blue.to_i - pixel.blue
+
+        blurred_pixel = RGBA.new(
+          (r_sum * multiplier).to_u8,
+          (g_sum * multiplier).to_u8,
+          (b_sum * multiplier).to_u8,
+          255
+        )
+        blurred_pixels.unsafe_put(c_index, blurred_pixel)
+
+        l_index += 1
+        c_index += 1
+      end
     end
+
+    @pixels.@buffer.copy_from(blurred_pixels.to_unsafe, width * height)
 
     self
-  end
-
-  private def horizontal_blur_channel(channel, value, multiplier, buf)
-    @height.times do |y|
-      c_i : Int32 = y * @width
-      l_i : Int32 = c_i
-      r_i : Int32 = c_i + value
-
-      f_v : Int32 = channel.unsafe_fetch(c_i).to_i32
-      l_v : Int32 = channel.unsafe_fetch(c_i + @width - 1).to_i32
-      c_v : Int32 = (value + 1) * f_v
-
-      (0..value - 1).each do |j|
-        c_v += channel.unsafe_fetch(c_i + j)
-      end
-      (0..value).each do
-        c_v += channel.unsafe_fetch(r_i).to_i32 - f_v
-        r_i += 1
-        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
-        c_i += 1
-      end
-      (value + 1..@width - value - 1).each do
-        c_v += (channel.unsafe_fetch(r_i).to_i32 - channel.unsafe_fetch(l_i).to_i32)
-        r_i += 1
-        l_i += 1
-        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
-        c_i += 1
-      end
-      (@width - value..@width - 1).each do
-        c_v += l_v - channel.unsafe_fetch(l_i).to_i32
-        l_i += 1
-        buf.unsafe_put(c_i, (c_v * multiplier).to_u8)
-        c_i += 1
-      end
-    end
   end
 end
