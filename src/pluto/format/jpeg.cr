@@ -25,19 +25,11 @@ module Pluto::Format::JPEG
       )
       LibJPEGTurbo.destroy(handle)
 
-      red = Array.new(width * height) { 0u8 }
-      green = Array.new(width * height) { 0u8 }
-      blue = Array.new(width * height) { 0u8 }
-      alpha = Array.new(width * height) { 0u8 }
-      pixels = buffer.each_slice(3).to_a
-
-      (width * height).times do |index|
-        red[index] = pixels[index][0]
-        green[index] = pixels[index][1]
-        blue[index] = pixels[index][2]
+      pixels = buffer.each_slice(3).to_a.map do |pixel|
+        RGBA.new(pixel.unsafe_fetch(0), pixel.unsafe_fetch(1), pixel.unsafe_fetch(2), 255)
       end
 
-      new(red, green, blue, alpha, width, height)
+      new(pixels, width, height)
     end
   end
 
@@ -45,9 +37,9 @@ module Pluto::Format::JPEG
     handle = LibJPEGTurbo.init_compress
     image_data = String.build do |string|
       (@width * @height).times do |index|
-        string.write_byte(@red[index])
-        string.write_byte(@green[index])
-        string.write_byte(@blue[index])
+        string.write_byte(@pixels.unsafe_fetch(index).red)
+        string.write_byte(@pixels.unsafe_fetch(index).green)
+        string.write_byte(@pixels.unsafe_fetch(index).blue)
       end
     end
 
