@@ -28,9 +28,9 @@ module Pluto::Operation::HorizontalBlur
 
       (0..value).each do
         pixel = @pixels.unsafe_fetch(r_index)
-        r_sum += pixel.red.to_i32 - f_pixel.red
-        g_sum += pixel.green.to_i32 - f_pixel.green
-        b_sum += pixel.blue.to_i32 - f_pixel.blue
+        r_sum += pixel.red.to_i - f_pixel.red
+        g_sum += pixel.green.to_i - f_pixel.green
+        b_sum += pixel.blue.to_i - f_pixel.blue
 
         blurred_pixel = RGBA.new(
           (r_sum * multiplier).to_u8,
@@ -47,9 +47,9 @@ module Pluto::Operation::HorizontalBlur
       (value + 1..@width - value - 1).each do
         r_index_pixel = @pixels.unsafe_fetch(r_index)
         l_index_pixel = @pixels.unsafe_fetch(l_index)
-        r_sum += r_index_pixel.red.to_i32 - l_index_pixel.red
-        g_sum += r_index_pixel.green.to_i32 - l_index_pixel.green
-        b_sum += r_index_pixel.blue.to_i32 - l_index_pixel.blue
+        r_sum += r_index_pixel.red.to_i - l_index_pixel.red
+        g_sum += r_index_pixel.green.to_i - l_index_pixel.green
+        b_sum += r_index_pixel.blue.to_i - l_index_pixel.blue
 
         blurred_pixel = RGBA.new(
           (r_sum * multiplier).to_u8,
@@ -66,9 +66,9 @@ module Pluto::Operation::HorizontalBlur
 
       (@width - value..@width - 1).each do
         pixel = @pixels.unsafe_fetch(l_index)
-        r_sum += l_pixel.red.to_i32 - pixel.red
-        g_sum += l_pixel.green.to_i32 - pixel.green
-        b_sum += l_pixel.blue.to_i32 - pixel.blue
+        r_sum += l_pixel.red.to_i - pixel.red
+        g_sum += l_pixel.green.to_i - pixel.green
+        b_sum += l_pixel.blue.to_i - pixel.blue
 
         blurred_pixel = RGBA.new(
           (r_sum * multiplier).to_u8,
