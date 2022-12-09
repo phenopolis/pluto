@@ -19,8 +19,8 @@ module Pluto::Operation::HorizontalBlur
       g_sum : Int32 = (value + 1) * f_pixel.green
       b_sum : Int32 = (value + 1) * f_pixel.blue
 
-      (0..value - 1).each do |j|
-        pixel = @pixels.unsafe_fetch(c_index + j)
+      (0..value - 1).each do
+        pixel = @pixels.unsafe_fetch(c_index)
         r_sum += pixel.red
         g_sum += pixel.green
         b_sum += pixel.blue
