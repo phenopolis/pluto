@@ -1,0 +1,30 @@
+name: GitHub Actions
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+jobs:
+  ameba:
+    name: Ameba
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal:latest-alpine
+    steps:
+      - run: shards install
+      - run: bin/ameba
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal:latest-alpine
+    steps:
+      - run: crystal tool format --check
+  spec:
+    name: Spec
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal:latest-alpine
+    steps:
+      - run: apk add libjpeg-turbo-dev libjpeg-turbo-static
+      - run: crystal spec
