@@ -1,9 +1,12 @@
 name: GitHub Actions
 
 on:
-  push:
   pull_request:
     branches: [main]
+  push:
+  schedule:
+    cron: "0 0 * * *"
+
 jobs:
   check:
     runs-on: ubuntu-latest
