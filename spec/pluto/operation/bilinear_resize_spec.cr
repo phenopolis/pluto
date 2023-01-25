@@ -3,33 +3,29 @@ require "../../spec_helper"
 describe Pluto::Operation::BilinearResize do
   describe "#bilinear_resize" do
     it "works" do
-      original_data = SpecHelper.read_sample("pluto.ppm")
-      downsized_data = SpecHelper.read_sample("pluto_downsized.ppm")
-      upsized_data = SpecHelper.read_sample("pluto_upsized.ppm")
+      data = SpecHelper.read_sample("pluto.ppm")
 
-      original_image = Pluto::Image.from_ppm(original_data)
+      original_image = Pluto::Image.from_ppm(data)
       downsized_image = original_image.bilinear_resize(480, 360)
       upsized_image = original_image.bilinear_resize(800, 600)
 
-      original_image.to_ppm.should eq original_data
-      downsized_image.to_ppm.should eq downsized_data
-      upsized_image.to_ppm.should eq upsized_data
+      Digest::SHA1.hexdigest(original_image.to_ppm).should eq "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
+      Digest::SHA1.hexdigest(downsized_image.to_ppm).should eq "7a18aea5a8a33fbb74cd12182172fd266f8b9c60"
+      Digest::SHA1.hexdigest(upsized_image.to_ppm).should eq "4091684fe7b44c6d9a61ff732ab8d6f26b129e88"
     end
   end
 
   describe "#bilinear_resize!" do
     it "works" do
-      original_data = SpecHelper.read_sample("pluto.ppm")
-      downsized_data = SpecHelper.read_sample("pluto_downsized.ppm")
-      upsized_data = SpecHelper.read_sample("pluto_upsized.ppm")
+      data = SpecHelper.read_sample("pluto.ppm")
 
-      image = Pluto::Image.from_ppm(original_data)
+      image = Pluto::Image.from_ppm(data)
       image.bilinear_resize!(480, 360)
-      image.to_ppm.should eq downsized_data
+      Digest::SHA1.hexdigest(image.to_ppm).should eq "7a18aea5a8a33fbb74cd12182172fd266f8b9c60"
 
-      image = Pluto::Image.from_ppm(original_data)
+      image = Pluto::Image.from_ppm(data)
       image.bilinear_resize!(800, 600)
-      image.to_ppm.should eq upsized_data
+      Digest::SHA1.hexdigest(image.to_ppm).should eq "4091684fe7b44c6d9a61ff732ab8d6f26b129e88"
     end
   end
 end

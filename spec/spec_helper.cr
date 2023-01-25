@@ -1,4 +1,6 @@
+require "digest"
 require "spec"
+
 require "../src/pluto"
 
 module SpecHelper

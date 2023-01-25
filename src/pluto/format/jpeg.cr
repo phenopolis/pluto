@@ -28,13 +28,13 @@ module Pluto::Format::JPEG
       red = Array.new(width * height) { 0u8 }
       green = Array.new(width * height) { 0u8 }
       blue = Array.new(width * height) { 0u8 }
-      alpha = Array.new(width * height) { 0u8 }
+      alpha = Array.new(width * height) { 255u8 }
       pixels = buffer.each_slice(3).to_a
 
       (width * height).times do |index|
-        red[index] = pixels[index][0]
-        green[index] = pixels[index][1]
-        blue[index] = pixels[index][2]
+        red.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(0))
+        green.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(1))
+        blue.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(2))
       end
 
       new(red, green, blue, alpha, width, height)
@@ -44,10 +44,10 @@ module Pluto::Format::JPEG
   def to_jpeg(quality : Int32 = 100) : String
     handle = LibJPEGTurbo.init_compress
     image_data = String.build do |string|
-      (@width * @height).times do |index|
-        string.write_byte(@red[index])
-        string.write_byte(@green[index])
-        string.write_byte(@blue[index])
+      size.times do |index|
+        string.write_byte(@red.unsafe_fetch(index))
+        string.write_byte(@green.unsafe_fetch(index))
+        string.write_byte(@blue.unsafe_fetch(index))
       end
     end
 

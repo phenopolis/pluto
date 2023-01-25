@@ -1,5 +1,4 @@
 require "../../spec_helper"
-require "digest"
 
 describe Pluto::Operation::HorizontalBlur do
   describe "#horizontal_blur" do

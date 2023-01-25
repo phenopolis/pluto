@@ -12,16 +12,16 @@ module Pluto::Format::PPM
         red = Array.new(width * height) { 0u8 }
         green = Array.new(width * height) { 0u8 }
         blue = Array.new(width * height) { 0u8 }
-        alpha = Array.new(width * height) { 0u8 }
+        alpha = Array.new(width * height) { 255u8 }
 
         (width * height).times do |index|
           red_byte = io.read_byte
           green_byte = io.read_byte
           blue_byte = io.read_byte
           if red_byte && green_byte && blue_byte
-            red[index] = red_byte
-            green[index] = green_byte
-            blue[index] = blue_byte
+            red.unsafe_put(index, red_byte)
+            green.unsafe_put(index, green_byte)
+            blue.unsafe_put(index, blue_byte)
           else
             raise "The image ends prematurely"
           end
@@ -39,10 +39,10 @@ module Pluto::Format::PPM
       string << "P6\n"
       string << @width << " " << @height << "\n"
       string << "255\n"
-      (@width * @height).times do |index|
-        string.write_byte(@red[index])
-        string.write_byte(@green[index])
-        string.write_byte(@blue[index])
+      size.times do |index|
+        string.write_byte(@red.unsafe_fetch(index))
+        string.write_byte(@green.unsafe_fetch(index))
+        string.write_byte(@blue.unsafe_fetch(index))
       end
     end
   end
