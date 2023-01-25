@@ -15,8 +15,8 @@ module Pluto::Operation::HorizontalBlur
         l_index : Int32 = c_index
         r_index : Int32 = c_index + value
 
-        f_value : Int32 = channel.unsafe_fetch(c_index).to_i32
-        l_value : Int32 = channel.unsafe_fetch(c_index + @width - 1).to_i32
+        f_value : Int32 = channel.unsafe_fetch(c_index).to_i
+        l_value : Int32 = channel.unsafe_fetch(c_index + @width - 1).to_i
         c_value : Int32 = (value + 1) * f_value
 
         (0..value - 1).each do
@@ -24,7 +24,7 @@ module Pluto::Operation::HorizontalBlur
         end
 
         (0..value).each do
-          c_value += channel.unsafe_fetch(r_index).to_i32 - f_value
+          c_value += channel.unsafe_fetch(r_index).to_i - f_value
           buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
 
           r_index += 1
@@ -32,7 +32,7 @@ module Pluto::Operation::HorizontalBlur
         end
 
         (value + 1..@width - value - 1).each do
-          c_value += (channel.unsafe_fetch(r_index).to_i32 - channel.unsafe_fetch(l_index).to_i32)
+          c_value += (channel.unsafe_fetch(r_index).to_i - channel.unsafe_fetch(l_index).to_i)
           buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
 
           r_index += 1
@@ -41,7 +41,7 @@ module Pluto::Operation::HorizontalBlur
         end
 
         (@width - value..@width - 1).each do
-          c_value += l_value - channel.unsafe_fetch(l_index).to_i32
+          c_value += l_value - channel.unsafe_fetch(l_index).to_i
           buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
 
           l_index += 1
