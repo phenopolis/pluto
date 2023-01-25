@@ -4,7 +4,7 @@ module Pluto::Operation::HorizontalBlur
   end
 
   def horizontal_blur!(value : Int32) : Image
-    blurred_pixels = Slice.new(width * height) { RGBA.new(0, 0, 0, 255) }
+    blurred_pixels = Slice.new(@width * @height) { RGBA.new(0, 0, 0, 255) }
     multiplier = 1 / (value + value + 1)
 
     @height.times do |y|
@@ -83,7 +83,7 @@ module Pluto::Operation::HorizontalBlur
       end
     end
 
-    @pixels.@buffer.copy_from(blurred_pixels.to_unsafe, width * height)
+    @pixels.@buffer.copy_from(blurred_pixels.to_unsafe, @width * @height)
 
     self
   end
