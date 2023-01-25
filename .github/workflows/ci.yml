@@ -27,5 +27,7 @@ jobs:
     container:
       image: crystallang/crystal:latest-alpine
     steps:
-      - run: apk add libjpeg-turbo-dev libjpeg-turbo-static
+      - uses: actions/checkout@v3
+      - run: apk add libjpeg-turbo libjpeg-turbo-dev
+      - run: shards install
       - run: crystal spec
