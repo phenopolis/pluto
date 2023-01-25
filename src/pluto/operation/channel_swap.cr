@@ -6,29 +6,17 @@ module Pluto::Operation::ChannelSwap
   def channel_swap!(a : Channel, b : Channel) : Image
     case {a, b}
     when {Channel::Red, Channel::Green}, {Channel::Green, Channel::Red}
-      @pixels.map! do |pixel|
-        RGBA.new(pixel.green, pixel.red, pixel.blue, pixel.alpha)
-      end
+      @red, @green = @green, @red
     when {Channel::Green, Channel::Blue}, {Channel::Blue, Channel::Green}
-      @pixels.map! do |pixel|
-        RGBA.new(pixel.red, pixel.blue, pixel.green, pixel.alpha)
-      end
+      @green, @blue = @blue, @green
     when {Channel::Blue, Channel::Red}, {Channel::Red, Channel::Blue}
-      @pixels.map! do |pixel|
-        RGBA.new(pixel.blue, pixel.green, pixel.red, pixel.alpha)
-      end
+      @red, @blue = @blue, @red
     when {Channel::Alpha, Channel::Red}, {Channel::Red, Channel::Alpha}
-      @pixels.map! do |pixel|
-        RGBA.new(pixel.alpha, pixel.green, pixel.blue, pixel.red)
-      end
+      @alpha, @red = @red, @alpha
     when {Channel::Alpha, Channel::Green}, {Channel::Green, Channel::Alpha}
-      @pixels.map! do |pixel|
-        RGBA.new(pixel.red, pixel.alpha, pixel.blue, pixel.green)
-      end
+      @alpha, @green = @green, @alpha
     when {Channel::Alpha, Channel::Blue}, {Channel::Blue, Channel::Alpha}
-      @pixels.map! do |pixel|
-        RGBA.new(pixel.red, pixel.green, pixel.alpha, pixel.blue)
-      end
+      @alpha, @blue = @blue, @alpha
     end
     self
   end

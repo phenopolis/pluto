@@ -5,14 +5,9 @@ module Pluto::Operation::Brightness
 
   def brightness!(value : Float64) : Image
     (@width * @height).times do |index|
-      pixel = @pixels.unsafe_fetch(index)
-      updated_pixel = RGBA.new(
-        Math.min(255, (pixel.red * value)).to_u8,
-        Math.min(255, (pixel.green * value)).to_u8,
-        Math.min(255, (pixel.blue * value)).to_u8,
-        255
-      )
-      @pixels.unsafe_put(index, updated_pixel)
+      @red.unsafe_put(index, Math.min(255, (@red.unsafe_fetch(index) * value)).to_u8)
+      @green.unsafe_put(index, Math.min(255, (@green.unsafe_fetch(index) * value)).to_u8)
+      @blue.unsafe_put(index, Math.min(255, (@blue.unsafe_fetch(index) * value)).to_u8)
     end
     self
   end
