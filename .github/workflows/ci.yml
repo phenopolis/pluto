@@ -1,0 +1,21 @@
+name: GitHub Actions
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal:latest-alpine
+    steps:
+      - uses: actions/checkout@v3
+      - run: apk add libjpeg-turbo libjpeg-turbo-dev
+      - run: shards install
+      - run: bin/ameba
+      - run: crystal tool format --check
+      - run: crystal spec
