@@ -11,6 +11,7 @@ jobs:
     container:
       image: crystallang/crystal:latest-alpine
     steps:
+      - run: apk add git
       - run: shards install
       - run: bin/ameba
   format:
