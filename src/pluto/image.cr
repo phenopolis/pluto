@@ -15,12 +15,12 @@ class Pluto::Image
   include Operation::HorizontalBlur
   include Operation::VerticalBlur
 
-  property red : Array(UInt8)
-  property green : Array(UInt8)
-  property blue : Array(UInt8)
-  property alpha : Array(UInt8)
-  property width : Int32
-  property height : Int32
+  getter red : Array(UInt8)
+  getter green : Array(UInt8)
+  getter blue : Array(UInt8)
+  getter alpha : Array(UInt8)
+  getter width : Int32
+  getter height : Int32
 
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
@@ -34,6 +34,33 @@ class Pluto::Image
       @width,
       @height
     )
+  end
+
+  private def each_channel(&)
+    yield @red, Channel::Red
+    yield @green, Channel::Green
+    yield @blue, Channel::Blue
+    yield @alpha, Channel::Alpha
+  end
+
+  private def [](ch : Channel)
+    case ch
+    when Channel::Red   then @red
+    when Channel::Green then @green
+    when Channel::Blue  then @blue
+    when Channel::Alpha then @alpha
+    else                     raise "Unknown channel #{ch} for Image"
+    end
+  end
+
+  private def []=(ch : Channel, channel : Array(UInt8))
+    case ch
+    when Channel::Red   then @red = channel
+    when Channel::Green then @green = channel
+    when Channel::Blue  then @blue = channel
+    when Channel::Alpha then @alpha = channel
+    else                     raise "Unknown channel #{ch} for Image"
+    end
   end
 
   def size : Int32
