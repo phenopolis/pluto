@@ -1,4 +1,4 @@
-enum Pluto::Channel
+enum Pluto::ChannelType
   Red
   Green
   Blue
