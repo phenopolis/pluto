@@ -4,13 +4,11 @@ module Pluto::Operation::VerticalBlur
   end
 
   def vertical_blur!(value : Int32) : Image
-    channels = {@red, @green, @blue, @alpha}
-
     buffer = Bytes.new(size, 0)
     multiplier = 1 / (value + value + 1)
 
-    channels.each do |channel|
-      @width.times do |x|
+    each_channel do |channel|
+      width.times do |x|
         c_index : Int32 = x
         l_index : Int32 = c_index
         r_index : Int32 = c_index + value * @width

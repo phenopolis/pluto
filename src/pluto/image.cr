@@ -36,6 +36,32 @@ class Pluto::Image
     )
   end
 
+  def each_channel(&) : Nil
+    yield @red, ChannelType::Red
+    yield @green, ChannelType::Green
+    yield @blue, ChannelType::Blue
+    yield @alpha, ChannelType::Alpha
+    nil
+  end
+
+  def [](channel_type : ChannelType) : Array(UInt8)
+    case channel_type
+    in ChannelType::Red   then @red
+    in ChannelType::Green then @green
+    in ChannelType::Blue  then @blue
+    in ChannelType::Alpha then @alpha
+    end
+  end
+
+  def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
+    case channel_type
+    in ChannelType::Red   then @red = channel
+    in ChannelType::Green then @green = channel
+    in ChannelType::Blue  then @blue = channel
+    in ChannelType::Alpha then @alpha = channel
+    end
+  end
+
   def size : Int32
     @width * @height
   end

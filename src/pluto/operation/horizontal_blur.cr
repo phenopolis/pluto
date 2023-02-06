@@ -4,13 +4,11 @@ module Pluto::Operation::HorizontalBlur
   end
 
   def horizontal_blur!(value : Int32) : Image
-    channels = {@red, @green, @blue, @alpha}
-
     buffer = Bytes.new(size, 0)
     multiplier = 1 / (value + value + 1)
 
-    channels.each do |channel|
-      @height.times do |y|
+    each_channel do |channel|
+      height.times do |y|
         c_index : Int32 = y * @width
         l_index : Int32 = c_index
         r_index : Int32 = c_index + value

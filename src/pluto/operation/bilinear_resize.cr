@@ -4,13 +4,10 @@ module Pluto::Operation::BilinearResize
   end
 
   def bilinear_resize!(width : Int32, height : Int32) : Image
-    channels = {@red, @green, @blue, @alpha}
-    resized_channels = [] of Array(UInt8)
-
     x_ratio = width > 1 ? (@width - 1) / (width - 1) : 0
     y_ratio = height > 1 ? (@height - 1) / (height - 1) : 0
 
-    channels.each do |channel|
+    each_channel do |channel, channel_type|
       resized_channel = Array.new(width * height) { 0u8 }
 
       height.times do |h|
@@ -53,13 +50,9 @@ module Pluto::Operation::BilinearResize
         end
       end
 
-      resized_channels << resized_channel
+      self[channel_type] = resized_channel
     end
 
-    @red = resized_channels.unsafe_fetch(0)
-    @green = resized_channels.unsafe_fetch(1)
-    @blue = resized_channels.unsafe_fetch(2)
-    @alpha = resized_channels.unsafe_fetch(3)
     @width = width
     @height = height
 
