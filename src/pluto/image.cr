@@ -36,14 +36,15 @@ class Pluto::Image
     )
   end
 
-  def each_channel(&)
+  def each_channel(&) : Nil
     yield @red, Channel::Red
     yield @green, Channel::Green
     yield @blue, Channel::Blue
     yield @alpha, Channel::Alpha
+    nil
   end
 
-  def [](ch : Channel)
+  def [](ch : Channel) : Array(UInt8)
     case ch
     in Channel::Red   then @red
     in Channel::Green then @green
@@ -52,7 +53,7 @@ class Pluto::Image
     end
   end
 
-  def []=(ch : Channel, channel : Array(UInt8))
+  def []=(ch : Channel, channel : Array(UInt8)) : Array(UInt8)
     case ch
     in Channel::Red   then @red = channel
     in Channel::Green then @green = channel
