@@ -8,7 +8,7 @@ module Pluto::Operation::HorizontalBlur
     multiplier = 1 / (value + value + 1)
 
     each_channel do |channel|
-      height.times do |y|
+      @height.times do |y|
         c_index : Int32 = y * @width
         l_index : Int32 = c_index
         r_index : Int32 = c_index + value
