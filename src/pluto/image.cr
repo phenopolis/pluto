@@ -5,6 +5,7 @@ require "./operation/*"
 class Pluto::Image
   include Format::JPEG
   include Format::PPM
+  include Format::FileOperations
 
   include Operation::BilinearResize
   include Operation::BoxBlur
@@ -46,20 +47,31 @@ class Pluto::Image
 
   def [](channel_type : ChannelType) : Array(UInt8)
     case channel_type
-    in ChannelType::Red   then @red
-    in ChannelType::Green then @green
-    in ChannelType::Blue  then @blue
-    in ChannelType::Alpha then @alpha
+    when ChannelType::Red   then @red
+    when ChannelType::Green then @green
+    when ChannelType::Blue  then @blue
+    when ChannelType::Alpha then @alpha
+    else                         raise "Unknown channel type #{channel_type} for Image"
     end
   end
 
   def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
     case channel_type
-    in ChannelType::Red   then @red = channel
-    in ChannelType::Green then @green = channel
-    in ChannelType::Blue  then @blue = channel
-    in ChannelType::Alpha then @alpha = channel
+    when ChannelType::Red   then @red = channel
+    when ChannelType::Green then @green = channel
+    when ChannelType::Blue  then @blue = channel
+    when ChannelType::Alpha then @alpha = channel
+    else                         raise "Unknown channel type #{channel_type} for Image"
     end
+  end
+
+  def to_grey(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114)
+    GreyImage.new(
+      red.map_with_index do |red_pix, i|
+        Math.min(255, red_pix * red_multiplier + @green[i] * green_multiplier + @blue[i] * blue_multiplier)
+      end,
+      width,
+      height)
   end
 
   def size : Int32

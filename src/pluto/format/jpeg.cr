@@ -41,13 +41,27 @@ module Pluto::Format::JPEG
     end
   end
 
+  def to_jpeg(filename : String, quality : Int32 = 100) : Nil
+    File.open(filename, "w") { |f| to_jpeg(f, quality) }
+  end
+
+  def to_jpeg(io : IO, quality : Int32 = 100) : Nil
+    buf, size = buffer(quality)
+    io.write(Slice(UInt8).new(buf, size))
+  end
+
   def to_jpeg(quality : Int32 = 100) : String
+    buf, size = buffer(quality)
+    String.new(buf, size)
+  end
+
+  private def buffer(quality : Int32 = 100) : Tuple(Pointer(UInt8), UInt64)
     handle = LibJPEGTurbo.init_compress
     image_data = String.build do |string|
       size.times do |index|
-        string.write_byte(@red.unsafe_fetch(index))
-        string.write_byte(@green.unsafe_fetch(index))
-        string.write_byte(@blue.unsafe_fetch(index))
+        string.write_byte(red.unsafe_fetch(index))
+        string.write_byte(green.unsafe_fetch(index))
+        string.write_byte(blue.unsafe_fetch(index))
       end
     end
 
@@ -67,6 +81,6 @@ module Pluto::Format::JPEG
     )
     LibJPEGTurbo.destroy(handle)
 
-    String.new(buffer, size)
+    {buffer, size}
   end
 end
