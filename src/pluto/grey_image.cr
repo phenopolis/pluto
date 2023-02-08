@@ -5,7 +5,8 @@ require "./operation/*"
 class Pluto::GreyImage
   include Format::JPEG
   include Format::PPM
-  include Format::FileOperations
+  include Format::Save
+  extend Format::Open
 
   include Operation::BilinearResize
   include Operation::BoxBlur
@@ -19,6 +20,10 @@ class Pluto::GreyImage
   getter grey : Array(UInt8)
   getter width : Int32
   getter height : Int32
+
+  def self.new(red : Array(UInt8), green : Array(UInt8), blue : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)
+    Image.new(red, green, blue, alpha, width, height).to_grey
+  end
 
   def initialize(@grey, @width, @height)
   end
@@ -60,7 +65,7 @@ class Pluto::GreyImage
 
   def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
     case channel_type
-    when ChannelType::Grey then @grey = channel
+    when ChannelType::Grey then grey = channel
     else                        raise "Unknown channel type #{channel_type} for GreyImage"
     end
   end

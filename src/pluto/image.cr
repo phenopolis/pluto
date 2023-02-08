@@ -5,7 +5,8 @@ require "./operation/*"
 class Pluto::Image
   include Format::JPEG
   include Format::PPM
-  include Format::FileOperations
+  include Format::Save
+  extend Format::Open
 
   include Operation::BilinearResize
   include Operation::BoxBlur
@@ -65,10 +66,11 @@ class Pluto::Image
     end
   end
 
+  # Convert color image to grey-scale one, using the NTSC formula as default values
   def to_grey(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114)
     GreyImage.new(
       red.map_with_index do |red_pix, i|
-        Math.min(255, red_pix * red_multiplier + @green[i] * green_multiplier + @blue[i] * blue_multiplier)
+        Math.min(255, red_pix * red_multiplier + @green[i] * green_multiplier + @blue[i] * blue_multiplier).to_u8
       end,
       width,
       height)

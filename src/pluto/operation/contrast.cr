@@ -1,9 +1,9 @@
 module Pluto::Operation::Contrast
-  def contrast(value : Float64) : Image
+  def contrast(value : Float64) : self
     clone.contrast!(value)
   end
 
-  def contrast!(value : Float64) : Image
+  def contrast!(value : Float64) : self
     factor = (259 * (value + 255)) / (255 * (259 - value))
     each_channel do |channel|
       size.times do |index|
