@@ -1,7 +1,8 @@
 #!/usr/bin/env -S crystal run --no-debug --release
+
 require "../src/pluto"
 
-record BenchmarkResult, time : Int64, memory : Int64
+record BenchmarkResult, name : String, time : Int64, memory : Int64
 
 def benchmark_memory
   bytes_before_measure = GC.stats.total_bytes
@@ -15,10 +16,10 @@ def benchmark_time
   Time.monotonic - time
 end
 
-def print_result_table(total : Hash(String, BenchmarkResult))
-  name_rjust = total.keys.map(&.size).max
-  time_ljust = total.values.map { |t| t.time.to_s.size + 2 }.max
-  memo_ljust = total.values.map(&.memory.humanize_bytes.size).max
+def print_result_table(benchmarks : Array(BenchmarkResult))
+  name_rjust = benchmarks.map(&.name.size).max
+  time_ljust = benchmarks.map { |result| result.time.to_s.size + 2 }.max
+  memo_ljust = benchmarks.map(&.memory.humanize_bytes.size).max
 
   # Headers
   table = [
@@ -27,20 +28,23 @@ def print_result_table(total : Hash(String, BenchmarkResult))
   ]
 
   # Rows
-  total.each do |name, t|
+  benchmarks.each do |result|
     table << [
-      name.rjust(name_rjust),
-      "#{t.time}ms".ljust(time_ljust),
-      t.memory.humanize_bytes.ljust(memo_ljust),
+      result.name.rjust(name_rjust),
+      "#{result.time}ms".ljust(time_ljust),
+      result.memory.humanize_bytes.ljust(memo_ljust),
     ]
   end
 
-  # Output table itself
-  puts table.map { |r| "| #{r.join(" | ")} |" }.join("\n")
+  output = String.build do |string|
+    table.each do |row|
+      string << "| " << row.join(" | ") << " |\n"
+    end
+    string << "\nTotal Time: " << benchmarks.sum(&.time) << "ms\n"
+    string << "Total Memory: " << benchmarks.sum(&.memory).humanize_bytes
+  end
 
-  # Total Results
-  puts "\nTotal Time  : #{total.sum { |_, v| v.time }}ms"
-  puts "Total Memory: #{total.sum { |_, v| v.memory }.humanize_bytes}"
+  puts output
 end
 
 macro benchmark(&)
@@ -51,19 +55,18 @@ macro benchmark(&)
       {{yield}}
     end
   end
-  total["{{yield.id}}".gsub("image.", "")] = BenchmarkResult.new(memory: memory, time: time.total_milliseconds.to_i64)
+  BenchmarkResult.new(name: "{{yield.id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds.to_i64)
 end
 
-# ======== RECORD BENCHMARKS HERE ========
-total = {} of String => BenchmarkResult
+benchmarks = [] of BenchmarkResult
 
-benchmark { image.bilinear_resize!(640, 480) }
-benchmark { image.brightness!(1.4) }
-benchmark { image.box_blur!(10) }
-benchmark { image.channel_swap!(:red, :blue) }
-benchmark { image.contrast!(128) }
-benchmark { image.gaussian_blur!(10) }
-benchmark { image.horizontal_blur!(10) }
-benchmark { image.vertical_blur!(10) }
+benchmarks << benchmark { image.bilinear_resize!(640, 480) }
+benchmarks << benchmark { image.brightness!(1.4) }
+benchmarks << benchmark { image.box_blur!(10) }
+benchmarks << benchmark { image.channel_swap!(:red, :blue) }
+benchmarks << benchmark { image.contrast!(128) }
+benchmarks << benchmark { image.gaussian_blur!(10) }
+benchmarks << benchmark { image.horizontal_blur!(10) }
+benchmarks << benchmark { image.vertical_blur!(10) }
 
-print_result_table(total)
+print_result_table(benchmarks)
