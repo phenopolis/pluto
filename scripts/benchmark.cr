@@ -18,7 +18,7 @@ end
 
 def print_result_table(benchmarks : Array(BenchmarkResult))
   name_rjust = benchmarks.map(&.name.size).max
-  time_ljust = benchmarks.map { |result| result.time.to_s.size + 2 }.max
+  time_ljust = benchmarks.map(&.time.to_s.size.+(2)).max
   memo_ljust = benchmarks.map(&.memory.humanize_bytes.size).max
 
   # Headers
