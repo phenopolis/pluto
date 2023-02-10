@@ -2,7 +2,7 @@
 
 require "../src/pluto"
 
-record BenchmarkResult, name : String, time : Int64, memory : Int64
+record Result, name : String, time : Int64, memory : Int64
 
 def benchmark_memory
   bytes_before_measure = GC.stats.total_bytes
@@ -16,10 +16,10 @@ def benchmark_time
   Time.monotonic - time
 end
 
-def print_result_table(benchmarks : Array(BenchmarkResult))
-  name_rjust = benchmarks.map(&.name.size).max
-  time_ljust = benchmarks.map(&.time.to_s.size.+(2)).max
-  memo_ljust = benchmarks.map(&.memory.humanize_bytes.size).max
+def print_result_table(results : Array(Result))
+  name_rjust = results.map(&.name.size).max
+  time_ljust = results.map(&.time.to_s.size.+(2)).max
+  memo_ljust = results.map(&.memory.humanize_bytes.size).max
 
   # Headers
   table = [
@@ -28,7 +28,7 @@ def print_result_table(benchmarks : Array(BenchmarkResult))
   ]
 
   # Rows
-  benchmarks.each do |result|
+  results.each do |result|
     table << [
       result.name.rjust(name_rjust),
       "#{result.time}ms".ljust(time_ljust),
@@ -40,8 +40,8 @@ def print_result_table(benchmarks : Array(BenchmarkResult))
     table.each do |row|
       string << "| " << row.join(" | ") << " |\n"
     end
-    string << "\nTotal Time: " << benchmarks.sum(&.time) << "ms\n"
-    string << "Total Memory: " << benchmarks.sum(&.memory).humanize_bytes
+    string << "\nTotal Time: " << results.sum(&.time) << "ms\n"
+    string << "Total Memory: " << results.sum(&.memory).humanize_bytes
   end
 
   puts output
@@ -55,18 +55,18 @@ macro benchmark(&)
       {{yield}}
     end
   end
-  BenchmarkResult.new(name: "{{yield.id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds.to_i64)
+  Result.new(name: "{{yield.id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds.to_i64)
 end
 
-benchmarks = [] of BenchmarkResult
+results = [] of Result
 
-benchmarks << benchmark { image.bilinear_resize!(640, 480) }
-benchmarks << benchmark { image.brightness!(1.4) }
-benchmarks << benchmark { image.box_blur!(10) }
-benchmarks << benchmark { image.channel_swap!(:red, :blue) }
-benchmarks << benchmark { image.contrast!(128) }
-benchmarks << benchmark { image.gaussian_blur!(10) }
-benchmarks << benchmark { image.horizontal_blur!(10) }
-benchmarks << benchmark { image.vertical_blur!(10) }
+results << benchmark { image.bilinear_resize!(640, 480) }
+results << benchmark { image.brightness!(1.4) }
+results << benchmark { image.box_blur!(10) }
+results << benchmark { image.channel_swap!(:red, :blue) }
+results << benchmark { image.contrast!(128) }
+results << benchmark { image.gaussian_blur!(10) }
+results << benchmark { image.horizontal_blur!(10) }
+results << benchmark { image.vertical_blur!(10) }
 
-print_result_table(benchmarks)
+print_result_table(results)
