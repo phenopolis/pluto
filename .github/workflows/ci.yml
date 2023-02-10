@@ -1,14 +1,13 @@
 name: GitHub Actions
 
 on:
-  pull_request:
-    branches: [main]
   push:
   schedule:
     - cron: "0 0 * * *"
 
 jobs:
   check:
+    name: Check
     runs-on: ubuntu-latest
     container:
       image: crystallang/crystal:latest-alpine
