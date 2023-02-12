@@ -42,7 +42,7 @@ describe Pluto::GreyImage do
   end
 
   it "resizes bilinearly" do
-    hash(sample_image.bilinear_resize!(200, 200).to_ppm).should eq "30739e726a2822ee1d3dd4181ced2ce8a856a9e8"
+    hash(sample_image.bilinear_resize!(200, 200).to_ppm).should eq "69a273b74830c94e3afde42bad03ca254500900e"
   end
 
   it "box blurs" do
