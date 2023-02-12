@@ -19,9 +19,16 @@ abstract class Pluto::Image
     include Operation::VerticalBlur
   end
 
-  def self.open(*args)
-    RGBImage.open(*args)
+  macro forward_to_rgb_image(*methods)
+    {% for method in methods %}
+      @[Deprecated("Use RGBImage.{{method.id}} instead")]
+      def self.{{method.id}}(*args, **kwargs)
+        RGBImage.{{method.id}}(*args, **kwargs)
+      end
+    {% end %}
   end
+
+  forward_to_rgb_image open, from_ppm, from_jpg
 
   abstract def red : Array(UInt8)
   abstract def green : Array(UInt8)
