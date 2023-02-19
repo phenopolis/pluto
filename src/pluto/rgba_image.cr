@@ -3,7 +3,7 @@ require "./bindings/*"
 require "./format/*"
 require "./operation/*"
 
-class Pluto::RGBImage < Pluto::Image
+class Pluto::RGBAImage < Pluto::Image
   property red : Array(UInt8)
   property green : Array(UInt8)
   property blue : Array(UInt8)
@@ -14,7 +14,7 @@ class Pluto::RGBImage < Pluto::Image
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
 
-  def clone : RGBImage
+  def clone : RGBAImage
     self.class.new(
       @red.clone,
       @green.clone,
@@ -39,7 +39,7 @@ class Pluto::RGBImage < Pluto::Image
     when ChannelType::Green then @green
     when ChannelType::Blue  then @blue
     when ChannelType::Alpha then @alpha
-    else                         raise "Unknown channel type #{channel_type} for RGBImage"
+    else                         raise "Unknown channel type #{channel_type} for RGBAImage"
     end
   end
 
@@ -49,18 +49,19 @@ class Pluto::RGBImage < Pluto::Image
     when ChannelType::Green then @green = channel
     when ChannelType::Blue  then @blue = channel
     when ChannelType::Alpha then @alpha = channel
-    else                         raise "Unknown channel type #{channel_type} for RGBImage"
+    else                         raise "Unknown channel type #{channel_type} for RGBAImage"
     end
   end
 
-  # Convert color image to grey-scale one, using the NTSC formula as default values
+  # Convert color image to grey-scale one, using the NTSC formula as default values.
   def to_grey(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114)
-    GreyImage.new(
+    GreyscaleImage.new(
       red.map_with_index do |red_pix, i|
         Math.min(255, red_pix * red_multiplier + @green[i] * green_multiplier + @blue[i] * blue_multiplier).to_u8
       end,
       width,
-      height)
+      height
+    )
   end
 
   def size : Int32

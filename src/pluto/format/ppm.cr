@@ -1,9 +1,5 @@
 module Pluto::Format::PPM
   macro included
-    def self.open_ppm(filename : String) : self
-      from_ppm(File.read(filename))
-    end
-
     def self.from_ppm(io : IO) : self
       _magic_number = io.gets("\n", chomp: true)
       width = io.gets(" ", chomp: true).try &.to_i
@@ -39,10 +35,6 @@ module Pluto::Format::PPM
       io = IO::Memory.new(image_data)
       from_ppm(io)
     end
-  end
-
-  def to_ppm(filename : String) : Nil
-    File.open(filename, "w") { |f| to_ppm(f) }
   end
 
   def to_ppm(io : IO) : Nil

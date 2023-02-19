@@ -6,8 +6,6 @@ abstract class Pluto::Image
   macro inherited
     include Format::JPEG
     include Format::PPM
-    include Format::Save
-    extend Format::Open
 
     include Operation::BilinearResize
     include Operation::BoxBlur
@@ -21,14 +19,14 @@ abstract class Pluto::Image
 
   macro forward_to_rgb_image(*methods)
     {% for method in methods %}
-      @[Deprecated("Use RGBImage.{{method.id}} instead")]
+      @[Deprecated("Use RGBAImage.{{method.id}} instead")]
       def self.{{method.id}}(*args, **kwargs)
-        RGBImage.{{method.id}}(*args, **kwargs)
+        RGBAImage.{{method.id}}(*args, **kwargs)
       end
     {% end %}
   end
 
-  forward_to_rgb_image open, from_ppm, from_jpg
+  forward_to_rgb_image from_ppm, from_jpg
 
   abstract def red : Array(UInt8)
   abstract def green : Array(UInt8)

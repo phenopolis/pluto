@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe Pluto::RGBImage do
+describe Pluto::RGBAImage do
   it "initializes" do
     red = [0u8, 1u8]
     green = [2u8, 3u8]
@@ -9,6 +9,6 @@ describe Pluto::RGBImage do
     width = 2
     height = 1
 
-    Pluto::RGBImage.new(red, green, blue, alpha, width, height).should be_truthy
+    Pluto::RGBAImage.new(red, green, blue, alpha, width, height).should be_truthy
   end
 end

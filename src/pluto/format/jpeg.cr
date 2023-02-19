@@ -1,7 +1,7 @@
 module Pluto::Format::JPEG
   macro included
-    def self.open_jpeg(filename : String) : self
-      from_jpeg(File.read(filename))
+    def self.from_jpeg(io : IO) : self
+      from_jpeg(String.new(io.getb_to_end))
     end
 
     def self.from_jpeg(image_data : String) : self
@@ -43,10 +43,6 @@ module Pluto::Format::JPEG
 
       new(red, green, blue, alpha, width, height)
     end
-  end
-
-  def to_jpeg(filename : String, quality : Int32 = 100) : Nil
-    File.open(filename, "w") { |f| to_jpeg(f, quality) }
   end
 
   def to_jpeg(io : IO, quality : Int32 = 100) : Nil

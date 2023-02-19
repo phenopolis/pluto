@@ -1,18 +1,18 @@
 require "./image"
 
-class Pluto::GreyImage < Pluto::Image
+class Pluto::GreyscaleImage < Pluto::Image
   property grey : Array(UInt8)
   property width : Int32
   property height : Int32
 
   def self.new(red : Array(UInt8), green : Array(UInt8), blue : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)
-    RGBImage.new(red, green, blue, alpha, width, height).to_grey
+    RGBAImage.new(red, green, blue, alpha, width, height).to_grey
   end
 
   def initialize(@grey, @width, @height)
   end
 
-  def clone : GreyImage
+  def clone : GreyscaleImage
     self.class.new(
       @grey.clone,
       @width,
@@ -49,12 +49,12 @@ class Pluto::GreyImage < Pluto::Image
   def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
     case channel_type
     when ChannelType::Grey then self.grey = channel
-    else                        raise "Unknown channel type #{channel_type} for GreyImage"
+    else                        raise "Unknown channel type #{channel_type} for GreyscaleImage"
     end
   end
 
   def to_rgba
-    RGBImage.new(@grey.clone, @grey.clone, @grey.clone, Array(UInt8).new(size) { 1u8 }, width, height)
+    RGBAImage.new(@grey.clone, @grey.clone, @grey.clone, Array(UInt8).new(size) { 1u8 }, width, height)
   end
 
   def size : Int32
