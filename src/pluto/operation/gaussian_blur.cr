@@ -1,9 +1,9 @@
 module Pluto::Operation::GaussianBlur
-  def gaussian_blur(value : Int32) : Image
+  def gaussian_blur(value : Int32) : self
     clone.gaussian_blur!(value)
   end
 
-  def gaussian_blur!(value : Int32) : Image
+  def gaussian_blur!(value : Int32) : self
     sigma = value
     n = 3
 

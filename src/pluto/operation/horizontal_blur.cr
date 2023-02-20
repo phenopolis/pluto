@@ -1,9 +1,9 @@
 module Pluto::Operation::HorizontalBlur
-  def horizontal_blur(value : Int32) : Image
+  def horizontal_blur(value : Int32) : self
     clone.horizontal_blur!(value)
   end
 
-  def horizontal_blur!(value : Int32) : Image
+  def horizontal_blur!(value : Int32) : self
     buffer = Bytes.new(size, 0)
     multiplier = 1 / (value + value + 1)
 

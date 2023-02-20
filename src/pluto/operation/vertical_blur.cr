@@ -1,9 +1,9 @@
 module Pluto::Operation::VerticalBlur
-  def vertical_blur(value : Int32) : Image
+  def vertical_blur(value : Int32) : self
     clone.vertical_blur!(value)
   end
 
-  def vertical_blur!(value : Int32) : Image
+  def vertical_blur!(value : Int32) : self
     buffer = Bytes.new(size, 0)
     multiplier = 1 / (value + value + 1)
 

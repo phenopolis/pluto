@@ -1,9 +1,9 @@
 module Pluto::Operation::BilinearResize
-  def bilinear_resize(width : Int32, height : Int32) : Image
+  def bilinear_resize(width : Int32, height : Int32) : self
     clone.bilinear_resize!(width, height)
   end
 
-  def bilinear_resize!(width : Int32, height : Int32) : Image
+  def bilinear_resize!(width : Int32, height : Int32) : self
     x_ratio = width > 1 ? (@width - 1) / (width - 1) : 0
     y_ratio = height > 1 ? (@height - 1) / (height - 1) : 0
 

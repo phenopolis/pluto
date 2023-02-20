@@ -1,6 +1,10 @@
 module Pluto::Format::JPEG
   macro included
-    def self.from_jpeg(image_data : String) : Image
+    def self.from_jpeg(io : IO) : self
+      from_jpeg(String.new(io.getb_to_end))
+    end
+
+    def self.from_jpeg(image_data : String) : self
       handle = LibJPEGTurbo.init_decompress
       LibJPEGTurbo.decompress_header3(
         handle,
@@ -41,13 +45,23 @@ module Pluto::Format::JPEG
     end
   end
 
+  def to_jpeg(io : IO, quality : Int32 = 100) : Nil
+    buf, size = buffer(quality)
+    io.write(Slice(UInt8).new(buf, size))
+  end
+
   def to_jpeg(quality : Int32 = 100) : String
+    buf, size = buffer(quality)
+    String.new(buf, size)
+  end
+
+  private def buffer(quality : Int32 = 100) : Tuple(Pointer(UInt8), UInt64)
     handle = LibJPEGTurbo.init_compress
     image_data = String.build do |string|
       size.times do |index|
-        string.write_byte(@red.unsafe_fetch(index))
-        string.write_byte(@green.unsafe_fetch(index))
-        string.write_byte(@blue.unsafe_fetch(index))
+        string.write_byte(red.unsafe_fetch(index))
+        string.write_byte(green.unsafe_fetch(index))
+        string.write_byte(blue.unsafe_fetch(index))
       end
     end
 
@@ -67,6 +81,6 @@ module Pluto::Format::JPEG
     )
     LibJPEGTurbo.destroy(handle)
 
-    String.new(buffer, size)
+    {buffer, size}
   end
 end
