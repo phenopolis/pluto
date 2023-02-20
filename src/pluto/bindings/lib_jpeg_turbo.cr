@@ -12,7 +12,7 @@ lib LibJPEGTurbo
   enum Colorspace
     RGB
     YCbCr
-    GRAY
+    Gray
     CMYK
     YCCK
   end
@@ -37,7 +37,7 @@ lib LibJPEGTurbo
     S444
     S422
     S420
-    GRAY
+    Gray
     S440
     S411
   end

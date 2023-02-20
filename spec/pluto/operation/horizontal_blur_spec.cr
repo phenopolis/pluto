@@ -12,10 +12,10 @@ describe Pluto::Operation::HorizontalBlur do
       Digest::SHA1.hexdigest(blurred_image.to_ppm).should eq "625be82cf07186fde56a81059c8149bc192bb1c9"
     end
 
-    it "works with GreyscaleImage" do
+    it "works with GrayscaleImage" do
       data = SpecHelper.read_sample("pluto.ppm")
 
-      original_image = Pluto::GreyscaleImage.from_ppm(data)
+      original_image = Pluto::GrayscaleImage.from_ppm(data)
       blurred_image = original_image.horizontal_blur(10)
 
       Digest::SHA1.hexdigest(original_image.to_ppm).should eq "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
@@ -33,10 +33,10 @@ describe Pluto::Operation::HorizontalBlur do
       Digest::SHA1.hexdigest(image.to_ppm).should eq "625be82cf07186fde56a81059c8149bc192bb1c9"
     end
 
-    it "works with GreyscaleImage" do
+    it "works with GrayscaleImage" do
       data = SpecHelper.read_sample("pluto.ppm")
 
-      image = Pluto::GreyscaleImage.from_ppm(data)
+      image = Pluto::GrayscaleImage.from_ppm(data)
       image.horizontal_blur!(10)
 
       Digest::SHA1.hexdigest(image.to_ppm).should eq "b04348fe463d35197cc57b0114596d9b78a20f55"

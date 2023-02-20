@@ -2,6 +2,6 @@ enum Pluto::ChannelType
   Red
   Green
   Blue
-  Grey
+  Gray
   Alpha
 end

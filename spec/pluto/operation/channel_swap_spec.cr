@@ -12,11 +12,11 @@ describe Pluto::Operation::ChannelSwap do
       Digest::SHA1.hexdigest(bgr_image.to_ppm).should eq "9d857319f960a9b4798d3d62d270baae61278f70"
     end
 
-    it "works with GreyscaleImage" do
+    it "works with GrayscaleImage" do
       data = SpecHelper.read_sample("california.ppm")
 
-      original_image = Pluto::GreyscaleImage.from_ppm(data)
-      expect_raises(Exception, /Unknown channel type Red for GreyscaleImage/) do
+      original_image = Pluto::GrayscaleImage.from_ppm(data)
+      expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
         original_image.channel_swap(:red, :blue)
       end
     end

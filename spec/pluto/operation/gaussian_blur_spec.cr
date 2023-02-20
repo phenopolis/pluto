@@ -12,10 +12,10 @@ describe Pluto::Operation::GaussianBlur do
       Digest::SHA1.hexdigest(blurred_image.to_ppm).should eq "245b54db2a7b075bf5404dc34d8b96357349f4d2"
     end
 
-    it "works with GreyscaleImage" do
+    it "works with GrayscaleImage" do
       data = SpecHelper.read_sample("pluto.ppm")
 
-      original_image = Pluto::GreyscaleImage.from_ppm(data)
+      original_image = Pluto::GrayscaleImage.from_ppm(data)
       blurred_image = original_image.gaussian_blur(10)
 
       Digest::SHA1.hexdigest(original_image.to_ppm).should eq "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
@@ -33,10 +33,10 @@ describe Pluto::Operation::GaussianBlur do
       Digest::SHA1.hexdigest(image.to_ppm).should eq "245b54db2a7b075bf5404dc34d8b96357349f4d2"
     end
 
-    it "works with GreyscaleImage" do
+    it "works with GrayscaleImage" do
       data = SpecHelper.read_sample("pluto.ppm")
 
-      image = Pluto::GreyscaleImage.from_ppm(data)
+      image = Pluto::GrayscaleImage.from_ppm(data)
       image.gaussian_blur!(10)
 
       Digest::SHA1.hexdigest(image.to_ppm).should eq "df13de316f347c955309abcada06657d00b55bf5"

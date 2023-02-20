@@ -1,60 +1,60 @@
 require "./image"
 
-class Pluto::GreyscaleImage < Pluto::Image
-  property grey : Array(UInt8)
+class Pluto::GrayscaleImage < Pluto::Image
+  property gray : Array(UInt8)
   property width : Int32
   property height : Int32
 
   def self.new(red : Array(UInt8), green : Array(UInt8), blue : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)
-    RGBAImage.new(red, green, blue, alpha, width, height).to_grey
+    RGBAImage.new(red, green, blue, alpha, width, height).to_gray
   end
 
-  def initialize(@grey, @width, @height)
+  def initialize(@gray, @width, @height)
   end
 
-  def clone : GreyscaleImage
+  def clone : GrayscaleImage
     self.class.new(
-      @grey.clone,
+      @gray.clone,
       @width,
       @height
     )
   end
 
   def red : Array(UInt8)
-    @grey
+    @gray
   end
 
   def green : Array(UInt8)
-    @grey
+    @gray
   end
 
   def blue : Array(UInt8)
-    @grey
+    @gray
   end
 
   def alpha : Array(UInt8)
-    @grey
+    @gray
   end
 
   def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
-    yield @grey, ChannelType::Grey
+    yield @gray, ChannelType::Gray
     nil
   end
 
   def [](channel_type : ChannelType) : Array(UInt8)
-    # All channels are grey. There can only be grey.
-    @grey
+    # All channels are gray. There can only be gray.
+    @gray
   end
 
   def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
     case channel_type
-    when ChannelType::Grey then self.grey = channel
-    else                        raise "Unknown channel type #{channel_type} for GreyscaleImage"
+    when ChannelType::Gray then self.gray = channel
+    else                        raise "Unknown channel type #{channel_type} for GrayscaleImage"
     end
   end
 
   def to_rgba
-    RGBAImage.new(@grey.clone, @grey.clone, @grey.clone, Array(UInt8).new(size) { 1u8 }, width, height)
+    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, Array(UInt8).new(size) { 1u8 }, width, height)
   end
 
   def size : Int32
