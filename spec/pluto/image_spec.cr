@@ -1,6 +1,6 @@
 require "../spec_helper"
 
-describe Pluto::RGBAImage do
+Spectator.describe Pluto::RGBAImage do
   it "initializes" do
     red = [0u8, 1u8]
     green = [2u8, 3u8]

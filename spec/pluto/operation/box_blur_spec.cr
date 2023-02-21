@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::BoxBlur do
+Spectator.describe Pluto::Operation::BoxBlur do
   describe "#box_blur" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")

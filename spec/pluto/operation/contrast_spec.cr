@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::Contrast do
+Spectator.describe Pluto::Operation::Contrast do
   describe "#contrast" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")

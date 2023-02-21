@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::ChannelSwap do
+Spectator.describe Pluto::Operation::ChannelSwap do
   describe "#channel_swap" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")

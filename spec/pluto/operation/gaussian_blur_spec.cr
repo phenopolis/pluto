@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::GaussianBlur do
+Spectator.describe Pluto::Operation::GaussianBlur do
   describe "#gaussian_blur" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")

@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::BilinearResize do
+Spectator.describe Pluto::Operation::BilinearResize do
   describe "#bilinear_resize" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")

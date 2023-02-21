@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::HorizontalBlur do
+Spectator.describe Pluto::Operation::HorizontalBlur do
   describe "#horizontal_blur" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")

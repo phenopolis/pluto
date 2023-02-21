@@ -1,35 +1,21 @@
 require "../../spec_helper"
 
-describe Pluto::Format::PPM do
-  describe ".from_ppm" do
+Spectator.describe Pluto::Format::PPM do
+  include SpecHelper
+
+  describe ".from_ppm and #to_ppm" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.ppm")
       image = Pluto::RGBAImage.from_ppm(data)
 
-      Digest::SHA1.hexdigest(image.to_jpeg).should eq "d7a21c69034175411176d404b7e1c03e4a50a938"
+      digest(image).should eq "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
     end
 
     it "works with GrayscaleImage" do
       data = SpecHelper.read_sample("pluto.ppm")
       image = Pluto::GrayscaleImage.from_ppm(data)
 
-      Digest::SHA1.hexdigest(image.to_jpeg).should eq "413b301c494bef9b80aab18b2f6cfd649780832f"
-    end
-  end
-
-  describe "#to_ppm" do
-    it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
-      image = Pluto::RGBAImage.from_ppm(data)
-
-      Digest::SHA1.hexdigest(image.to_jpeg).should eq "d7a21c69034175411176d404b7e1c03e4a50a938"
-    end
-
-    it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
-      image = Pluto::GrayscaleImage.from_ppm(data)
-
-      Digest::SHA1.hexdigest(image.to_jpeg).should eq "413b301c494bef9b80aab18b2f6cfd649780832f"
+      digest(image).should eq "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
     end
   end
 end

@@ -1,6 +1,6 @@
 require "../../spec_helper"
 
-describe Pluto::Format::JPEG do
+Spectator.describe Pluto::Format::JPEG do
   describe ".from_jpeg" do
     it "works with RGBAImage" do
       data = SpecHelper.read_sample("pluto.jpg")
