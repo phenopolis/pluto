@@ -6,7 +6,7 @@ module Pluto::Format::JPEG
 
     def self.from_jpeg(image_data : String) : self
       handle = LibJPEGTurbo.init_decompress
-      LibJPEGTurbo.decompress_header3(
+      check handle, LibJPEGTurbo.decompress_header3(
         handle,
         image_data,
         image_data.bytesize,
@@ -16,7 +16,7 @@ module Pluto::Format::JPEG
         out _colorspace
       )
       buffer = Bytes.new(width * height * 3, 0)
-      LibJPEGTurbo.decompress2(
+      check handle, LibJPEGTurbo.decompress2(
         handle,
         image_data,
         LibC::ULong.new(image_data.bytesize),
@@ -27,7 +27,7 @@ module Pluto::Format::JPEG
         LibJPEGTurbo::PixelFormat::RGB,
         0
       )
-      LibJPEGTurbo.destroy(handle)
+      check handle, LibJPEGTurbo.destroy(handle)
 
       red = Array.new(width * height) { 0u8 }
       green = Array.new(width * height) { 0u8 }
@@ -42,6 +42,10 @@ module Pluto::Format::JPEG
       end
 
       new(red, green, blue, alpha, width, height)
+    end
+
+    private def self.check(handle, code)
+      raise ::Pluto::Exception.new(handle) unless code == 0
     end
   end
 
@@ -66,7 +70,7 @@ module Pluto::Format::JPEG
     end
 
     buffer = Array(UInt8).new.to_unsafe
-    LibJPEGTurbo.compress2(
+    check handle, LibJPEGTurbo.compress2(
       handle,
       image_data,
       @width,
@@ -79,8 +83,12 @@ module Pluto::Format::JPEG
       quality,
       0
     )
-    LibJPEGTurbo.destroy(handle)
+    check handle, LibJPEGTurbo.destroy(handle)
 
     {buffer, size}
+  end
+
+  private def check(handle, code)
+    raise ::Pluto::Exception.new(handle) unless code == 0
   end
 end
