@@ -8,6 +8,8 @@ lib LibJPEGTurbo
   fun destroy = tjDestroy(handle : Handle) : LibC::Int
   fun init_compress = tjInitCompress : Handle
   fun init_decompress = tjInitDecompress : Handle
+  fun get_error_code = tjGetErrorCode(handle : Handle) : ErrorCode
+  fun get_error_str = tjGetErrorStr2(handle : Handle) : UInt8*
 
   enum Colorspace
     RGB
@@ -40,5 +42,10 @@ lib LibJPEGTurbo
     Gray
     S440
     S411
+  end
+
+  enum ErrorCode
+    WARNING
+    FATAL
   end
 end
