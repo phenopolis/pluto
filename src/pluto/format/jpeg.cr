@@ -64,18 +64,17 @@ module Pluto::Format::JPEG
 
   private def buffer(quality : Int32 = 100) : Tuple(Pointer(UInt8), UInt64)
     handle = LibJPEGTurbo.init_compress
-    image_data = String.build do |string|
-      size.times do |index|
-        string.write_byte(red.unsafe_fetch(index))
-        string.write_byte(green.unsafe_fetch(index))
-        string.write_byte(blue.unsafe_fetch(index))
-      end
+    image_data = IO::Memory.new(size * 3)
+    size.times do |index|
+      image_data.write_byte(red.unsafe_fetch(index) )
+      image_data.write_byte(green.unsafe_fetch(index))
+      image_data.write_byte(blue.unsafe_fetch(index))
     end
 
     buffer = Array(UInt8).new.to_unsafe
     check handle, LibJPEGTurbo.compress2(
       handle,
-      image_data,
+      image_data.buffer,
       @width,
       0,
       @height,
