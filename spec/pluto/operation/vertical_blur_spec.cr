@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::VerticalBlur do
   describe "#vertical_blur" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::RGBAImage.from_ppm(data)
       blurred_image = original_image.vertical_blur(10)
@@ -13,7 +13,7 @@ describe Pluto::Operation::VerticalBlur do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::GrayscaleImage.from_ppm(data)
       blurred_image = original_image.vertical_blur(10)
@@ -25,7 +25,7 @@ describe Pluto::Operation::VerticalBlur do
 
   describe "#vertical_blur!" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::RGBAImage.from_ppm(data)
       image.vertical_blur!(10)
@@ -34,7 +34,7 @@ describe Pluto::Operation::VerticalBlur do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::GrayscaleImage.from_ppm(data)
       image.vertical_blur!(10)

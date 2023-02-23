@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::Contrast do
   describe "#contrast" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::RGBAImage.from_ppm(data)
       positive_image = original_image.contrast(128)
@@ -15,7 +15,7 @@ describe Pluto::Operation::Contrast do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::GrayscaleImage.from_ppm(data)
       positive_image = original_image.contrast(128)
@@ -29,24 +29,24 @@ describe Pluto::Operation::Contrast do
 
   describe "#contrast!" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
-
+      data = SpecHelper.pluto_ppm
       image = Pluto::RGBAImage.from_ppm(data)
       image.contrast!(128)
       Digest::SHA1.hexdigest(image.to_ppm).should eq "d773339697e9c3ed2ea188ecc1adbbe73dbc1ba5"
 
+      data = SpecHelper.pluto_ppm
       image = Pluto::RGBAImage.from_ppm(data)
       image.contrast!(-128)
       Digest::SHA1.hexdigest(image.to_ppm).should eq "c2269bee571172cf97377547e5e9de9b91e552c5"
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
-
+      data = SpecHelper.pluto_ppm
       image = Pluto::GrayscaleImage.from_ppm(data)
       image.contrast!(128)
       Digest::SHA1.hexdigest(image.to_ppm).should eq "5aa2004129f7267c851b8055cdd93da205ab7483"
 
+      data = SpecHelper.pluto_ppm
       image = Pluto::GrayscaleImage.from_ppm(data)
       image.contrast!(-128)
       Digest::SHA1.hexdigest(image.to_ppm).should eq "9f6321f4b1387dd03b47a266a32905615e652e26"
