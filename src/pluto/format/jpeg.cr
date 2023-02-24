@@ -1,8 +1,6 @@
 module Pluto::Format::JPEG
   macro included
-    def self.from_jpeg(io : IO) : self
-      image_data = io.getb_to_end
-
+    def self.from_jpeg(image_data : Bytes) : self
       handle = LibJPEGTurbo.init_decompress
       check handle, LibJPEGTurbo.decompress_header3(
         handle,
@@ -40,6 +38,10 @@ module Pluto::Format::JPEG
       end
 
       new(red, green, blue, alpha, width, height)
+    end
+
+    def self.from_jpeg(io : IO) : self
+      from_jpeg(io.getb_to_end)
     end
 
     def self.from_jpeg(image_data : String) : self
