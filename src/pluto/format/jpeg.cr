@@ -53,16 +53,14 @@ module Pluto::Format::JPEG
   end
 
   def to_jpeg(io : IO, quality : Int32 = 100) : Nil
-    buf, size = buffer(quality)
-    io.write(Slice(UInt8).new(buf, size))
+    io.write(buffer(quality))
   end
 
   def to_jpeg(quality : Int32 = 100) : String
-    buf, size = buffer(quality)
-    String.new(buf, size)
+    String.new(buffer(quality))
   end
 
-  private def buffer(quality : Int32 = 100) : Tuple(Pointer(UInt8), UInt64)
+  private def buffer(quality : Int32 = 100) : Bytes
     handle = LibJPEGTurbo.init_compress
     image_data = IO::Memory.new(size * 3)
     size.times do |index|
@@ -87,7 +85,7 @@ module Pluto::Format::JPEG
     )
     check handle, LibJPEGTurbo.destroy(handle)
 
-    {buffer, size}
+    Bytes.new(buffer, size)
   end
 
   private def check(handle, code)
