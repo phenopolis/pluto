@@ -45,8 +45,7 @@ module Pluto::Format::JPEG
     end
 
     def self.from_jpeg(image_data : String) : self
-      io = IO::Memory.new(image_data)
-      from_jpeg(io)
+      from_jpeg(image_data.to_slice)
     end
 
     private def self.check(handle, code)

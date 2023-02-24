@@ -2,6 +2,20 @@ require "../../spec_helper"
 
 describe Pluto::Format::PPM do
   describe ".from_ppm" do
+    it "works with IO" do
+      SpecHelper.with_sample("pluto.ppm") do |io|
+        image = Pluto::RGBAImage.from_ppm(io)
+        Digest::SHA1.hexdigest(image.to_jpeg).should eq "d7a21c69034175411176d404b7e1c03e4a50a938"
+      end
+    end
+
+    it "works with String" do
+      SpecHelper.with_sample("pluto.ppm") do |io|
+        image = Pluto::RGBAImage.from_ppm(io.gets_to_end)
+        Digest::SHA1.hexdigest(image.to_jpeg).should eq "d7a21c69034175411176d404b7e1c03e4a50a938"
+      end
+    end
+
     it "works with RGBAImage" do
       data = SpecHelper.pluto_ppm
       image = Pluto::RGBAImage.from_ppm(data)
