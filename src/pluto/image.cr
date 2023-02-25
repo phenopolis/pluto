@@ -15,6 +15,8 @@ abstract class Pluto::Image
     include Operation::GaussianBlur
     include Operation::HorizontalBlur
     include Operation::VerticalBlur
+
+    include Operation::MaskApply
   end
 
   macro forward_to_rgb_image(*methods)

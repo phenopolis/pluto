@@ -54,7 +54,7 @@ class Pluto::GrayscaleImage < Pluto::Image
   end
 
   def to_rgba
-    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, Array(UInt8).new(size) { 1u8 }, width, height)
+    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, Array(UInt8).new(size) { 255u8 }, width, height)
   end
 
   def size : Int32
