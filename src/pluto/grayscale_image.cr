@@ -60,4 +60,16 @@ class Pluto::GrayscaleImage < Pluto::Image
   def size : Int32
     @width * @height
   end
+
+  def mask_from(&block : (Int32, Int32, UInt8) -> Bool) : Mask
+    Mask.new(width, BitArray.new(size) do |i|
+      block.call(i % width, i // width, @gray[i])
+    end)
+  end
+
+  def threshold(threshold : Int) : Mask
+    mask_from do |_, _, pixel|
+      pixel >= threshold
+    end
+  end
 end
