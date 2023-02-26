@@ -172,4 +172,8 @@ class Pluto::Mask
   def apply(image : Image) : Image
     image.apply(self)
   end
+
+  def apply(image : Image, &block : (Int32, Int32, UInt8, ChannelType) -> UInt8) : Image
+    image.apply(self, &block)
+  end
 end
