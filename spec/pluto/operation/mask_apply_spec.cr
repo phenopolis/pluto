@@ -19,5 +19,10 @@ describe Pluto::Operation::MaskApply do
       image = Pluto::RGBAImage.from_ppm(SpecHelper.read_sample("pluto.ppm"))
       Digest::SHA1.hexdigest(image.apply(image.to_gray.threshold(16)).to_ppm).should eq "62409fe550b1d7d87757fbf7c9612514cae72acd"
     end
+
+    it "applies threshold through mask" do
+      image = Pluto::RGBAImage.from_ppm(SpecHelper.read_sample("pluto.ppm"))
+      Digest::SHA1.hexdigest(image.to_gray.threshold(16).apply(image).to_ppm).should eq "62409fe550b1d7d87757fbf7c9612514cae72acd"
+    end
   end
 end

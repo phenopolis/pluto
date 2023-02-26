@@ -168,4 +168,8 @@ class Pluto::Mask
   def to_gray
     GrayscaleImage.new(bits.map { |b| b ? 255u8 : 0u8 }, width, height)
   end
+
+  def apply(image : Image) : Image
+    image.apply(self)
+  end
 end
