@@ -25,8 +25,6 @@ require "bit_array"
 # Different ways to refer to coordinates
 # mask[0, 0] # => (0,0)
 # mask.at(0, 0) # => (0,0)
-# mask[0] # => (0,0), (1,0), (2,0), ..., (9,0)
-# mask[0..1] # => (0,0), (1,0), ..., (9,0), (0,1), (1,1), ..., (9,1)
 # mask[0..1, 4] # => (4,0), (4,1)
 # mask[3, 3..5] # => (3,3), (3,4), (3,5)
 # mask[2..3, 4..5] # => (2,4), (2,5), (3,4), (3,5)
@@ -89,11 +87,6 @@ class Pluto::Mask
     Mask.new(width, new_bits)
   end
 
-  def [](x : Int32, y : Int32) : Bool
-    raise IndexError.new("Out of bounds: this mask is #{width}x#{height}, and (#{x},#{y}) is outside of that") if x >= width || y >= height
-    @bits[y * width + x]
-  end
-
   def at(index : Int32) : Bool
     raise "Index #{index} exceeds mask size #{@bits.size}" if index >= size
     @bits[index]
@@ -103,6 +96,11 @@ class Pluto::Mask
     start, count = Indexable.range_to_index_and_count(range, size) || raise IndexError.new("Unable to resolve range #{range} for mask dimension of #{size}")
     raise IndexError.new("Range #{range} exceeds bounds of #{size}") if (start + count) > size
     {start, count}
+  end
+
+  def [](x : Int32, y : Int32) : Bool
+    raise IndexError.new("Out of bounds: this mask is #{width}x#{height}, and (#{x},#{y}) is outside of that") if x >= width || y >= height
+    @bits[y * width + x]
   end
 
   def [](xs : Range(Int32, Int32) | Range(Int32, Nil), y : Int32) : BitArray
