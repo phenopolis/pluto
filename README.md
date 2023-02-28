@@ -1,7 +1,7 @@
 <p align="center">
   <img
     alt="logo"
-    src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo.png"
+    src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-white.png"
     width="720px"
   />
 </p>
