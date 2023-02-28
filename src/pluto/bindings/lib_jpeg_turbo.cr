@@ -6,10 +6,10 @@ lib LibJPEGTurbo
   fun decompress_header3 = tjDecompressHeader3(handle : Handle, jpeg_buf : UInt8*, jpeg_size : LibC::ULong, width : LibC::Int*, height : LibC::Int*, jpeg_subsamp : Subsampling*, jpeg_colorspace : Colorspace*) : LibC::Int
   fun decompress2 = tjDecompress2(handle : Handle, jpeg_buf : UInt8*, jpeg_size : LibC::ULong, dst_buf : UInt8*, width : LibC::Int, pitch : LibC::Int, height : LibC::Int, pixel_format : PixelFormat, flags : LibC::Int) : LibC::Int
   fun destroy = tjDestroy(handle : Handle) : LibC::Int
-  fun init_compress = tjInitCompress : Handle
-  fun init_decompress = tjInitDecompress : Handle
   fun get_error_code = tjGetErrorCode(handle : Handle) : ErrorCode
   fun get_error_str = tjGetErrorStr2(handle : Handle) : UInt8*
+  fun init_compress = tjInitCompress : Handle
+  fun init_decompress = tjInitDecompress : Handle
 
   enum Colorspace
     RGB
@@ -45,7 +45,7 @@ lib LibJPEGTurbo
   end
 
   enum ErrorCode
-    WARNING
-    FATAL
+    Warning
+    Fatal
   end
 end
