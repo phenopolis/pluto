@@ -65,7 +65,7 @@ module Pluto::Format::JPEG
     handle = LibJPEGTurbo.init_compress
     image_data = IO::Memory.new(size * 3)
     size.times do |index|
-      image_data.write_byte(red.unsafe_fetch(index) )
+      image_data.write_byte(red.unsafe_fetch(index))
       image_data.write_byte(green.unsafe_fetch(index))
       image_data.write_byte(blue.unsafe_fetch(index))
     end
