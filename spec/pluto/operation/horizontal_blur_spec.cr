@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::HorizontalBlur do
   describe "#horizontal_blur" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::RGBAImage.from_ppm(data)
       blurred_image = original_image.horizontal_blur(10)
@@ -13,7 +13,7 @@ describe Pluto::Operation::HorizontalBlur do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::GrayscaleImage.from_ppm(data)
       blurred_image = original_image.horizontal_blur(10)
@@ -25,7 +25,7 @@ describe Pluto::Operation::HorizontalBlur do
 
   describe "#horizontal_blur!" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::RGBAImage.from_ppm(data)
       image.horizontal_blur!(10)
@@ -34,7 +34,7 @@ describe Pluto::Operation::HorizontalBlur do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::GrayscaleImage.from_ppm(data)
       image.horizontal_blur!(10)

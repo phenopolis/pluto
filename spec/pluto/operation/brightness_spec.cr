@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::Brightness do
   describe "#brightness" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::RGBAImage.from_ppm(data)
       brightened_image = original_image.brightness(1.4)
@@ -15,7 +15,7 @@ describe Pluto::Operation::Brightness do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::GrayscaleImage.from_ppm(data)
       brightened_image = original_image.brightness(1.4)
@@ -29,7 +29,7 @@ describe Pluto::Operation::Brightness do
 
   describe "#brightness!" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::RGBAImage.from_ppm(data)
       image.brightness!(1.4)
@@ -41,7 +41,7 @@ describe Pluto::Operation::Brightness do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::GrayscaleImage.from_ppm(data)
       image.brightness!(1.4)

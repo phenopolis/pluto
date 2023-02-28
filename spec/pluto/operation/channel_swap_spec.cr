@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::ChannelSwap do
   describe "#channel_swap" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::RGBAImage.from_ppm(data)
       bgr_image = original_image.channel_swap(:red, :blue)
@@ -13,7 +13,7 @@ describe Pluto::Operation::ChannelSwap do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::GrayscaleImage.from_ppm(data)
       expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
@@ -24,7 +24,7 @@ describe Pluto::Operation::ChannelSwap do
 
   describe "#channel_swap!" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::RGBAImage.from_ppm(data)
       image.channel_swap!(:red, :blue)

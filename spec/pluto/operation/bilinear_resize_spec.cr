@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::BilinearResize do
   describe "#bilinear_resize" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::RGBAImage.from_ppm(data)
       downsized_image = original_image.bilinear_resize(480, 360)
@@ -15,7 +15,7 @@ describe Pluto::Operation::BilinearResize do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       original_image = Pluto::GrayscaleImage.from_ppm(data)
       downsized_image = original_image.bilinear_resize(480, 360)
@@ -29,7 +29,7 @@ describe Pluto::Operation::BilinearResize do
 
   describe "#bilinear_resize!" do
     it "works with RGBAImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::RGBAImage.from_ppm(data)
       image.bilinear_resize!(480, 360)
@@ -41,7 +41,7 @@ describe Pluto::Operation::BilinearResize do
     end
 
     it "works with GrayscaleImage" do
-      data = SpecHelper.read_sample("pluto.ppm")
+      data = SpecHelper.pluto_ppm
 
       image = Pluto::GrayscaleImage.from_ppm(data)
       image.bilinear_resize!(480, 360)

@@ -31,9 +31,12 @@ module Pluto::Format::PPM
       end
     end
 
+    def self.from_ppm(image_data : Bytes) : self
+      from_ppm(IO::Memory.new(image_data))
+    end
+
     def self.from_ppm(image_data : String) : self
-      io = IO::Memory.new(image_data)
-      from_ppm(io)
+      from_ppm(image_data.to_slice)
     end
   end
 
