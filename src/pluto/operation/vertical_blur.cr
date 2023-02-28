@@ -47,7 +47,7 @@ module Pluto::Operation::VerticalBlur
         end
       end
 
-      channel.@buffer.copy_from(buffer.to_unsafe, buffer.size)
+      channel.to_unsafe.copy_from(buffer.to_unsafe, buffer.size)
     end
 
     self

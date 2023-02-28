@@ -1,8 +1,14 @@
-# Pluto
+<p align="center">
+  <img
+    alt="logo"
+    src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-white.png"
+    width="720px"
+  />
+</p>
 
-A fast and convenient image processing library
+<p align="center">A fast and convenient image processing library</p>
 
-#### Currently supported
+## Currently supported
 
 - Image formats
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
