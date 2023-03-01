@@ -24,7 +24,7 @@ def rgba_sample : Pluto::RGBAImage
   Pluto::RGBAImage.from_ppm(PLUTO_PPM_BYTES)
 end
 
-def with_sample(name : String, &block)
+def with_sample(name : String, &)
   File.open("lib/pluto_samples/#{name}") do |file|
     yield file
   end
