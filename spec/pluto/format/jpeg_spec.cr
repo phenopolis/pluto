@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 describe Pluto::Format::JPEG do
-  describe ".from_jpeg and .to_jpeg" do
+  describe ".from_jpeg and #to_jpeg" do
     it "works with GrayscaleImage" do
       with_sample("pluto.jpg") do |io|
         image = Pluto::GrayscaleImage.from_jpeg(io)

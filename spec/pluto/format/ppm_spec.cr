@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 describe Pluto::Format::PPM do
-  describe ".from_ppm and .to_ppm" do
+  describe ".from_ppm and #to_ppm" do
     it "works with GrayscaleImage" do
       with_sample("pluto.ppm") do |io|
         image = Pluto::GrayscaleImage.from_ppm(io)
