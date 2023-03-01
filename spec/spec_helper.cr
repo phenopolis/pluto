@@ -3,22 +3,29 @@ require "spec"
 
 require "../src/pluto"
 
-module SpecHelper
-  def self.with_sample(name : String)
-    File.open("lib/pluto_samples/#{name}") do |file|
-      yield file
-    end
-  end
+PLUTO_JPEG_BYTES = with_sample("pluto.jpg", &.getb_to_end)
+PLUTO_PPM_BYTES  = with_sample("pluto.ppm", &.getb_to_end)
 
-  @@pluto_ppm_bytes : Bytes?
+def expect_digest(image : Pluto::Image, digest : String) : Nil
+  io = IO::Memory.new
+  image.to_ppm(io)
+  digest(io.to_s).should eq digest
+end
 
-  def self.pluto_ppm : Bytes
-    @@pluto_ppm_bytes ||= with_sample("pluto.ppm", &.getb_to_end)
-  end
+def digest(data : String) : String
+  Digest::SHA1.hexdigest(data)
+end
 
-  @@pluto_jpg_bytes : Bytes?
+def grayscale_sample : Pluto::GrayscaleImage
+  Pluto::GrayscaleImage.from_ppm(PLUTO_PPM_BYTES)
+end
 
-  def self.pluto_jpg : Bytes
-    @@pluto_jpg_bytes ||= with_sample("pluto.jpg", &.getb_to_end)
+def rgba_sample : Pluto::RGBAImage
+  Pluto::RGBAImage.from_ppm(PLUTO_PPM_BYTES)
+end
+
+def with_sample(name : String, &block)
+  File.open("lib/pluto_samples/#{name}") do |file|
+    yield file
   end
 end
