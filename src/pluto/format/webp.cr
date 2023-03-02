@@ -58,6 +58,8 @@ module Pluto::Format::WebP
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
+
+    LibWebP.free(buffer)
   end
 
   private def check(code)
