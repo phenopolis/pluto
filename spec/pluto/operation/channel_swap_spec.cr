@@ -2,34 +2,37 @@ require "../../spec_helper"
 
 describe Pluto::Operation::ChannelSwap do
   describe "#channel_swap" do
-    it "works with RGBAImage" do
-      data = SpecHelper.pluto_ppm
+    it "works with GrayscaleImage" do
+      image = grayscale_sample
 
-      original_image = Pluto::RGBAImage.from_ppm(data)
-      bgr_image = original_image.channel_swap(:red, :blue)
-
-      Digest::SHA1.hexdigest(original_image.to_ppm).should eq "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      Digest::SHA1.hexdigest(bgr_image.to_ppm).should eq "1ae680c7e12077eb596ab12ec4328e3e78afb054"
+      expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
+        image.channel_swap(:red, :blue)
+      end
     end
 
-    it "works with GrayscaleImage" do
-      data = SpecHelper.pluto_ppm
+    it "works with RGBAImage" do
+      image = rgba_sample
+      bgra_image = image.channel_swap(:red, :blue)
 
-      original_image = Pluto::GrayscaleImage.from_ppm(data)
-      expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
-        original_image.channel_swap(:red, :blue)
-      end
+      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
+      expect_digest bgra_image, "1ae680c7e12077eb596ab12ec4328e3e78afb054"
     end
   end
 
   describe "#channel_swap!" do
-    it "works with RGBAImage" do
-      data = SpecHelper.pluto_ppm
+    it "works with GrayscaleImage" do
+      image = grayscale_sample
 
-      image = Pluto::RGBAImage.from_ppm(data)
+      expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
+        image.channel_swap!(:red, :blue)
+      end
+    end
+
+    it "works with RGBAImage" do
+      image = rgba_sample
       image.channel_swap!(:red, :blue)
 
-      Digest::SHA1.hexdigest(image.to_ppm).should eq "1ae680c7e12077eb596ab12ec4328e3e78afb054"
+      expect_digest image, "1ae680c7e12077eb596ab12ec4328e3e78afb054"
     end
   end
 end

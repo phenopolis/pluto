@@ -1,5 +1,6 @@
 module Pluto::Format::JPEG
   macro included
+    # This is the preferred, most performant JPEG overload with the least memory consumption.
     def self.from_jpeg(image_data : Bytes) : self
       handle = LibJPEGTurbo.init_decompress
       check handle, LibJPEGTurbo.decompress_header3(
@@ -40,12 +41,9 @@ module Pluto::Format::JPEG
       new(red, green, blue, alpha, width, height)
     end
 
+    # This is a less preferred JPEG overload.
     def self.from_jpeg(io : IO) : self
       from_jpeg(io.getb_to_end)
-    end
-
-    def self.from_jpeg(image_data : String) : self
-      from_jpeg(image_data.to_slice)
     end
 
     private def self.check(handle, code)
@@ -54,14 +52,6 @@ module Pluto::Format::JPEG
   end
 
   def to_jpeg(io : IO, quality : Int32 = 100) : Nil
-    io.write(buffer(quality))
-  end
-
-  def to_jpeg(quality : Int32 = 100) : String
-    String.new(buffer(quality))
-  end
-
-  private def buffer(quality : Int32 = 100) : Bytes
     handle = LibJPEGTurbo.init_compress
     image_data = IO::Memory.new(size * 3)
     size.times do |index|
@@ -86,7 +76,8 @@ module Pluto::Format::JPEG
     )
     check handle, LibJPEGTurbo.destroy(handle)
 
-    Bytes.new(buffer, size)
+    bytes = Bytes.new(buffer, size)
+    io.write(bytes)
   end
 
   private def check(handle, code)

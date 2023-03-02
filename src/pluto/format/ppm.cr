@@ -1,5 +1,9 @@
 module Pluto::Format::PPM
   macro included
+    def self.from_ppm(image_data : Bytes) : self
+      from_ppm(IO::Memory.new(image_data))
+    end
+
     def self.from_ppm(io : IO) : self
       _magic_number = io.gets("\n", chomp: true)
       width = io.gets(" ", chomp: true).try &.to_i
@@ -30,14 +34,6 @@ module Pluto::Format::PPM
         raise "The image doesn't have width or height"
       end
     end
-
-    def self.from_ppm(image_data : Bytes) : self
-      from_ppm(IO::Memory.new(image_data))
-    end
-
-    def self.from_ppm(image_data : String) : self
-      from_ppm(image_data.to_slice)
-    end
   end
 
   def to_ppm(io : IO) : Nil
@@ -48,12 +44,6 @@ module Pluto::Format::PPM
       io.write_byte(red.unsafe_fetch(index))
       io.write_byte(green.unsafe_fetch(index))
       io.write_byte(blue.unsafe_fetch(index))
-    end
-  end
-
-  def to_ppm : String
-    String.build do |string|
-      to_ppm(string)
     end
   end
 end

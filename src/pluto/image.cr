@@ -17,6 +17,7 @@ abstract class Pluto::Image
     include Operation::VerticalBlur
   end
 
+  # TODO: Remove.
   macro forward_to_rgb_image(*methods)
     {% for method in methods %}
       @[Deprecated("Use RGBAImage.{{method.id}} instead")]
@@ -26,6 +27,7 @@ abstract class Pluto::Image
     {% end %}
   end
 
+  # TODO: Remove.
   forward_to_rgb_image from_ppm, from_jpg
 
   abstract def red : Array(UInt8)
