@@ -60,7 +60,7 @@ module Pluto::Format::JPEG
       image_data.write_byte(blue.unsafe_fetch(index))
     end
 
-    buffer = Array(UInt8).new.to_unsafe
+    buffer = Pointer(UInt8).null
     check handle, LibJPEGTurbo.compress2(
       handle,
       image_data.buffer,
@@ -78,6 +78,8 @@ module Pluto::Format::JPEG
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
+
+    LibJPEGTurbo.free(buffer)
   end
 
   private def check(handle, code)
