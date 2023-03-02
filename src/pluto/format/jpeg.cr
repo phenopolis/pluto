@@ -30,12 +30,11 @@ module Pluto::Format::JPEG
       green = Array.new(width * height) { 0u8 }
       blue = Array.new(width * height) { 0u8 }
       alpha = Array.new(width * height) { 255u8 }
-      pixels = buffer.each_slice(3).to_a
 
       (width * height).times do |index|
-        red.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(0))
-        green.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(1))
-        blue.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(2))
+        red.unsafe_put(index, buffer[index * 3])
+        green.unsafe_put(index, buffer[index * 3 + 1])
+        blue.unsafe_put(index, buffer[index * 3 + 2])
       end
 
       new(red, green, blue, alpha, width, height)
