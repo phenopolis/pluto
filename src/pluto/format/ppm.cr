@@ -1,11 +1,9 @@
 module Pluto::Format::PPM
   macro included
-    # This is a less preferred PPM overload.
     def self.from_ppm(image_data : Bytes) : self
       from_ppm(IO::Memory.new(image_data))
     end
 
-    # This is the preferred, most performant PPM overload with the least memory consumption.
     def self.from_ppm(io : IO) : self
       _magic_number = io.gets("\n", chomp: true)
       width = io.gets(" ", chomp: true).try &.to_i
