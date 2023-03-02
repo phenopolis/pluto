@@ -10,6 +10,7 @@ lib LibJPEGTurbo
   fun get_error_str = tjGetErrorStr2(handle : Handle) : UInt8*
   fun init_compress = tjInitCompress : Handle
   fun init_decompress = tjInitDecompress : Handle
+  fun free = tjFree(buffer : UInt8*) : Void
 
   enum Colorspace
     RGB
