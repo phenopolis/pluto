@@ -6,6 +6,7 @@ abstract class Pluto::Image
   macro inherited
     include Format::JPEG
     include Format::PPM
+    include Format::WebP
 
     include Operation::BilinearResize
     include Operation::BoxBlur
