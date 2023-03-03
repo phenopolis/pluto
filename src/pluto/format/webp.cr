@@ -1,6 +1,6 @@
 module Pluto::Format::WebP
   macro included
-    # This is the preferred, most performant JPEG overload with the least memory consumption.
+    # This is the preferred, most performant WebP overload with the least memory consumption.
     def self.from_webp(image_data : Bytes) : self
       check LibWebP.get_info(image_data, image_data.size, out width, out height)
       buffer = LibWebP.decode_rgba(
@@ -27,7 +27,7 @@ module Pluto::Format::WebP
       new(red, green, blue, alpha, width, height)
     end
 
-    # This is a less preferred JPEG overload.
+    # This is a less preferred WebP overload.
     def self.from_webp(io : IO) : self
       from_webp(io.getb_to_end)
     end
