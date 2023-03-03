@@ -13,6 +13,7 @@
 - Image formats
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PPM
+  - WebP (through [libwebp](https://developers.google.com/speed/webp))
 - Image operations
   - Bilinear resize
   - Box blur

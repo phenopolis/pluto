@@ -13,7 +13,7 @@ jobs:
       image: crystallang/crystal:latest-alpine
     steps:
       - uses: actions/checkout@v3
-      - run: apk add libjpeg-turbo libjpeg-turbo-dev
+      - run: apk add libjpeg-turbo libjpeg-turbo-dev libwebp libwebp-dev
       - run: shards install
       - run: bin/ameba
       - run: crystal tool format --check
