@@ -2,6 +2,7 @@ class Pluto::Exception < ::Exception
   getter error_code : Int32
 
   def initialize(@error_code : Int32)
+    super("Received `#{@error_code}` as the error code")
   end
 
   def initialize(handle : LibJPEGTurbo::Handle)
