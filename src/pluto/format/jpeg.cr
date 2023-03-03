@@ -30,12 +30,11 @@ module Pluto::Format::JPEG
       green = Array.new(width * height) { 0u8 }
       blue = Array.new(width * height) { 0u8 }
       alpha = Array.new(width * height) { 255u8 }
-      pixels = buffer.each_slice(3).to_a
 
       (width * height).times do |index|
-        red.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(0))
-        green.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(1))
-        blue.unsafe_put(index, pixels.unsafe_fetch(index).unsafe_fetch(2))
+        red.unsafe_put(index, buffer[index * 3])
+        green.unsafe_put(index, buffer[index * 3 + 1])
+        blue.unsafe_put(index, buffer[index * 3 + 2])
       end
 
       new(red, green, blue, alpha, width, height)
@@ -60,7 +59,7 @@ module Pluto::Format::JPEG
       image_data.write_byte(blue.unsafe_fetch(index))
     end
 
-    buffer = Array(UInt8).new.to_unsafe
+    buffer = Pointer(UInt8).null
     check handle, LibJPEGTurbo.compress2(
       handle,
       image_data.buffer,
@@ -78,6 +77,8 @@ module Pluto::Format::JPEG
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
+
+    LibJPEGTurbo.free(buffer)
   end
 
   private def check(handle, code)
