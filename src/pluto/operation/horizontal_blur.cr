@@ -23,7 +23,7 @@ module Pluto::Operation::HorizontalBlur
 
         (0..value).each do
           c_value += channel.unsafe_fetch(r_index).to_i - f_value
-          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
+          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
 
           r_index += 1
           c_index += 1
@@ -31,7 +31,7 @@ module Pluto::Operation::HorizontalBlur
 
         (value + 1..@width - value - 1).each do
           c_value += (channel.unsafe_fetch(r_index).to_i - channel.unsafe_fetch(l_index).to_i)
-          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
+          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
 
           r_index += 1
           l_index += 1
@@ -40,7 +40,7 @@ module Pluto::Operation::HorizontalBlur
 
         (@width - value..@width - 1).each do
           c_value += l_value - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
+          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
 
           l_index += 1
           c_index += 1

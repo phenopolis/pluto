@@ -45,7 +45,7 @@ module Pluto::Format::JPEG
       from_jpeg(io.getb_to_end)
     end
 
-    private def self.check(handle, code)
+    protected def self.check(handle, code)
       raise ::Pluto::Exception.new(handle) unless code == 0
     end
   end
@@ -82,6 +82,6 @@ module Pluto::Format::JPEG
   end
 
   private def check(handle, code)
-    raise ::Pluto::Exception.new(handle) unless code == 0
+    self.class.check(handle, code)
   end
 end

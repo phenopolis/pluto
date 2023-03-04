@@ -17,6 +17,13 @@ describe Pluto::Operation::HorizontalBlur do
       expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
       expect_digest blurred_image, "625be82cf07186fde56a81059c8149bc192bb1c9"
     end
+
+    it "doesn't cause arithmetic overload" do
+      with_sample("problem_images/28_arithmetic_overflow_in_blur.jpg") do |io|
+        image = Pluto::RGBAImage.from_jpeg(io)
+        expect_digest image.horizontal_blur(10), "5ddb10856f206d2a2eeb020e3e5b69657f5311bc"
+      end
+    end
   end
 
   describe "#horizontal_blur!" do

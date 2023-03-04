@@ -17,6 +17,13 @@ describe Pluto::Operation::VerticalBlur do
       expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
       expect_digest blurred_image, "d7116d6cea0a14e23cc3a23dbc86ad8bf1fecf2f"
     end
+
+    it "doesn't cause arithmetic overload" do
+      with_sample("problem_images/28_arithmetic_overflow_in_blur.jpg") do |io|
+        image = Pluto::RGBAImage.from_jpeg(io)
+        expect_digest image.vertical_blur(10), "fd483aa927fb2ca8fdeb714e82dbbd3bf173daba"
+      end
+    end
   end
 
   describe "#vertical_blur!" do

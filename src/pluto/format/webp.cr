@@ -32,7 +32,7 @@ module Pluto::Format::WebP
       from_webp(io.getb_to_end)
     end
 
-    private def self.check(code)
+    protected def self.check(code)
       raise ::Pluto::Exception.new(code) if code == 0
     end
   end
@@ -63,6 +63,6 @@ module Pluto::Format::WebP
   end
 
   private def check(code)
-    raise ::Pluto::Exception.new(code.to_i) if code == 0
+    self.class.check(code.to_i)
   end
 end
