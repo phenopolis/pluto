@@ -2,7 +2,7 @@ module Pluto::Format::WebP
   macro included
     # This is the preferred, most performant WebP overload with the least memory consumption.
     def self.from_webp(image_data : Bytes) : self
-      check LibWebP.get_info(image_data, image_data.size, out width, out height)
+      check_webp LibWebP.get_info(image_data, image_data.size, out width, out height)
       buffer = LibWebP.decode_rgba(
         image_data,
         image_data.size,
@@ -32,7 +32,7 @@ module Pluto::Format::WebP
       from_webp(io.getb_to_end)
     end
 
-    protected def self.check(code)
+    protected def self.check_webp(code)
       raise ::Pluto::Exception.new(code) if code == 0
     end
   end
@@ -54,7 +54,7 @@ module Pluto::Format::WebP
       @width * 4,
       out buffer
     )
-    check size
+    check_webp size
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
@@ -62,7 +62,7 @@ module Pluto::Format::WebP
     LibWebP.free(buffer)
   end
 
-  private def check(code)
-    self.class.check(code.to_i)
+  private def check_webp(code)
+    self.class.check_webp(code.to_i)
   end
 end

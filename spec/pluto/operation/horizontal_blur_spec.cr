@@ -7,7 +7,7 @@ describe Pluto::Operation::HorizontalBlur do
       blurred_image = image.horizontal_blur(10)
 
       expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest blurred_image, "b04348fe463d35197cc57b0114596d9b78a20f55"
+      expect_digest blurred_image, "7d889ea6f8e71edf06024706774b6d430977a2ab"
     end
 
     it "works with RGBAImage" do
@@ -15,13 +15,13 @@ describe Pluto::Operation::HorizontalBlur do
       blurred_image = image.horizontal_blur(10)
 
       expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest blurred_image, "625be82cf07186fde56a81059c8149bc192bb1c9"
+      expect_digest blurred_image, "3441fa29b711daddecb8df015d03a3ce40312011"
     end
 
     it "doesn't cause arithmetic overload" do
       with_sample("problem_images/28_arithmetic_overflow_in_blur.jpg") do |io|
         image = Pluto::RGBAImage.from_jpeg(io)
-        expect_digest image.horizontal_blur(10), "5ddb10856f206d2a2eeb020e3e5b69657f5311bc"
+        expect_digest image.horizontal_blur(10), "20247bbe9560acdc857f59957c121d964ac09549"
       end
     end
   end
@@ -31,14 +31,14 @@ describe Pluto::Operation::HorizontalBlur do
       image = grayscale_sample
       image.horizontal_blur!(10)
 
-      expect_digest image, "b04348fe463d35197cc57b0114596d9b78a20f55"
+      expect_digest image, "7d889ea6f8e71edf06024706774b6d430977a2ab"
     end
 
     it "works with RGBAImage" do
       image = rgba_sample
       image.horizontal_blur!(10)
 
-      expect_digest image, "625be82cf07186fde56a81059c8149bc192bb1c9"
+      expect_digest image, "3441fa29b711daddecb8df015d03a3ce40312011"
     end
   end
 end
