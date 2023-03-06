@@ -81,7 +81,5 @@ module Pluto::Format::JPEG
     LibJPEGTurbo.free(buffer)
   end
 
-  private def check_jpeg(handle, code)
-    self.class.check_jpeg(handle, code)
-  end
+  delegate check_jpeg, to: self.class
 end
