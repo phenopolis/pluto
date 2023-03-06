@@ -16,20 +16,8 @@ abstract class Pluto::Image
     include Operation::GaussianBlur
     include Operation::HorizontalBlur
     include Operation::VerticalBlur
+    include Operation::Crop
   end
-
-  # TODO: Remove.
-  macro forward_to_rgb_image(*methods)
-    {% for method in methods %}
-      @[Deprecated("Use RGBAImage.{{method.id}} instead")]
-      def self.{{method.id}}(*args, **kwargs)
-        RGBAImage.{{method.id}}(*args, **kwargs)
-      end
-    {% end %}
-  end
-
-  # TODO: Remove.
-  forward_to_rgb_image from_ppm, from_jpg
 
   abstract def red : Array(UInt8)
   abstract def green : Array(UInt8)
