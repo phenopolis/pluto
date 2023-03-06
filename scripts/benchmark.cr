@@ -63,7 +63,7 @@ macro benchmark(&)
       {{yield}}
     end
   end
-  Result.new(name: "{{yield.id.strip.split("\n")[-1].id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds)
+  Result.new(name: "{{yield.id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds)
 end
 
 results = [] of Result
