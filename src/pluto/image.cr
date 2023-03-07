@@ -5,6 +5,7 @@ require "./operation/*"
 abstract class Pluto::Image
   macro inherited
     include Format::JPEG
+    include Format::PNG
     include Format::PPM
     include Format::WebP
 
