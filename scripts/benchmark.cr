@@ -79,6 +79,7 @@ results << benchmark { image.vertical_blur!(10) }
 results << benchmark { image.crop!(200, 200, 100, 100) }
 
 results << benchmark { image.to_jpeg(IO::Memory.new) }
+results << benchmark { image.to_png(IO::Memory.new) }
 results << benchmark { image.to_ppm(IO::Memory.new) }
 results << benchmark { image.to_webp(IO::Memory.new) }
 
