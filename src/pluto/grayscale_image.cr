@@ -16,7 +16,7 @@ class Pluto::GrayscaleImage < Pluto::Image
     RGBAImage.new(red, green, blue, alpha, width, height).to_gray
   end
 
-  def initialize(@gray : Array(UInt8), @width : Int32, @height : Int32)
+  def initialize(@gray, @width, @height)
   end
 
   def clone : GrayscaleImage

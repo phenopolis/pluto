@@ -11,14 +11,7 @@ class Pluto::RGBAImage < Pluto::Image
   property width : Int32
   property height : Int32
 
-  def initialize(
-    @red : Array(UInt8),
-    @green : Array(UInt8),
-    @blue : Array(UInt8),
-    @alpha : Array(UInt8),
-    @width : Int32,
-    @height : Int32
-  )
+  def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
 
   def clone : RGBAImage
