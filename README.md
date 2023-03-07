@@ -21,6 +21,7 @@
   - Brightness
   - Channel swap
   - Contrast
+  - Crop
   - Gaussian blur
   - Horizontal blur
   - Vertical blur

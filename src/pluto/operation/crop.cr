@@ -9,6 +9,7 @@ module Pluto::Operation::Crop
 
     new_size = new_width * new_height
     height_offset = y * width
+
     each_channel do |channel, channel_type|
       resized_channel = Array.new(new_size) { 0u8 }
 
