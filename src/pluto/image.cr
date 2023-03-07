@@ -31,6 +31,6 @@ abstract class Pluto::Image
   abstract def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
 
   def size : Int32
-    @width * @height
+    width * height
   end
 end
