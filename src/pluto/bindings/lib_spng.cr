@@ -1,5 +1,17 @@
 @[Link(ldflags: "-lspng")]
 lib LibSPNG
+  fun ctx_free = spng_ctx_free(ctx : Void*)
+  fun ctx_new = spng_ctx_new(flags : CtxFlags) : Void*
+  fun decode_image = spng_decode_image(ctx : Void*, out : Void*, len : LibC::SizeT, fmt : Format, flags : DecodeFlags) : LibC::Int
+  fun decoded_image_size = spng_decoded_image_size(ctx : Void*, fmt : Format, len : LibC::SizeT*) : LibC::Int
+  fun encode_chunks = spng_encode_chunks(ctx : Void*) : LibC::Int
+  fun encode_image = spng_encode_image(ctx : Void*, img : Void*, len : LibC::SizeT, fmt : Format, flags : EncodeFlags) : LibC::Int
+  fun get_ihdr = spng_get_ihdr(ctx : Void*, ihdr : IHDR*) : LibC::Int
+  fun get_png_buffer = spng_get_png_buffer(ctx : Void*, len : LibC::SizeT*, error : LibC::Int*) : UInt8*
+  fun set_ihdr = spng_set_ihdr(ctx : Void*, ihdr : IHDR*) : LibC::Int
+  fun set_option = spng_set_option(ctx : Void*, option : Option, value : LibC::Int) : LibC::Int
+  fun set_png_buffer = spng_set_png_buffer(ctx : Void*, buf : Void*, size : LibC::SizeT) : LibC::Int
+
   enum ColorType : UInt8
     Grayscale      = 0
     TrueColor      = 2
@@ -61,16 +73,4 @@ lib LibSPNG
     filter_method : UInt8
     interlace_method : UInt8
   end
-
-  fun ctx_free = spng_ctx_free(ctx : Void*)
-  fun ctx_new = spng_ctx_new(flags : CtxFlags) : Void*
-  fun decode_image = spng_decode_image(ctx : Void*, out : Void*, len : LibC::SizeT, fmt : Format, flags : DecodeFlags) : LibC::Int
-  fun decoded_image_size = spng_decoded_image_size(ctx : Void*, fmt : Format, len : LibC::SizeT*) : LibC::Int
-  fun encode_chunks = spng_encode_chunks(ctx : Void*) : LibC::Int
-  fun encode_image = spng_encode_image(ctx : Void*, img : Void*, len : LibC::SizeT, fmt : Format, flags : EncodeFlags) : LibC::Int
-  fun get_ihdr = spng_get_ihdr(ctx : Void*, ihdr : IHDR*) : LibC::Int
-  fun get_png_buffer = spng_get_png_buffer(ctx : Void*, len : LibC::SizeT*, error : LibC::Int*) : UInt8*
-  fun set_ihdr = spng_set_ihdr(ctx : Void*, ihdr : IHDR*) : LibC::Int
-  fun set_option = spng_set_option(ctx : Void*, option : Option, value : LibC::Int) : LibC::Int
-  fun set_png_buffer = spng_set_png_buffer(ctx : Void*, buf : Void*, size : LibC::SizeT) : LibC::Int
 end
