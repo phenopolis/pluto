@@ -39,17 +39,16 @@ module Pluto::Format::WebP
   end
 
   def to_webp(io : IO) : Nil
-    image_data = String.build do |string|
-      size.times do |index|
-        string.write_byte(red.unsafe_fetch(index))
-        string.write_byte(green.unsafe_fetch(index))
-        string.write_byte(blue.unsafe_fetch(index))
-        string.write_byte(alpha.unsafe_fetch(index))
-      end
+    image_data = IO::Memory.new(size * 4)
+    size.times do |index|
+      image_data.write_byte(red.unsafe_fetch(index))
+      image_data.write_byte(green.unsafe_fetch(index))
+      image_data.write_byte(blue.unsafe_fetch(index))
+      image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
     size = LibWebP.encode_lossless_rgba(
-      image_data,
+      image_data.buffer,
       @width,
       @height,
       @width * 4,
