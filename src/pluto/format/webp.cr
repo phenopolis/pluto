@@ -16,10 +16,11 @@ module Pluto::Format::WebP
       alpha = Array.new(width * height) { 0u8 }
 
       (width * height).times do |index|
-        red.unsafe_put(index, buffer[index * 4])
-        green.unsafe_put(index, buffer[index * 4 + 1])
-        blue.unsafe_put(index, buffer[index * 4 + 2])
-        alpha.unsafe_put(index, buffer[index * 4 + 3])
+        position = index * 4
+        red.unsafe_put(index, buffer[position + 0])
+        green.unsafe_put(index, buffer[position + 1])
+        blue.unsafe_put(index, buffer[position + 2])
+        alpha.unsafe_put(index, buffer[position + 3])
       end
 
       LibWebP.free(buffer)

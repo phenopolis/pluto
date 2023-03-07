@@ -26,9 +26,11 @@ abstract class Pluto::Image
   abstract def alpha : Array(UInt8)
   abstract def width : Int32
   abstract def height : Int32
-  abstract def size : Int32
-
-  abstract def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
   abstract def [](channel_type : ChannelType) : Array(UInt8)
   abstract def []=(channel_type : ChannelType, channel : Array(UInt8)) : Array(UInt8)
+  abstract def each_channel(& : (Array(UInt8), ChannelType) -> Nil) : Nil
+
+  def size : Int32
+    @width * @height
+  end
 end

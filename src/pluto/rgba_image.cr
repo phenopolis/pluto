@@ -11,7 +11,14 @@ class Pluto::RGBAImage < Pluto::Image
   property width : Int32
   property height : Int32
 
-  def initialize(@red, @green, @blue, @alpha, @width, @height)
+  def initialize(
+    @red : Array(UInt8),
+    @green : Array(UInt8),
+    @blue : Array(UInt8),
+    @alpha : Array(UInt8),
+    @width : Int32,
+    @height : Int32
+  )
   end
 
   def clone : RGBAImage
@@ -56,8 +63,11 @@ class Pluto::RGBAImage < Pluto::Image
   # Convert color image to grayscale one, using the NTSC formula as default values.
   def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114)
     GrayscaleImage.new(
-      red.map_with_index do |red_pix, i|
-        Math.min(255, red_pix * red_multiplier + @green[i] * green_multiplier + @blue[i] * blue_multiplier).to_u8
+      red.map_with_index do |red_pixel, index|
+        Math.min(
+          255u8,
+          (red_pixel * red_multiplier + @green[index] * green_multiplier + @blue[index] * blue_multiplier).to_u8
+        )
       end,
       width,
       height

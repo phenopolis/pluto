@@ -5,11 +5,18 @@ class Pluto::GrayscaleImage < Pluto::Image
   property width : Int32
   property height : Int32
 
-  def self.new(red : Array(UInt8), green : Array(UInt8), blue : Array(UInt8), alpha : Array(UInt8), width : Int32, height : Int32)
+  def self.new(
+    red : Array(UInt8),
+    green : Array(UInt8),
+    blue : Array(UInt8),
+    alpha : Array(UInt8),
+    width : Int32,
+    height : Int32
+  )
     RGBAImage.new(red, green, blue, alpha, width, height).to_gray
   end
 
-  def initialize(@gray, @width, @height)
+  def initialize(@gray : Array(UInt8), @width : Int32, @height : Int32)
   end
 
   def clone : GrayscaleImage
@@ -54,10 +61,13 @@ class Pluto::GrayscaleImage < Pluto::Image
   end
 
   def to_rgba
-    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, Array(UInt8).new(size) { 1u8 }, width, height)
-  end
-
-  def size : Int32
-    @width * @height
+    RGBAImage.new(
+      @gray.clone,
+      @gray.clone,
+      @gray.clone,
+      Array(UInt8).new(size) { 255u8 },
+      width,
+      height
+    )
   end
 end

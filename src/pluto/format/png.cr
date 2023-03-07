@@ -31,10 +31,11 @@ module Pluto::Format::PNG
       alpha = Array.new(size) { 0u8 }
 
       size.times do |index|
-        red.unsafe_put(index, image[index * 4])
-        green.unsafe_put(index, image[index * 4 + 1])
-        blue.unsafe_put(index, image[index * 4 + 2])
-        alpha.unsafe_put(index, image[index * 4 + 3])
+        position = index * 4
+        red.unsafe_put(index, image[position + 0])
+        green.unsafe_put(index, image[position + 1])
+        blue.unsafe_put(index, image[position + 2])
+        alpha.unsafe_put(index, image[position + 3])
       end
 
       new(red, green, blue, alpha, width.to_i, height.to_i)
