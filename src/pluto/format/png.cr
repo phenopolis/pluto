@@ -3,7 +3,7 @@ module Pluto::Format::PNG
     # This is the preferred, most performant PNG overload with the least memory consumption.
     def self.from_png(image_data : Bytes) : self
       ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::None)
-      raise Exception.new("Failed to create a context") unless ctx
+      raise ::Pluto::Exception.new("Failed to create a context") unless ctx
 
       LibSPNG.set_png_buffer(ctx, image_data, image_data.size)
 
@@ -60,7 +60,7 @@ module Pluto::Format::PNG
     end
 
     ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::Encoder)
-    raise Exception.new("Failed to create a context") unless ctx
+    raise ::Pluto::Exception.new("Failed to create a context") unless ctx
 
     LibSPNG.set_option(ctx, LibSPNG::Option::EncodeToBuffer, true)
     LibSPNG.set_png_buffer(ctx, image_data.buffer, image_data.size)
@@ -82,7 +82,7 @@ module Pluto::Format::PNG
     check_png error
 
     buffer = LibSPNG.get_png_buffer(ctx, out size, pointerof(error))
-    raise Exception.new("Failed to get a buffer") unless ctx
+    raise ::Pluto::Exception.new("Failed to get a buffer") unless ctx
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
