@@ -25,20 +25,20 @@ private def elapsed_text(millis)
 end
 
 def print_result_table(results : Array(Result))
-  name_rjust = results.map(&.name.size).max
+  name_ljust = results.map(&.name.size).max
   time_ljust = results.map { |res| elapsed_text(res.time).size }.max
   memo_ljust = results.map(&.memory.humanize_bytes.size).max
 
   # Headers
   table = [
-    [" " * name_rjust, "Time".ljust(time_ljust), "Memory".ljust(memo_ljust)],
-    ["-" * name_rjust, "-" * time_ljust, "-" * memo_ljust],
+    [" " * name_ljust, "Time".ljust(time_ljust), "Memory".ljust(memo_ljust)],
+    ["-" * name_ljust, "-" * time_ljust, "-" * memo_ljust],
   ]
 
   # Rows
   results.each do |result|
     table << [
-      result.name.rjust(name_rjust),
+      result.name.ljust(name_ljust),
       elapsed_text(result.time).ljust(time_ljust),
       result.memory.humanize_bytes.ljust(memo_ljust),
     ]
