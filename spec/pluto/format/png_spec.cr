@@ -8,7 +8,7 @@ describe Pluto::Format::PNG do
         io = IO::Memory.new
         image.to_png(io)
 
-        digest(io.to_s).should eq "944007df754a5737485981612977ce3d365ccb54"
+        digest(io.to_s).should eq "5fc8ce7e9d94d4b3ceb5d2216cf66e90e03c66e0"
       end
     end
 

@@ -8,7 +8,7 @@ describe Pluto::Format::WebP do
         io = IO::Memory.new
         image.to_webp(io)
 
-        digest(io.to_s).should eq "92678d201760ee50929ea344a81c76d5f61e70e6"
+        digest(io.to_s).should eq "4a23dfdec161349c163c0a17a6af4cf94e1807d7"
       end
     end
 

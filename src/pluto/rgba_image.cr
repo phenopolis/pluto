@@ -62,6 +62,7 @@ class Pluto::RGBAImage < Pluto::Image
           (red_pixel * red_multiplier + @green[index] * green_multiplier + @blue[index] * blue_multiplier).to_u8
         )
       end,
+      alpha,
       width,
       height
     )

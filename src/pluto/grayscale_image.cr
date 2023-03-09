@@ -2,6 +2,7 @@ require "./image"
 
 class Pluto::GrayscaleImage < Pluto::Image
   property gray : Array(UInt8)
+  property alpha : Array(UInt8)
   property width : Int32
   property height : Int32
 
@@ -16,12 +17,13 @@ class Pluto::GrayscaleImage < Pluto::Image
     RGBAImage.new(red, green, blue, alpha, width, height).to_gray
   end
 
-  def initialize(@gray, @width, @height)
+  def initialize(@gray, @alpha, @width, @height)
   end
 
   def clone : GrayscaleImage
     self.class.new(
       @gray.clone,
+      @alpha.clone,
       @width,
       @height
     )
@@ -36,10 +38,6 @@ class Pluto::GrayscaleImage < Pluto::Image
   end
 
   def blue : Array(UInt8)
-    @gray
-  end
-
-  def alpha : Array(UInt8)
     @gray
   end
 
