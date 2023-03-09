@@ -54,7 +54,7 @@ class Pluto::RGBAImage < Pluto::Image
   end
 
   # Convert color image to grayscale one, using the NTSC formula as default values.
-  def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114)
+  def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : GrayscaleImage
     GrayscaleImage.new(
       red.map_with_index do |red_pixel, index|
         Math.min(
