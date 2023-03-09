@@ -4,10 +4,10 @@ describe Pluto::Operation::ChannelSwap do
   describe "#channel_swap" do
     it "works with GrayscaleImage" do
       image = grayscale_sample
+      ag_image = image.channel_swap(:gray, :alpha)
 
-      expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
-        image.channel_swap(:red, :blue)
-      end
+      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
+      expect_digest ag_image, "660145a96da80f41330c161df87de83945230a35"
     end
 
     it "works with RGBAImage" do
@@ -22,10 +22,9 @@ describe Pluto::Operation::ChannelSwap do
   describe "#channel_swap!" do
     it "works with GrayscaleImage" do
       image = grayscale_sample
+      image.channel_swap!(:gray, :alpha)
 
-      expect_raises(Exception, /Unknown channel type Red for GrayscaleImage/) do
-        image.channel_swap!(:red, :blue)
-      end
+      expect_digest image, "660145a96da80f41330c161df87de83945230a35"
     end
 
     it "works with RGBAImage" do
