@@ -1,5 +1,5 @@
 <p align="center">
-  <picture width="720px">
+  <picture>
     <source
       media="(prefers-color-scheme: dark)"
       srcset="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-white.png"
@@ -7,6 +7,7 @@
     <img
       alt="logo"
       src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-black.png"
+      width="720px"
     />
   </picture>
 </p>
