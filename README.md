@@ -1,9 +1,14 @@
 <p align="center">
-  <img
-    alt="logo"
-    src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-white.png"
-    width="720px"
-  />
+  <picture width="720px">
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-white.png"
+    />
+    <img
+      alt="logo"
+      src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-black.png"
+    />
+  </picture>
 </p>
 
 <p align="center">A fast and convenient image processing library</p>
