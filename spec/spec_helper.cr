@@ -16,12 +16,12 @@ def digest(data : String) : String
   Digest::SHA1.hexdigest(data)
 end
 
-def grayscale_sample : Pluto::GrayscaleImage
-  Pluto::GrayscaleImage.from_ppm(PLUTO_PPM_BYTES)
+def grayscale_sample : Pluto::ImageGA
+  Pluto::ImageGA.from_ppm(PLUTO_PPM_BYTES)
 end
 
-def rgba_sample : Pluto::RGBAImage
-  Pluto::RGBAImage.from_ppm(PLUTO_PPM_BYTES)
+def rgba_sample : Pluto::ImageRGBA
+  Pluto::ImageRGBA.from_ppm(PLUTO_PPM_BYTES)
 end
 
 def with_sample(name : String, &)

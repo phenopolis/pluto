@@ -56,7 +56,7 @@ def print_result_table(results : Array(Result))
 end
 
 macro benchmark(&)
-  image = File.open("lib/pluto_samples/pluto.ppm") { |file| Pluto::RGBAImage.from_ppm(file) }
+  image = File.open("lib/pluto_samples/pluto.ppm") { |file| Pluto::ImageRGBA.from_ppm(file) }
   memory = 0i64
   time = benchmark_time do
     memory = benchmark_memory do

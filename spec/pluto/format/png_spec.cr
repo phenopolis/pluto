@@ -2,9 +2,9 @@ require "../../spec_helper"
 
 describe Pluto::Format::PNG do
   describe ".from_png and #to_png" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       with_sample("pluto.png") do |io|
-        image = Pluto::GrayscaleImage.from_png(io)
+        image = Pluto::ImageGA.from_png(io)
         io = IO::Memory.new
         image.to_png(io)
 
@@ -12,9 +12,9 @@ describe Pluto::Format::PNG do
       end
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       with_sample("pluto.png") do |io|
-        image = Pluto::RGBAImage.from_png(io)
+        image = Pluto::ImageRGBA.from_png(io)
         io = IO::Memory.new
         image.to_png(io)
 

@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Pluto::Operation::BoxBlur do
   describe "#box_blur" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       blurred_image = image.box_blur(10)
 
@@ -10,7 +10,7 @@ describe Pluto::Operation::BoxBlur do
       expect_digest blurred_image, "2a14473b3004d51de5c63397a4e4089bc2a3bf67"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       blurred_image = image.box_blur(10)
 
@@ -20,14 +20,14 @@ describe Pluto::Operation::BoxBlur do
   end
 
   describe "#box_blur!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.box_blur!(10)
 
       expect_digest image, "2a14473b3004d51de5c63397a4e4089bc2a3bf67"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.box_blur!(10)
 

@@ -18,7 +18,7 @@ describe Pluto::Operation::Crop do
       end
     end
 
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       whole_image = image.crop(0, 0, image.width, image.height)
       cropped_image = image.crop(200, 200, 100, 100)
@@ -28,7 +28,7 @@ describe Pluto::Operation::Crop do
       expect_digest cropped_image, "42c223c282a5ca6419683e98216908520838b717"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       whole_image = image.crop(0, 0, image.width, image.height)
       cropped_image = image.crop(200, 200, 100, 100)
@@ -40,7 +40,7 @@ describe Pluto::Operation::Crop do
   end
 
   describe "#crop!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.crop!(0, 0, image.width, image.height)
       expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
@@ -50,7 +50,7 @@ describe Pluto::Operation::Crop do
       expect_digest image, "42c223c282a5ca6419683e98216908520838b717"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.crop!(0, 0, image.width, image.height)
       expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"

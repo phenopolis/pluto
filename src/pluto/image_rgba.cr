@@ -3,7 +3,7 @@ require "./bindings/*"
 require "./format/*"
 require "./operation/*"
 
-class Pluto::RGBAImage < Pluto::Image
+class Pluto::ImageRGBA < Pluto::Image
   property red : Array(UInt8)
   property green : Array(UInt8)
   property blue : Array(UInt8)
@@ -14,7 +14,7 @@ class Pluto::RGBAImage < Pluto::Image
   def initialize(@red, @green, @blue, @alpha, @width, @height)
   end
 
-  def clone : RGBAImage
+  def clone : ImageRGBA
     self.class.new(
       @red.clone,
       @green.clone,
@@ -39,7 +39,7 @@ class Pluto::RGBAImage < Pluto::Image
     when ChannelType::Green then @green
     when ChannelType::Blue  then @blue
     when ChannelType::Alpha then @alpha
-    else                         raise "Unknown channel type #{channel_type} for RGBAImage"
+    else                         raise "Unknown channel type #{channel_type} for ImageRGBA"
     end
   end
 
@@ -49,13 +49,14 @@ class Pluto::RGBAImage < Pluto::Image
     when ChannelType::Green then @green = channel
     when ChannelType::Blue  then @blue = channel
     when ChannelType::Alpha then @alpha = channel
-    else                         raise "Unknown channel type #{channel_type} for RGBAImage"
+    else                         raise "Unknown channel type #{channel_type} for ImageRGBA"
     end
   end
 
-  # Convert color image to grayscale one, using the NTSC formula as default values.
-  def to_gray(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : GrayscaleImage
-    GrayscaleImage.new(
+  # Converts the image to a grayscale one, using the
+  # [ITU-R BT.601-7](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.601-7-201103-I!!PDF-E.pdf) formula.
+  def to_ga(red_multiplier : Float = 0.299, green_multiplier : Float = 0.587, blue_multiplier : Float = 0.114) : ImageGA
+    ImageGA.new(
       red.map_with_index do |red_pixel, index|
         Math.min(
           255u8,

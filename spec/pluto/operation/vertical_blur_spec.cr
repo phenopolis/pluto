@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Pluto::Operation::VerticalBlur do
   describe "#vertical_blur" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       blurred_image = image.vertical_blur(10)
 
@@ -10,7 +10,7 @@ describe Pluto::Operation::VerticalBlur do
       expect_digest blurred_image, "45b4a49232674ed4e33c06e09c19ba22e0baa3c3"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       blurred_image = image.vertical_blur(10)
 
@@ -20,21 +20,21 @@ describe Pluto::Operation::VerticalBlur do
 
     it "doesn't cause arithmetic overload" do
       with_sample("problem_images/28_arithmetic_overflow_in_blur.jpg") do |io|
-        image = Pluto::RGBAImage.from_jpeg(io)
+        image = Pluto::ImageRGBA.from_jpeg(io)
         expect_digest image.vertical_blur(10), "64039b39a57fc260bfd433d3fc298a8ac5366938"
       end
     end
   end
 
   describe "#vertical_blur!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.vertical_blur!(10)
 
       expect_digest image, "45b4a49232674ed4e33c06e09c19ba22e0baa3c3"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.vertical_blur!(10)
 

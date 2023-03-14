@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Pluto::Operation::Brightness do
   describe "#brightness" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       brightened_image = image.brightness(1.4)
       darkened_image = image.brightness(0.6)
@@ -12,7 +12,7 @@ describe Pluto::Operation::Brightness do
       expect_digest darkened_image, "c3d8d9c5c221ae0672f92def1ccdc8d0aea13d5d"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       brightened_image = image.brightness(1.4)
       darkened_image = image.brightness(0.6)
@@ -24,7 +24,7 @@ describe Pluto::Operation::Brightness do
   end
 
   describe "#brightness!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.brightness!(1.4)
       expect_digest image, "16e5ec301a72d75ea53c62c8f7b66b0b583455e4"
@@ -34,7 +34,7 @@ describe Pluto::Operation::Brightness do
       expect_digest image, "c3d8d9c5c221ae0672f92def1ccdc8d0aea13d5d"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.brightness!(1.4)
       expect_digest image, "e276fd23c577bf986b0e75c3f8e43cc936307450"

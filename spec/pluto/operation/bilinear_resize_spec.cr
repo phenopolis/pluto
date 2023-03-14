@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Pluto::Operation::BilinearResize do
   describe "#bilinear_resize" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       downsized_image = image.bilinear_resize(480, 360)
       upsized_image = image.bilinear_resize(800, 600)
@@ -12,7 +12,7 @@ describe Pluto::Operation::BilinearResize do
       expect_digest upsized_image, "9fe83c54452750e436da32b42a9cad5e8a904c1b"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       downsized_image = image.bilinear_resize(480, 360)
       upsized_image = image.bilinear_resize(800, 600)
@@ -24,7 +24,7 @@ describe Pluto::Operation::BilinearResize do
   end
 
   describe "#bilinear_resize!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.bilinear_resize!(480, 360)
       expect_digest image, "e99a957526b32dfbfabff4b580335944a1659b67"
@@ -34,7 +34,7 @@ describe Pluto::Operation::BilinearResize do
       expect_digest image, "9fe83c54452750e436da32b42a9cad5e8a904c1b"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.bilinear_resize!(480, 360)
       expect_digest image, "7a18aea5a8a33fbb74cd12182172fd266f8b9c60"
