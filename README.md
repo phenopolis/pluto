@@ -56,7 +56,7 @@ image = File.open("lib/pluto_samples/pluto.png") do |file|
 end
 
 image.contrast(-100)  # Creates a new object
-image.contrast!(-100) # Reuses the same object
+image.contrast!(-100) # Modifies the existing object
 
 io = IO::Memory.new
 image.to_jpeg(io)
