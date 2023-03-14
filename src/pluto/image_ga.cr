@@ -1,6 +1,6 @@
 require "./image"
 
-class Pluto::GrayscaleImage < Pluto::Image
+class Pluto::ImageGA < Pluto::Image
   property gray : Array(UInt8)
   property alpha : Array(UInt8)
   property width : Int32
@@ -14,13 +14,13 @@ class Pluto::GrayscaleImage < Pluto::Image
     width : Int32,
     height : Int32
   )
-    RGBAImage.new(red, green, blue, alpha, width, height).to_gray
+    ImageRGBA.new(red, green, blue, alpha, width, height).to_ga
   end
 
   def initialize(@gray, @alpha, @width, @height)
   end
 
-  def clone : GrayscaleImage
+  def clone : ImageGA
     self.class.new(
       @gray.clone,
       @alpha.clone,
@@ -51,7 +51,7 @@ class Pluto::GrayscaleImage < Pluto::Image
     case channel_type
     when ChannelType::Gray  then @gray
     when ChannelType::Alpha then @alpha
-    else                         raise "Unknown channel type #{channel_type} for RGBAImage"
+    else                         raise "Unknown channel type #{channel_type} for ImageRGBA"
     end
   end
 
@@ -59,11 +59,11 @@ class Pluto::GrayscaleImage < Pluto::Image
     case channel_type
     when ChannelType::Gray  then self.gray = channel
     when ChannelType::Alpha then self.alpha = channel
-    else                         raise "Unknown channel type #{channel_type} for GrayscaleImage"
+    else                         raise "Unknown channel type #{channel_type} for ImageGA"
     end
   end
 
-  def to_rgba : RGBAImage
-    RGBAImage.new(@gray.clone, @gray.clone, @gray.clone, @alpha.clone, width, height)
+  def to_rgba : ImageRGBA
+    ImageRGBA.new(@gray.clone, @gray.clone, @gray.clone, @alpha.clone, width, height)
   end
 end

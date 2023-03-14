@@ -2,9 +2,9 @@ require "../../spec_helper"
 
 describe Pluto::Format::PPM do
   describe ".from_ppm and #to_ppm" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       with_sample("pluto.ppm") do |io|
-        image = Pluto::GrayscaleImage.from_ppm(io)
+        image = Pluto::ImageGA.from_ppm(io)
         io = IO::Memory.new
         image.to_ppm(io)
 
@@ -12,9 +12,9 @@ describe Pluto::Format::PPM do
       end
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       with_sample("pluto.ppm") do |io|
-        image = Pluto::RGBAImage.from_ppm(io)
+        image = Pluto::ImageRGBA.from_ppm(io)
         io = IO::Memory.new
         image.to_ppm(io)
 

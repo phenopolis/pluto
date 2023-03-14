@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Pluto::Operation::HorizontalBlur do
   describe "#horizontal_blur" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       blurred_image = image.horizontal_blur(10)
 
@@ -10,7 +10,7 @@ describe Pluto::Operation::HorizontalBlur do
       expect_digest blurred_image, "7d889ea6f8e71edf06024706774b6d430977a2ab"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       blurred_image = image.horizontal_blur(10)
 
@@ -20,21 +20,21 @@ describe Pluto::Operation::HorizontalBlur do
 
     it "doesn't cause arithmetic overload" do
       with_sample("problem_images/28_arithmetic_overflow_in_blur.jpg") do |io|
-        image = Pluto::RGBAImage.from_jpeg(io)
+        image = Pluto::ImageRGBA.from_jpeg(io)
         expect_digest image.horizontal_blur(10), "20247bbe9560acdc857f59957c121d964ac09549"
       end
     end
   end
 
   describe "#horizontal_blur!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.horizontal_blur!(10)
 
       expect_digest image, "7d889ea6f8e71edf06024706774b6d430977a2ab"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.horizontal_blur!(10)
 

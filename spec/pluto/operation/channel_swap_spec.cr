@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe Pluto::Operation::ChannelSwap do
   describe "#channel_swap" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       ag_image = image.channel_swap(:gray, :alpha)
 
@@ -10,7 +10,7 @@ describe Pluto::Operation::ChannelSwap do
       expect_digest ag_image, "660145a96da80f41330c161df87de83945230a35"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       bgra_image = image.channel_swap(:red, :blue)
 
@@ -20,14 +20,14 @@ describe Pluto::Operation::ChannelSwap do
   end
 
   describe "#channel_swap!" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       image = grayscale_sample
       image.channel_swap!(:gray, :alpha)
 
       expect_digest image, "660145a96da80f41330c161df87de83945230a35"
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       image = rgba_sample
       image.channel_swap!(:red, :blue)
 

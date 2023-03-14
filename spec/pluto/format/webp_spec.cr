@@ -2,9 +2,9 @@ require "../../spec_helper"
 
 describe Pluto::Format::WebP do
   describe ".from_webp and #to_webp" do
-    it "works with GrayscaleImage" do
+    it "works with ImageGA" do
       with_sample("pluto.webp") do |io|
-        image = Pluto::GrayscaleImage.from_webp(io)
+        image = Pluto::ImageGA.from_webp(io)
         io = IO::Memory.new
         image.to_webp(io)
 
@@ -12,9 +12,9 @@ describe Pluto::Format::WebP do
       end
     end
 
-    it "works with RGBAImage" do
+    it "works with ImageRGBA" do
       with_sample("pluto.webp") do |io|
-        image = Pluto::RGBAImage.from_webp(io)
+        image = Pluto::ImageRGBA.from_webp(io)
         io = IO::Memory.new
         image.to_webp(io)
 
