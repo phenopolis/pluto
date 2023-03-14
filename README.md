@@ -46,13 +46,27 @@
 
 ## Usage
 
-1. Require the library
+### Basic
 
-   ```crystal
-   require "pluto"
-   ```
+```crystal
+require "pluto"
 
-2. See the `spec` folder for examples
+image = File.open("lib/pluto_samples/pluto.png") do |file|
+  Pluto::ImageRGBA.from_png(file)
+end
+
+image.contrast(-100)  # Creates a new object
+image.contrast!(-100) # Reuses the same object
+
+io = IO::Memory.new
+image.to_jpeg(io)
+io.rewind
+File.write("output.jpeg", io)
+```
+
+### More
+
+See the API or the `spec/` folder for more examples
 
 ## Contributing
 
