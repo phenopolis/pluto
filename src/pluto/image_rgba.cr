@@ -1,7 +1,4 @@
 require "./image"
-require "./bindings/*"
-require "./format/*"
-require "./operation/*"
 
 class Pluto::ImageRGBA < Pluto::Image
   property red : Array(UInt8)

@@ -46,6 +46,15 @@
 
 ## Usage
 
+When using one of the formats that require a linked library, they must be explicitly `require`d:
+
+```crystal
+require "pluto"
+require "pluto/jpeg"
+require "pluto/png"
+require "pluto/webp"
+```
+
 ### Basic
 
 ```crystal
