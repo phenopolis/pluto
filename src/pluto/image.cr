@@ -33,4 +33,10 @@ abstract class Pluto::Image
   def size : Int32
     width * height
   end
+
+  private def resolve_to_start_and_count(range, size) : Tuple(Int32, Int32)
+    start, count = Indexable.range_to_index_and_count(range, size) || raise IndexError.new("Unable to resolve range #{range} for image dimension of #{size}")
+    raise IndexError.new("Range #{range} exceeds bounds of #{size}") if (start + count) > size
+    {start, count}
+  end
 end

@@ -1,4 +1,10 @@
 module Pluto::Operation::Crop
+  def [](xrange : Range, yrange : Range) : self
+    xstart, xcount = resolve_to_start_and_count(xrange, width)
+    ystart, ycount = resolve_to_start_and_count(yrange, height)
+    crop(xstart, ystart, xcount, ycount)
+  end
+
   def crop(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self
     clone.crop!(x, y, new_width, new_height)
   end

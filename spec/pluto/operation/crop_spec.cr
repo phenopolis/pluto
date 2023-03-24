@@ -26,6 +26,8 @@ describe Pluto::Operation::Crop do
       expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
       expect_digest whole_image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
       expect_digest cropped_image, "42c223c282a5ca6419683e98216908520838b717"
+      expect_digest image[.., ..], "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
+      expect_digest image[200...300, 200...300], "42c223c282a5ca6419683e98216908520838b717"
     end
 
     it "works with ImageRGBA" do
@@ -36,6 +38,8 @@ describe Pluto::Operation::Crop do
       expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
       expect_digest whole_image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
       expect_digest cropped_image, "d02012cf3aae614ef06f1dbbf4aa8952905b259b"
+      expect_digest image[.., ..], "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
+      expect_digest image[200...300, 200...300], "d02012cf3aae614ef06f1dbbf4aa8952905b259b"
     end
   end
 
