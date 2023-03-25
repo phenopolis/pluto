@@ -1,7 +1,10 @@
 require "digest"
 require "spec"
+require "stumpy_core"
+require "stumpy_png"
 
 require "../src/pluto"
+require "../src/stumpy"
 
 PLUTO_JPEG_BYTES = with_sample("pluto.jpg", &.getb_to_end)
 PLUTO_PPM_BYTES  = with_sample("pluto.ppm", &.getb_to_end)
