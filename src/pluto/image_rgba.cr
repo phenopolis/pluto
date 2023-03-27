@@ -68,8 +68,4 @@ class Pluto::ImageRGBA < Pluto::Image
       height
     )
   end
-
-  def size : Int32
-    @width * @height
-  end
 end
