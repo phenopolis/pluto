@@ -9,8 +9,8 @@ class Pluto::Exception < ::Exception
     super("Received `#{@error_code}` as the error code")
   end
 
-  def initialize(handle : LibJPEGTurbo::Handle)
-    super(String.new(LibJPEGTurbo.get_error_str(handle)))
-    @error_code = LibJPEGTurbo.get_error_code(handle).to_i
+  def initialize(handle : PlutoLibJPEGTurbo::Handle)
+    super(String.new(PlutoLibJPEGTurbo.get_error_str(handle)))
+    @error_code = PlutoLibJPEGTurbo.get_error_code(handle).to_i
   end
 end
