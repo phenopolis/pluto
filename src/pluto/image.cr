@@ -1,4 +1,4 @@
-require "./format/*"
+require "./format/ppm"
 require "./operation/*"
 
 abstract class Pluto::Image

@@ -1,4 +1,4 @@
-require "./bindings/lib_jpeg_turbo"
+require "./binding/lib_jpeg_turbo"
 
 module Pluto::Format::JPEG
   macro included
@@ -86,3 +86,9 @@ module Pluto::Format::JPEG
 
   delegate check_jpeg, to: self.class
 end
+
+{% for subclass in Pluto::Image.subclasses %}
+  class {{subclass}}
+    include Pluto::Format::JPEG
+  end
+{% end %}

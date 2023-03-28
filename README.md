@@ -19,7 +19,7 @@
 - Image formats
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PNG (through [libspng](https://libspng.org/))
-  - PPM
+  - PPM (native)
   - WebP (through [libwebp](https://developers.google.com/speed/webp))
 - Image operations
   - Bilinear resize
@@ -52,9 +52,9 @@
 require "pluto"
 
 # Formats requiring linkinkg a C library must be explicitly `require`d
-require "pluto/jpeg"
-require "pluto/png"
-require "pluto/webp"
+require "pluto/format/jpeg"
+require "pluto/format/png"
+require "pluto/format/webp"
 
 image = File.open("lib/pluto_samples/pluto.png") do |file|
   Pluto::ImageRGBA.from_png(file)

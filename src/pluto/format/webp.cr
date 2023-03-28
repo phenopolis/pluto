@@ -1,4 +1,4 @@
-require "./bindings/lib_webp"
+require "./binding/lib_webp"
 
 module Pluto::Format::WebP
   macro included
@@ -91,3 +91,9 @@ module Pluto::Format::WebP
 
   delegate check_webp, to: self.class
 end
+
+{% for subclass in Pluto::Image.subclasses %}
+  class {{subclass}}
+    include Pluto::Format::WebP
+  end
+{% end %}

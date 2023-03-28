@@ -1,4 +1,4 @@
-require "./bindings/lib_spng"
+require "./binding/lib_spng"
 
 module Pluto::Format::PNG
   macro included
@@ -95,3 +95,9 @@ module Pluto::Format::PNG
 
   delegate check_png, to: self.class
 end
+
+{% for subclass in Pluto::Image.subclasses %}
+  class {{subclass}}
+    include Pluto::Format::PNG
+  end
+{% end %}
