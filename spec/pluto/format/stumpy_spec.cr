@@ -1,7 +1,7 @@
 require "../../spec_helper"
 
 describe Pluto::Format::Stumpy do
-  describe ".from_stumpy and #to_stumpy" do
+  describe ".from_stumpy" do
     it "works with ImageGA" do
       canvas = StumpyPNG.read("lib/pluto_samples/pluto.png")
       image = Pluto::ImageGA.from_stumpy(canvas)
