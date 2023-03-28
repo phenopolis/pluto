@@ -46,19 +46,15 @@
 
 ## Usage
 
-When using one of the formats that require a linked library, they must be explicitly `require`d:
-
-```crystal
-require "pluto"
-require "pluto/jpeg"
-require "pluto/png"
-require "pluto/webp"
-```
-
 ### Basic
 
 ```crystal
 require "pluto"
+
+# Formats requiring linkinkg a C library must be explicitly `require`d
+require "pluto/jpeg"
+require "pluto/png"
+require "pluto/webp"
 
 image = File.open("lib/pluto_samples/pluto.png") do |file|
   Pluto::ImageRGBA.from_png(file)
