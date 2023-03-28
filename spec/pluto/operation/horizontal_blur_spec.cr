@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::HorizontalBlur do
   describe "#horizontal_blur" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       blurred_image = image.horizontal_blur(10)
 
       expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
@@ -35,7 +35,7 @@ describe Pluto::Operation::HorizontalBlur do
 
   describe "#horizontal_blur!" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       image.horizontal_blur!(10)
 
       expect_digest image, "b04348fe463d35197cc57b0114596d9b78a20f55"

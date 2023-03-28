@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::Contrast do
   describe "#contrast" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       positive_image = image.contrast(128)
       negative_image = image.contrast(-128)
 
@@ -25,11 +25,11 @@ describe Pluto::Operation::Contrast do
 
   describe "#contrast!" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       image.contrast!(128)
       expect_digest image, "5aa2004129f7267c851b8055cdd93da205ab7483"
 
-      image = grayscale_sample
+      image = ga_sample
       image.contrast!(-128)
       expect_digest image, "9f6321f4b1387dd03b47a266a32905615e652e26"
     end

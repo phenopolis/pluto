@@ -17,7 +17,7 @@ describe Pluto::Format::Stumpy do
 
   describe "#to_stumpy" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       io = IO::Memory.new
       StumpyPNG.write(image.to_stumpy, io)
       digest(io.to_s).should eq "0250c2ea91650a7d33b70e34efae6515fbd0a5d8"

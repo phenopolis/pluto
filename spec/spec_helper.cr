@@ -21,7 +21,7 @@ def digest(data : String) : String
   Digest::SHA1.hexdigest(data)
 end
 
-def grayscale_sample : Pluto::ImageGA
+def ga_sample : Pluto::ImageGA
   Pluto::ImageGA.from_ppm(PLUTO_PPM_BYTES)
 end
 

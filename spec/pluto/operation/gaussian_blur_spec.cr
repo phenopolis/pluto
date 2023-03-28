@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::GaussianBlur do
   describe "#gaussian_blur" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       blurred_image = image.gaussian_blur(10)
 
       expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
@@ -21,7 +21,7 @@ describe Pluto::Operation::GaussianBlur do
 
   describe "#gaussian_blur!" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       image.gaussian_blur!(10)
 
       expect_digest image, "df13de316f347c955309abcada06657d00b55bf5"

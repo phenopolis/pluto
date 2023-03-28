@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Operation::VerticalBlur do
   describe "#vertical_blur" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       blurred_image = image.vertical_blur(10)
 
       expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
@@ -28,7 +28,7 @@ describe Pluto::Operation::VerticalBlur do
 
   describe "#vertical_blur!" do
     it "works with ImageGA" do
-      image = grayscale_sample
+      image = ga_sample
       image.vertical_blur!(10)
 
       expect_digest image, "38d71a5c13f46afdca6b13ecbdeb97327cd46dd7"
