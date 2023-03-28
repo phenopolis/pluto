@@ -1,9 +1,11 @@
 require "./format/ppm"
+require "./format/stumpy"
 require "./operation/*"
 
 abstract class Pluto::Image
   macro inherited
     include Format::PPM
+    include Format::Stumpy
 
     include Operation::BilinearResize
     include Operation::BoxBlur

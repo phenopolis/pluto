@@ -20,6 +20,7 @@
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PNG (through [libspng](https://libspng.org/))
   - PPM
+  - [StumpyCore](https://github.com/stumpycr/stumpy_core)
   - WebP (through [libwebp](https://developers.google.com/speed/webp))
 - Image operations
   - Bilinear resize
@@ -68,6 +69,24 @@ image.to_jpeg(io)
 io.rewind
 File.write("output.jpeg", io)
 ```
+
+### StumpyCore
+
+Pluto can convert to and from [StumpyCore](https://github.com/stumpycr/stumpy_core) `Canvas` objects, so any format that Stumpy supports can be usable with Pluto as well.
+
+```crystal
+require "pluto"
+require "pluto/stumpy"
+require "stumpy_png"
+
+canvas = StumpyPNG.read("lib/pluto_samples/pluto.png") # => StumpyCore::Canvas
+image = Pluto::ImageRGBA.new(canvas)                   # => Pluto::ImageRGBA
+image.to_stumpy                                        # => StumpyCore::Canvas
+```
+
+> **Note**
+>
+> Converting from a `StumpyCore::Canvas` created from a 16-bit image will result in a loss of information, since Pluto currently only supports 8 bit.
 
 ### More
 

@@ -1,5 +1,7 @@
 require "digest"
 require "spec"
+require "stumpy_core"
+require "stumpy_png"
 
 require "../src/pluto"
 require "../src/pluto/format/jpeg"
