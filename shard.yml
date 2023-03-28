@@ -12,7 +12,6 @@ development_dependencies:
   stumpy_png:
     github: stumpycr/stumpy_png
 
-
 crystal: 1.7.2
 
 license: ISC
