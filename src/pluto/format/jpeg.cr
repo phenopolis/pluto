@@ -1,9 +1,11 @@
+require "./binding/lib_jpeg_turbo"
+
 module Pluto::Format::JPEG
   macro included
     # This is the preferred, most performant JPEG overload with the least memory consumption.
     def self.from_jpeg(image_data : Bytes) : self
-      handle = LibJPEGTurbo.init_decompress
-      check_jpeg handle, LibJPEGTurbo.decompress_header3(
+      handle = PlutoLibJPEGTurbo.init_decompress
+      check_jpeg handle, PlutoLibJPEGTurbo.decompress_header3(
         handle,
         image_data,
         image_data.size,
@@ -13,7 +15,7 @@ module Pluto::Format::JPEG
         out _colorspace
       )
       buffer = Bytes.new(width * height * 3, 0)
-      check_jpeg handle, LibJPEGTurbo.decompress2(
+      check_jpeg handle, PlutoLibJPEGTurbo.decompress2(
         handle,
         image_data,
         LibC::ULong.new(image_data.size),
@@ -21,10 +23,10 @@ module Pluto::Format::JPEG
         width,
         0,
         height,
-        LibJPEGTurbo::PixelFormat::RGB,
+        PlutoLibJPEGTurbo::PixelFormat::RGB,
         0
       )
-      check_jpeg handle, LibJPEGTurbo.destroy(handle)
+      check_jpeg handle, PlutoLibJPEGTurbo.destroy(handle)
 
       red = Array.new(width * height) { 0u8 }
       green = Array.new(width * height) { 0u8 }
@@ -52,7 +54,7 @@ module Pluto::Format::JPEG
   end
 
   def to_jpeg(io : IO, quality : Int32 = 100) : Nil
-    handle = LibJPEGTurbo.init_compress
+    handle = PlutoLibJPEGTurbo.init_compress
     image_data = IO::Memory.new(size * 3)
     size.times do |index|
       image_data.write_byte(red.unsafe_fetch(index))
@@ -61,26 +63,32 @@ module Pluto::Format::JPEG
     end
 
     buffer = Pointer(UInt8).null
-    check_jpeg handle, LibJPEGTurbo.compress2(
+    check_jpeg handle, PlutoLibJPEGTurbo.compress2(
       handle,
       image_data.buffer,
       @width,
       0,
       @height,
-      LibJPEGTurbo::PixelFormat::RGB,
+      PlutoLibJPEGTurbo::PixelFormat::RGB,
       pointerof(buffer),
       out size,
-      LibJPEGTurbo::Subsampling::S444,
+      PlutoLibJPEGTurbo::Subsampling::S444,
       quality,
       0
     )
-    check_jpeg handle, LibJPEGTurbo.destroy(handle)
+    check_jpeg handle, PlutoLibJPEGTurbo.destroy(handle)
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
 
-    LibJPEGTurbo.free(buffer)
+    PlutoLibJPEGTurbo.free(buffer)
   end
 
   delegate check_jpeg, to: self.class
 end
+
+{% for subclass in Pluto::Image.subclasses %}
+  class {{subclass}}
+    include Pluto::Format::JPEG
+  end
+{% end %}

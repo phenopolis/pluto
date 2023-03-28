@@ -1,7 +1,4 @@
 require "./image"
-require "./bindings/*"
-require "./format/*"
-require "./operation/*"
 
 class Pluto::ImageRGBA < Pluto::Image
   property red : Array(UInt8)
@@ -67,9 +64,5 @@ class Pluto::ImageRGBA < Pluto::Image
       width,
       height
     )
-  end
-
-  def size : Int32
-    @width * @height
   end
 end

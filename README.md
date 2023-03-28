@@ -52,6 +52,11 @@
 ```crystal
 require "pluto"
 
+# Formats requiring linkinkg a C library must be explicitly `require`d
+require "pluto/format/jpeg"
+require "pluto/format/png"
+require "pluto/format/webp"
+
 image = File.open("lib/pluto_samples/pluto.png") do |file|
   Pluto::ImageRGBA.from_png(file)
 end

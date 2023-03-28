@@ -1,13 +1,11 @@
-require "./bindings/*"
-require "./format/*"
+require "./format/ppm"
+require "./format/stumpy"
 require "./operation/*"
 
 abstract class Pluto::Image
   macro inherited
-    include Format::JPEG
-    include Format::PNG
     include Format::PPM
-    include Format::WebP
+    include Format::Stumpy
 
     include Operation::BilinearResize
     include Operation::BoxBlur
