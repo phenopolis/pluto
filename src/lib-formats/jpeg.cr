@@ -1,3 +1,5 @@
+require "./bindings/lib_jpeg_turbo"
+
 module Pluto::Format::JPEG
   macro included
     # This is the preferred, most performant JPEG overload with the least memory consumption.

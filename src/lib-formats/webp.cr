@@ -1,3 +1,5 @@
+require "./bindings/lib_webp"
+
 module Pluto::Format::WebP
   macro included
     # This is the preferred, most performant WebP overload with the least memory consumption.

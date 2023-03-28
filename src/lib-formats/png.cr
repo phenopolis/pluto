@@ -1,3 +1,5 @@
+require "./bindings/lib_spng"
+
 module Pluto::Format::PNG
   macro included
     # This is the preferred, most performant PNG overload with the least memory consumption.
