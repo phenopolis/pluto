@@ -1,8 +1,8 @@
 require "./pluto"
 require "./lib-formats/webp"
 
-{% for sub in Pluto::Image.subclasses %}
-class {{sub}}
+{% for subclass in Pluto::Image.subclasses %}
+class {{subclass}}
   include Pluto::Format::WebP
 end
 {% end %}
