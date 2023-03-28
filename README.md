@@ -76,7 +76,6 @@ Pluto can convert to and from [StumpyCore](https://github.com/stumpycr/stumpy_co
 
 ```crystal
 require "pluto"
-require "pluto/stumpy"
 require "stumpy_png"
 
 canvas = StumpyPNG.read("lib/pluto_samples/pluto.png") # => StumpyCore::Canvas
