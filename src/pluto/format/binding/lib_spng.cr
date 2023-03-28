@@ -1,5 +1,5 @@
 @[Link(ldflags: "-lspng")]
-lib PlutoLibSPNG
+lib LibSPNG
   fun ctx_free = spng_ctx_free(ctx : Void*)
   fun ctx_new = spng_ctx_new(flags : CtxFlags) : Void*
   fun decode_image = spng_decode_image(ctx : Void*, out : Void*, len : LibC::SizeT, fmt : Format, flags : DecodeFlags) : LibC::Int

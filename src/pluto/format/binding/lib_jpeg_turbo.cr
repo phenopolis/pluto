@@ -1,5 +1,5 @@
 @[Link(ldflags: "-lturbojpeg")]
-lib PlutoLibJPEGTurbo
+lib LibJPEGTurbo
   alias Handle = Void*
 
   fun compress2 = tjCompress2(handle : Handle, src_buf : UInt8*, width : LibC::Int, pitch : LibC::Int, height : LibC::Int, pixel_format : PixelFormat, jpeg_buf : UInt8**, jpeg_size : LibC::ULong*, jpeg_subsamp : Subsampling, jpeg_qual : LibC::Int, flags : LibC::Int) : LibC::Int

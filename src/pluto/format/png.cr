@@ -4,24 +4,24 @@ module Pluto::Format::PNG
   macro included
     # This is the preferred, most performant PNG overload with the least memory consumption.
     def self.from_png(image_data : Bytes) : self
-      ctx = PlutoLibSPNG.ctx_new(PlutoLibSPNG::CtxFlags::None)
+      ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::None)
       raise ::Pluto::Exception.new("Failed to create a context") unless ctx
 
-      PlutoLibSPNG.set_png_buffer(ctx, image_data, image_data.size)
+      LibSPNG.set_png_buffer(ctx, image_data, image_data.size)
 
-      check_png PlutoLibSPNG.get_ihdr(ctx, out ihdr)
-      check_png PlutoLibSPNG.decoded_image_size(ctx, PlutoLibSPNG::Format::RGBA8, out image_size)
+      check_png LibSPNG.get_ihdr(ctx, out ihdr)
+      check_png LibSPNG.decoded_image_size(ctx, LibSPNG::Format::RGBA8, out image_size)
 
       image = Bytes.new(image_size.to_i, 0u8)
-      check_png PlutoLibSPNG.decode_image(
+      check_png LibSPNG.decode_image(
         ctx,
         image,
         image_size,
-        PlutoLibSPNG::Format::RGBA8,
-        PlutoLibSPNG::DecodeFlags::None
+        LibSPNG::Format::RGBA8,
+        LibSPNG::DecodeFlags::None
       )
 
-      PlutoLibSPNG.ctx_free(ctx)
+      LibSPNG.ctx_free(ctx)
 
       size = image_size // 4
       width = size // ihdr.height
@@ -62,29 +62,29 @@ module Pluto::Format::PNG
       image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
-    ctx = PlutoLibSPNG.ctx_new(PlutoLibSPNG::CtxFlags::Encoder)
+    ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::Encoder)
     raise ::Pluto::Exception.new("Failed to create a context") unless ctx
 
-    PlutoLibSPNG.set_option(ctx, PlutoLibSPNG::Option::EncodeToBuffer, true)
-    PlutoLibSPNG.set_png_buffer(ctx, image_data.buffer, image_data.size)
+    LibSPNG.set_option(ctx, LibSPNG::Option::EncodeToBuffer, true)
+    LibSPNG.set_png_buffer(ctx, image_data.buffer, image_data.size)
 
-    ihdr = PlutoLibSPNG::IHDR.new
+    ihdr = LibSPNG::IHDR.new
     ihdr.width = @width
     ihdr.height = @height
-    ihdr.color_type = PlutoLibSPNG::ColorType::TrueColorAlpha
+    ihdr.color_type = LibSPNG::ColorType::TrueColorAlpha
     ihdr.bit_depth = 8
-    PlutoLibSPNG.set_ihdr(ctx, pointerof(ihdr))
+    LibSPNG.set_ihdr(ctx, pointerof(ihdr))
 
-    error = PlutoLibSPNG.encode_image(
+    error = LibSPNG.encode_image(
       ctx,
       image_data.buffer,
       image_data.size,
-      PlutoLibSPNG::Format::PNG,
-      PlutoLibSPNG::EncodeFlags::Finalize
+      LibSPNG::Format::PNG,
+      LibSPNG::EncodeFlags::Finalize
     )
     check_png error
 
-    buffer = PlutoLibSPNG.get_png_buffer(ctx, out size, pointerof(error))
+    buffer = LibSPNG.get_png_buffer(ctx, out size, pointerof(error))
     raise ::Pluto::Exception.new("Failed to get a buffer") unless ctx
 
     bytes = Bytes.new(buffer, size)

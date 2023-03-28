@@ -4,8 +4,8 @@ module Pluto::Format::WebP
   macro included
     # This is the preferred, most performant WebP overload with the least memory consumption.
     def self.from_webp(image_data : Bytes) : self
-      check_webp PlutoLibWebP.get_info(image_data, image_data.size, out width, out height)
-      buffer = PlutoLibWebP.decode_rgba(
+      check_webp LibWebP.get_info(image_data, image_data.size, out width, out height)
+      buffer = LibWebP.decode_rgba(
         image_data,
         image_data.size,
         pointerof(width),
@@ -25,7 +25,7 @@ module Pluto::Format::WebP
         alpha.unsafe_put(index, buffer[position + 3])
       end
 
-      PlutoLibWebP.free(buffer)
+      LibWebP.free(buffer)
 
       new(red, green, blue, alpha, width, height)
     end
@@ -49,7 +49,7 @@ module Pluto::Format::WebP
       image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
-    size = PlutoLibWebP.encode_lossless_rgba(
+    size = LibWebP.encode_lossless_rgba(
       image_data.buffer,
       @width,
       @height,
@@ -61,7 +61,7 @@ module Pluto::Format::WebP
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
 
-    PlutoLibWebP.free(buffer)
+    LibWebP.free(buffer)
   end
 
   def to_lossy_webp(io : IO, quality : Int32 = 100) : Nil
@@ -73,7 +73,7 @@ module Pluto::Format::WebP
       image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
-    size = PlutoLibWebP.encode_rgba(
+    size = LibWebP.encode_rgba(
       image_data.buffer,
       @width,
       @height,
@@ -86,7 +86,7 @@ module Pluto::Format::WebP
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
 
-    PlutoLibWebP.free(buffer)
+    LibWebP.free(buffer)
   end
 
   delegate check_webp, to: self.class
