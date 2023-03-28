@@ -70,10 +70,9 @@ io.rewind
 File.write("output.jpeg", io)
 ```
 
-### [StumpyCore](https://github.com/stumpycr/stumpy_core) Conversion
+### StumpyCore
 
-Pluto can convert to and from StumpyCore `Canvas` objects, so any format that Stumpy supports
-can be usable with Pluto as well.
+Pluto can convert to and from [StumpyCore](https://github.com/stumpycr/stumpy_core) `Canvas` objects, so any format that Stumpy supports can be usable with Pluto as well.
 
 ```crystal
 require "pluto"
@@ -85,9 +84,9 @@ image = Pluto::ImageRGBA.new(canvas)                   # => Pluto::ImageRGBA
 image.to_stumpy                                        # => StumpyCore::Canvas
 ```
 
-**NOTE:** StumpyCore `Canvas` uses a 16-bit color channel whereas Pluto uses 8-bit. Converting from
-a `Canvas` originally created using an image using the full 16-bit channel depth will lose color information
-when converting to Pluto `ImageRGBA`.
+> **Note**
+>
+> Converting from a `StumpyCore::Canvas` created from a 16-bit image will result in a loss of information, since Pluto currently only supports 8 bit.
 
 ### More
 
