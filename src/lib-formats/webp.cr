@@ -1,9 +1,11 @@
+require "./bindings/lib_webp"
+
 module Pluto::Format::WebP
   macro included
     # This is the preferred, most performant WebP overload with the least memory consumption.
     def self.from_webp(image_data : Bytes) : self
-      check_webp LibWebP.get_info(image_data, image_data.size, out width, out height)
-      buffer = LibWebP.decode_rgba(
+      check_webp PlutoLibWebP.get_info(image_data, image_data.size, out width, out height)
+      buffer = PlutoLibWebP.decode_rgba(
         image_data,
         image_data.size,
         pointerof(width),
@@ -23,7 +25,7 @@ module Pluto::Format::WebP
         alpha.unsafe_put(index, buffer[position + 3])
       end
 
-      LibWebP.free(buffer)
+      PlutoLibWebP.free(buffer)
 
       new(red, green, blue, alpha, width, height)
     end
@@ -47,7 +49,7 @@ module Pluto::Format::WebP
       image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
-    size = LibWebP.encode_lossless_rgba(
+    size = PlutoLibWebP.encode_lossless_rgba(
       image_data.buffer,
       @width,
       @height,
@@ -59,7 +61,7 @@ module Pluto::Format::WebP
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
 
-    LibWebP.free(buffer)
+    PlutoLibWebP.free(buffer)
   end
 
   def to_lossy_webp(io : IO, quality : Int32 = 100) : Nil
