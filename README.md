@@ -19,7 +19,7 @@
 - Image formats
   - JPEG (through [libjpeg-turbo](https://github.com/libjpeg-turbo/libjpeg-turbo))
   - PNG (through [libspng](https://libspng.org/))
-  - PPM (native)
+  - PPM
   - WebP (through [libwebp](https://developers.google.com/speed/webp))
 - Image operations
   - Bilinear resize
