@@ -73,7 +73,7 @@ module Pluto::Format::WebP
       image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
-    size = LibWebP.encode_rgba(
+    size = PlutoLibWebP.encode_rgba(
       image_data.buffer,
       @width,
       @height,
@@ -86,7 +86,7 @@ module Pluto::Format::WebP
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
 
-    LibWebP.free(buffer)
+    PlutoLibWebP.free(buffer)
   end
 
   delegate check_webp, to: self.class
