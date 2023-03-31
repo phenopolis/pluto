@@ -93,8 +93,8 @@ See the API or the `spec/` folder for more examples
 
 ## Benchmarks
 
-- Hardware: Intel Core i7 (4 cores/8 threads, 4.2 GHz).
-- Software: Arch Linux x86_64
+- Hardware: Intel Core i7-6700K (4 cores/8 threads, 4.2 GHz).
+- Software: Arch Linux x86_64.
 
 |                                  | Time     | Memory  |
 | -------------------------------- | -------- | ------- |
