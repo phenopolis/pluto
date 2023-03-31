@@ -1,49 +1,50 @@
 module Pluto::Operation::VerticalBlur
-  def vertical_blur(value : Int32) : self
-    clone.vertical_blur!(value)
+  def vertical_blur(k : Int32) : self
+    clone.vertical_blur!(k)
   end
 
-  def vertical_blur!(value : Int32) : self
+  # Blur each column of the image using a sliding window that's `2k + 1` tall
+  def vertical_blur!(k : Int32) : self
     buffer = Bytes.new(size, 0)
-    multiplier = 1 / (value + value + 1)
+    multiplier = 1 / (k + k + 1)
 
     each_channel do |channel|
       @width.times do |x|
-        c_index : Int32 = x
-        l_index : Int32 = c_index
-        r_index : Int32 = c_index + value * @width
+        col__offset : Int32 = x
+        upper_bound : Int32 = col__offset
+        lower_bound : Int32 = col__offset + k * @width
 
-        f_value : Int32 = channel.unsafe_fetch(c_index).to_i
-        l_value : Int32 = channel.unsafe_fetch(c_index + @width * (@height - 1)).to_i
-        c_value : Int32 = (value + 1) * f_value
+        value_at_top : Int32 = channel.unsafe_fetch(col__offset).to_i
+        value_at_bottom : Int32 = channel.unsafe_fetch(col__offset + @width * (@height - 1)).to_i
+        current_sum : Int32 = (k + 1) * value_at_top
 
-        (0..value - 1).each do
-          c_value += channel.unsafe_fetch(c_index)
+        (0..k - 1).each do |i|
+          current_sum += channel.unsafe_fetch(col__offset + i * @width)
         end
 
-        (0..value).each do
-          c_value += channel.unsafe_fetch(r_index).to_i - f_value
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+        (0..k).each do
+          current_sum += channel.unsafe_fetch(lower_bound).to_i - value_at_top
+          buffer.unsafe_put(col__offset, (current_sum * multiplier).to_u8)
 
-          r_index += @width
-          c_index += @width
+          lower_bound += @width
+          col__offset += @width
         end
 
-        (value + 1..@height - value - 1).each do
-          c_value += channel.unsafe_fetch(r_index).to_i - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+        (k + 1..@height - k - 1).each do
+          current_sum += channel.unsafe_fetch(lower_bound).to_i - channel.unsafe_fetch(upper_bound).to_i
+          buffer.unsafe_put(col__offset, (current_sum * multiplier).to_u8)
 
-          l_index += @width
-          r_index += @width
-          c_index += @width
+          upper_bound += @width
+          lower_bound += @width
+          col__offset += @width
         end
 
-        (@height - value..@height - 1).each do
-          c_value += l_value - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).clamp(0, 255).to_u8)
+        (@height - k..@height - 1).each do
+          current_sum += value_at_bottom - channel.unsafe_fetch(upper_bound).to_i
+          buffer.unsafe_put(col__offset, (current_sum * multiplier).to_u8)
 
-          l_index += @width
-          c_index += @width
+          upper_bound += @width
+          col__offset += @width
         end
       end
 

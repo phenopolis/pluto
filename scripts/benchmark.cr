@@ -1,6 +1,9 @@
 #!/usr/bin/env -S crystal run --no-debug --release
 
 require "../src/pluto"
+require "../src/pluto/format/jpeg"
+require "../src/pluto/format/png"
+require "../src/pluto/format/webp"
 
 record Result, name : String, time : Float64, memory : Int64
 
@@ -81,6 +84,7 @@ results << benchmark { image.crop!(200, 200, 100, 100) }
 results << benchmark { image.to_jpeg(IO::Memory.new) }
 results << benchmark { image.to_png(IO::Memory.new) }
 results << benchmark { image.to_ppm(IO::Memory.new) }
-results << benchmark { image.to_webp(IO::Memory.new) }
+results << benchmark { image.to_lossy_webp(IO::Memory.new) }
+results << benchmark { image.to_lossless_webp(IO::Memory.new) }
 
 print_result_table(results)
