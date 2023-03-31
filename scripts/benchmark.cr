@@ -58,7 +58,7 @@ def print_result_table(results : Array(Result))
 end
 
 macro benchmark(&)
-  {% for format_name in ["jpeg", "png", "ppm", "webp"] %}
+  {% for format_name in {"jpeg", "png", "ppm", "webp"} %}
     {{ format_name.id }}_io = File.open("lib/pluto_samples/pluto.{{ format_name.id }}")
     {{ format_name.id }}_bytes = {{ format_name.id }}_io.getb_to_end
     {{ format_name.id }}_io.rewind
