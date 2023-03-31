@@ -1,6 +1,9 @@
 #!/usr/bin/env -S crystal run --no-debug --release
 
 require "../src/pluto"
+require "../src/pluto/format/jpeg"
+require "../src/pluto/format/png"
+require "../src/pluto/format/webp"
 
 record Result, name : String, time : Float64, memory : Int64
 
@@ -18,7 +21,6 @@ end
 
 private def elapsed_text(millis)
   return "#{millis.round(2)}ms" if millis >= 1
-
   return "#{(millis * 1000).round(2)}µs" if millis >= 0.001
 
   "#{(millis * 1_000_000).round(2)}ns"
@@ -56,31 +58,66 @@ def print_result_table(results : Array(Result))
 end
 
 macro benchmark(&)
-  image = File.open("lib/pluto_samples/pluto.ppm") { |file| Pluto::ImageRGBA.from_ppm(file) }
+  jpeg_io = File.open("lib/pluto_samples/pluto.jpg")
+  jpeg_bytes = jpeg_io.getb_to_end
+  jpeg_io.rewind
+
+  png_io = File.open("lib/pluto_samples/pluto.png")
+  png_bytes = png_io.getb_to_end
+  png_io.rewind
+
+  ppm_io = File.open("lib/pluto_samples/pluto.ppm")
+  ppm_bytes = ppm_io.getb_to_end
+  ppm_io.rewind
+
+  webp_io = File.open("lib/pluto_samples/pluto.webp")
+  webp_bytes = webp_io.getb_to_end
+  webp_io.rewind
+
+  image_rgba = File.open("lib/pluto_samples/pluto.ppm") { |file| Pluto::ImageRGBA.from_ppm(file) }
+
   memory = 0i64
   time = benchmark_time do
     memory = benchmark_memory do
       {{yield}}
     end
   end
-  Result.new(name: "{{yield.id}}".gsub("image.", ""), memory: memory, time: time.total_milliseconds)
+
+  Result.new(
+    name: "{{yield.id}}".gsub("Pluto::ImageRGBA.", "").gsub("image_rgba.", ""),
+    memory: memory,
+    time: time.total_milliseconds
+  )
 end
 
 results = [] of Result
 
-results << benchmark { image.bilinear_resize!(640, 480) }
-results << benchmark { image.brightness!(1.4) }
-results << benchmark { image.box_blur!(10) }
-results << benchmark { image.channel_swap!(:red, :blue) }
-results << benchmark { image.contrast!(128) }
-results << benchmark { image.gaussian_blur!(10) }
-results << benchmark { image.horizontal_blur!(10) }
-results << benchmark { image.vertical_blur!(10) }
-results << benchmark { image.crop!(200, 200, 100, 100) }
+results << benchmark { Pluto::ImageRGBA.from_jpeg(jpeg_bytes) }
+results << benchmark { Pluto::ImageRGBA.from_jpeg(jpeg_io) }
 
-results << benchmark { image.to_jpeg(IO::Memory.new) }
-results << benchmark { image.to_png(IO::Memory.new) }
-results << benchmark { image.to_ppm(IO::Memory.new) }
-results << benchmark { image.to_webp(IO::Memory.new) }
+results << benchmark { Pluto::ImageRGBA.from_png(png_bytes) }
+results << benchmark { Pluto::ImageRGBA.from_png(png_io) }
+
+results << benchmark { Pluto::ImageRGBA.from_ppm(ppm_bytes) }
+results << benchmark { Pluto::ImageRGBA.from_ppm(ppm_io) }
+
+results << benchmark { Pluto::ImageRGBA.from_webp(webp_bytes) }
+results << benchmark { Pluto::ImageRGBA.from_webp(webp_io) }
+
+results << benchmark { image_rgba.to_jpeg(IO::Memory.new) }
+results << benchmark { image_rgba.to_lossless_webp(IO::Memory.new) }
+results << benchmark { image_rgba.to_lossy_webp(IO::Memory.new) }
+results << benchmark { image_rgba.to_png(IO::Memory.new) }
+results << benchmark { image_rgba.to_ppm(IO::Memory.new) }
+
+results << benchmark { image_rgba.bilinear_resize!(640, 480) }
+results << benchmark { image_rgba.box_blur!(10) }
+results << benchmark { image_rgba.brightness!(1.4) }
+results << benchmark { image_rgba.channel_swap!(:red, :blue) }
+results << benchmark { image_rgba.contrast!(128) }
+results << benchmark { image_rgba.crop!(200, 200, 100, 100) }
+results << benchmark { image_rgba.gaussian_blur!(10) }
+results << benchmark { image_rgba.horizontal_blur!(10) }
+results << benchmark { image_rgba.vertical_blur!(10) }
 
 print_result_table(results)
