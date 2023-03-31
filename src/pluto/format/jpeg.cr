@@ -49,7 +49,10 @@ module Pluto::Format::JPEG
     end
 
     protected def self.check_jpeg(handle, code)
-      raise ::Pluto::Exception.new(handle) unless code == 0
+      message = String.new(LibJPEGTurbo.get_error_str(handle))
+      error_code = LibJPEGTurbo.get_error_code(handle).to_i
+
+      raise ::Pluto::Exception.new(message, error_code) unless code == 0
     end
   end
 
