@@ -58,22 +58,11 @@ def print_result_table(results : Array(Result))
 end
 
 macro benchmark(&)
-  jpeg_io = File.open("lib/pluto_samples/pluto.jpg")
-  jpeg_bytes = jpeg_io.getb_to_end
-  jpeg_io.rewind
-
-  png_io = File.open("lib/pluto_samples/pluto.png")
-  png_bytes = png_io.getb_to_end
-  png_io.rewind
-
-  ppm_io = File.open("lib/pluto_samples/pluto.ppm")
-  ppm_bytes = ppm_io.getb_to_end
-  ppm_io.rewind
-
-  webp_io = File.open("lib/pluto_samples/pluto.webp")
-  webp_bytes = webp_io.getb_to_end
-  webp_io.rewind
-
+  {% for format_name in ["jpeg", "png", "ppm", "webp"] %}
+    {{ format_name.id }}_io = File.open("lib/pluto_samples/pluto.{{ format_name.id }}")
+    {{ format_name.id }}_bytes = {{ format_name.id }}_io.getb_to_end
+    {{ format_name.id }}_io.rewind
+  {% end %}
   image_rgba = File.open("lib/pluto_samples/pluto.ppm") { |file| Pluto::ImageRGBA.from_ppm(file) }
 
   memory = 0i64
