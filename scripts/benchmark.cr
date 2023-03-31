@@ -94,13 +94,10 @@ results = [] of Result
 
 results << benchmark { Pluto::ImageRGBA.from_jpeg(jpeg_bytes) }
 results << benchmark { Pluto::ImageRGBA.from_jpeg(jpeg_io) }
-
 results << benchmark { Pluto::ImageRGBA.from_png(png_bytes) }
 results << benchmark { Pluto::ImageRGBA.from_png(png_io) }
-
 results << benchmark { Pluto::ImageRGBA.from_ppm(ppm_bytes) }
 results << benchmark { Pluto::ImageRGBA.from_ppm(ppm_io) }
-
 results << benchmark { Pluto::ImageRGBA.from_webp(webp_bytes) }
 results << benchmark { Pluto::ImageRGBA.from_webp(webp_io) }
 
