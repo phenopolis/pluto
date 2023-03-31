@@ -3,7 +3,7 @@ require "../../spec_helper"
 describe Pluto::Format::JPEG do
   describe ".from_jpeg and #to_jpeg" do
     it "works with ImageGA" do
-      with_sample("pluto.jpg") do |io|
+      with_sample("pluto.jpeg") do |io|
         image = Pluto::ImageGA.from_jpeg(io)
         io = IO::Memory.new
         image.to_jpeg(io)
@@ -13,7 +13,7 @@ describe Pluto::Format::JPEG do
     end
 
     it "works with ImageRGBA" do
-      with_sample("pluto.jpg") do |io|
+      with_sample("pluto.jpeg") do |io|
         image = Pluto::ImageRGBA.from_jpeg(io)
         io = IO::Memory.new
         image.to_jpeg(io)
