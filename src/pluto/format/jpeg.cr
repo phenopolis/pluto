@@ -2,7 +2,6 @@ require "./binding/lib_jpeg_turbo"
 
 module Pluto::Format::JPEG
   macro included
-    # This is the preferred, most performant JPEG overload with the least memory consumption.
     def self.from_jpeg(image_data : Bytes) : self
       handle = LibJPEGTurbo.init_decompress
       check_jpeg handle, LibJPEGTurbo.decompress_header3(
@@ -43,7 +42,6 @@ module Pluto::Format::JPEG
       new(red, green, blue, alpha, width, height)
     end
 
-    # This is a less preferred JPEG overload.
     def self.from_jpeg(io : IO) : self
       from_jpeg(io.getb_to_end)
     end

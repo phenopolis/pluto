@@ -2,7 +2,6 @@ require "./binding/lib_spng"
 
 module Pluto::Format::PNG
   macro included
-    # This is the preferred, most performant PNG overload with the least memory consumption.
     def self.from_png(image_data : Bytes) : self
       ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::None)
       raise ::Pluto::Exception.new("Failed to create a context") unless ctx
@@ -43,7 +42,6 @@ module Pluto::Format::PNG
       new(red, green, blue, alpha, width.to_i, height.to_i)
     end
 
-    # This is a less preferred PNG overload.
     def self.from_png(io : IO) : self
       from_png(io.getb_to_end)
     end
