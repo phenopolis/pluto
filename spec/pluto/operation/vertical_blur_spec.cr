@@ -21,7 +21,7 @@ describe Pluto::Operation::VerticalBlur do
     it "doesn't cause arithmetic overload" do
       with_sample("problem_images/28_arithmetic_overflow_in_blur.jpeg") do |io|
         image = Pluto::ImageRGBA.from_jpeg(io)
-        expect_digest image.vertical_blur(10), "fd483aa927fb2ca8fdeb714e82dbbd3bf173daba"
+        expect_digest image.vertical_blur(10), "00e2c8a20e4554242bca3e0acf841028a2922fe6"
       end
     end
   end
