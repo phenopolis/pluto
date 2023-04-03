@@ -1,54 +1,54 @@
 module Pluto::Operation::VerticalBlur
-  def vertical_blur(value : Int32) : self
-    clone.vertical_blur!(value)
+  def vertical_blur(radius : Int32) : self
+    clone.vertical_blur!(radius)
   end
 
   # boxBlurT_4 in Algorithm 4 in [this](https://blog.ivank.net/fastest-gaussian-blur.html) post.
   #
-  # This is running a vertical window that is `2 * value + 1` tall along each column and replacing the
-  # center pixel with sum of all pixels in the window multiplied by `1 / (2 * value + 1)` (i.e. the average
+  # This is running a vertical 1 pixel wide window that is `2 * radius + 1` tall along each column and replacing the
+  # center pixel with sum of all pixels in the window multiplied by `1 / (2 * radius + 1)` (i.e. the average
   # of the pixels in the window).
-  def vertical_blur!(value : Int32) : self
+  def vertical_blur!(radius : Int32) : self
     buffer = Bytes.new(size, 0)
-    multiplier = 1 / (value + value + 1)
+    multiplier = 1 / (radius + radius + 1)
 
     each_channel do |channel|
       @width.times do |x|
-        c_index : Int32 = x
-        l_index : Int32 = c_index
-        r_index : Int32 = c_index + value * @width
+        center_index : Int32 = x
+        upper_index : Int32 = center_index
+        lower_index : Int32 = center_index + radius * @width
 
-        f_value : Int32 = channel.unsafe_fetch(c_index).to_i
-        l_value : Int32 = channel.unsafe_fetch(c_index + @width * (@height - 1)).to_i
-        c_value : Int32 = (value + 1) * f_value
+        first_value : Int32 = channel.unsafe_fetch(center_index).to_i
+        last_value : Int32 = channel.unsafe_fetch(center_index + @width * (@height - 1)).to_i
+        current_sum : Int32 = (radius + 1) * first_value
 
-        (0..value - 1).each do |i|
-          c_value += channel.unsafe_fetch(c_index + i * @width)
+        (0..radius - 1).each do |i|
+          current_sum += channel.unsafe_fetch(center_index + i * @width)
         end
 
-        (0..value).each do
-          c_value += channel.unsafe_fetch(r_index).to_i - f_value
-          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
+        (0..radius).each do
+          current_sum += channel.unsafe_fetch(lower_index).to_i - first_value
+          buffer.unsafe_put(center_index, (current_sum * multiplier).to_u8)
 
-          r_index += @width
-          c_index += @width
+          lower_index += @width
+          center_index += @width
         end
 
-        (value + 1..@height - value - 1).each do
-          c_value += channel.unsafe_fetch(r_index).to_i - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
+        (radius + 1..@height - radius - 1).each do
+          current_sum += channel.unsafe_fetch(lower_index).to_i - channel.unsafe_fetch(upper_index).to_i
+          buffer.unsafe_put(center_index, (current_sum * multiplier).to_u8)
 
-          l_index += @width
-          r_index += @width
-          c_index += @width
+          upper_index += @width
+          lower_index += @width
+          center_index += @width
         end
 
-        (@height - value..@height - 1).each do
-          c_value += l_value - channel.unsafe_fetch(l_index).to_i
-          buffer.unsafe_put(c_index, (c_value * multiplier).to_u8)
+        (@height - radius..@height - 1).each do
+          current_sum += last_value - channel.unsafe_fetch(upper_index).to_i
+          buffer.unsafe_put(center_index, (current_sum * multiplier).to_u8)
 
-          l_index += @width
-          c_index += @width
+          upper_index += @width
+          center_index += @width
         end
       end
 
