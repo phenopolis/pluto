@@ -121,8 +121,8 @@ See the API or the `spec/` folder for more examples
 | horizontal_blur!(10)             | 3.17ms   | 300kiB  |
 | vertical_blur!(10)               | 4.51ms   | 300kiB  |
 
-- Hardware: Apple M2 Pro (12 cores/12 Threads, 3.7 Ghz)
-- Software: Mac OS 13.3.1 arm64.
+- Hardware: Apple M2 Pro (12 cores/12 threads, 3.7 GHz)
+- Software: macOS 13.3.1 arm64.
 
 |                                  | Time     | Memory  |
 | -------------------------------- | -------- | ------- |
