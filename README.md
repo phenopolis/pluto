@@ -121,6 +121,34 @@ See the API or the `spec/` folder for more examples
 | horizontal_blur!(10)             | 3.17ms   | 300kiB  |
 | vertical_blur!(10)               | 4.51ms   | 300kiB  |
 
+- Hardware: Apple M2 Pro (12 cores/12 Threads, 3.7 Ghz)
+- Software: Mac OS 13.3.1 arm64.
+
+|                                  | Time     | Memory  |
+| -------------------------------- | -------- | ------- |
+| from_jpeg(jpeg_bytes)            | 1.48ms   | 2.05MiB |
+| from_jpeg(jpeg_io)               | 1.2ms    | 2.08MiB |
+| from_png(png_bytes)              | 3.33ms   | 2.35MiB |
+| from_png(png_io)                 | 3.19ms   | 2.57MiB |
+| from_ppm(ppm_bytes)              | 510.71µs | 1.17MiB |
+| from_ppm(ppm_io)                 | 1.88ms   | 1.2MiB  |
+| from_webp(webp_bytes)            | 2.59ms   | 1.17MiB |
+| from_webp(webp_io)               | 2.13ms   | 1.27MiB |
+| to_jpeg(IO::Memory.new)          | 3.43ms   | 964kiB  |
+| to_lossless_webp(IO::Memory.new) | 120.76ms | 1.23MiB |
+| to_lossy_webp(IO::Memory.new)    | 16.92ms  | 1.2MiB  |
+| to_png(IO::Memory.new)           | 29.6ms   | 1.3MiB  |
+| to_ppm(IO::Memory.new)           | 1.96ms   | 2.0MiB  |
+| bilinear_resize!(640, 480)       | 2.63ms   | 1.17MiB |
+| box_blur!(10)                    | 2.43ms   | 600kiB  |
+| brightness!(1.4)                 | 1.18ms   | 0B      |
+| channel_swap!(:red, :blue)       | 42.0ns   | 0B      |
+| contrast!(128)                   | 1.37ms   | 0B      |
+| crop!(200, 200, 100, 100)        | 11.88µs  | 100kiB  |
+| gaussian_blur!(10)               | 7.37ms   | 1.75MiB |
+| horizontal_blur!(10)             | 1.23ms   | 300kiB  |
+| vertical_blur!(10)               | 1.2ms    | 300kiB  |
+
 > **Note**
 >
 > Tested with the latest release.
