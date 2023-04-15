@@ -93,65 +93,7 @@ See the API or the `spec/` folder for more examples
 
 ## Benchmarks
 
-- Hardware: Intel Core i7-6700K (4 cores/8 threads, 4.2 GHz).
-- Software: Arch Linux x86_64.
-
-|                                  | Time     | Memory  |
-| -------------------------------- | -------- | ------- |
-| from_jpeg(jpeg_bytes)            | 2.09ms   | 2.05MiB |
-| from_jpeg(jpeg_io)               | 1.99ms   | 2.08MiB |
-| from_png(png_bytes)              | 3.45ms   | 2.35MiB |
-| from_png(png_io)                 | 3.61ms   | 2.57MiB |
-| from_ppm(ppm_bytes)              | 799.44µs | 1.17MiB |
-| from_ppm(ppm_io)                 | 2.45ms   | 1.2MiB  |
-| from_webp(webp_bytes)            | 3.02ms   | 1.17MiB |
-| from_webp(webp_io)               | 2.88ms   | 1.27MiB |
-| to_jpeg(IO::Memory.new)          | 3.35ms   | 964kiB  |
-| to_lossless_webp(IO::Memory.new) | 105.68ms | 1.23MiB |
-| to_lossy_webp(IO::Memory.new)    | 21.21ms  | 1.2MiB  |
-| to_png(IO::Memory.new)           | 36.46ms  | 1.3MiB  |
-| to_ppm(IO::Memory.new)           | 2.34ms   | 2.0MiB  |
-| bilinear_resize!(640, 480)       | 6.21ms   | 1.17MiB |
-| box_blur!(10)                    | 7.74ms   | 600kiB  |
-| brightness!(1.4)                 | 1.84ms   | 0B      |
-| channel_swap!(:red, :blue)       | 63.0ns   | 0B      |
-| contrast!(128)                   | 2.03ms   | 0B      |
-| crop!(200, 200, 100, 100)        | 29.62µs  | 100kiB  |
-| gaussian_blur!(10)               | 23.01ms  | 1.75MiB |
-| horizontal_blur!(10)             | 3.17ms   | 300kiB  |
-| vertical_blur!(10)               | 4.51ms   | 300kiB  |
-
-- Hardware: Apple M2 Pro (12 cores/12 threads, 3.7 GHz)
-- Software: macOS 13.3.1 arm64.
-
-|                                  | Time     | Memory  |
-| -------------------------------- | -------- | ------- |
-| from_jpeg(jpeg_bytes)            | 1.48ms   | 2.05MiB |
-| from_jpeg(jpeg_io)               | 1.2ms    | 2.08MiB |
-| from_png(png_bytes)              | 3.33ms   | 2.35MiB |
-| from_png(png_io)                 | 3.19ms   | 2.57MiB |
-| from_ppm(ppm_bytes)              | 510.71µs | 1.17MiB |
-| from_ppm(ppm_io)                 | 1.88ms   | 1.2MiB  |
-| from_webp(webp_bytes)            | 2.59ms   | 1.17MiB |
-| from_webp(webp_io)               | 2.13ms   | 1.27MiB |
-| to_jpeg(IO::Memory.new)          | 3.43ms   | 964kiB  |
-| to_lossless_webp(IO::Memory.new) | 120.76ms | 1.23MiB |
-| to_lossy_webp(IO::Memory.new)    | 16.92ms  | 1.2MiB  |
-| to_png(IO::Memory.new)           | 29.6ms   | 1.3MiB  |
-| to_ppm(IO::Memory.new)           | 1.96ms   | 2.0MiB  |
-| bilinear_resize!(640, 480)       | 2.63ms   | 1.17MiB |
-| box_blur!(10)                    | 2.43ms   | 600kiB  |
-| brightness!(1.4)                 | 1.18ms   | 0B      |
-| channel_swap!(:red, :blue)       | 42.0ns   | 0B      |
-| contrast!(128)                   | 1.37ms   | 0B      |
-| crop!(200, 200, 100, 100)        | 11.88µs  | 100kiB  |
-| gaussian_blur!(10)               | 7.37ms   | 1.75MiB |
-| horizontal_blur!(10)             | 1.23ms   | 300kiB  |
-| vertical_blur!(10)               | 1.2ms    | 300kiB  |
-
-> **Note**
->
-> Tested with the latest release.
+See [BENCHMARKS.md](https://github.com/phenopolis/pluto/blob/main/BENCHMARKS.md).
 
 ## Contributing
 
