@@ -34,8 +34,8 @@
 | horizontal_blur!(10)             | 1.23ms   | 300kiB  |
 | vertical_blur!(10)               | 1.2ms    | 300kiB  |
 
-Total Time: 206.41ms
-Total Memory: 24.7MiB
+- Total Time: 206.41ms
+- Total Memory: 24.7MiB
 
 ### Intel Core i7-6700K
 
@@ -69,5 +69,5 @@ Total Memory: 24.7MiB
 | horizontal_blur!(10)             | 2.26ms   | 300kiB  |
 | vertical_blur!(10)               | 3.32ms   | 300kiB  |
 
-Total Time: 227.19ms
-Total Memory: 24.7MiB
+- Total Time: 227.19ms
+- Total Memory: 24.7MiB
