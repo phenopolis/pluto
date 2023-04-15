@@ -93,7 +93,7 @@ See the API or the [`spec/`](https://github.com/phenopolis/pluto/tree/main/spec)
 
 ## Benchmarks
 
-See [BENCHMARKS.md](https://github.com/phenopolis/pluto/blob/main/BENCHMARKS.md).
+See [`BENCHMARKS.md`](https://github.com/phenopolis/pluto/blob/main/BENCHMARKS.md).
 
 ## Contributing
 
