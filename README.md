@@ -35,7 +35,7 @@
 
 ## Installation
 
-1. Add the dependency to your `shard.yml`
+1. Add the dependency to your `shard.yml`:
 
    ```yaml
    dependencies:
@@ -43,7 +43,7 @@
        github: phenopolis/pluto
    ```
 
-2. Run `shards install`
+2. Run `shards install`.
 
 ## Usage
 
@@ -89,7 +89,7 @@ image.to_stumpy                                        # => StumpyCore::Canvas
 
 ### More
 
-See the API or the `spec/` folder for more examples
+See the API or the [`spec/`](https://github.com/phenopolis/pluto/tree/main/spec) folder for more examples.
 
 ## Benchmarks
 
@@ -97,8 +97,8 @@ See [BENCHMARKS.md](https://github.com/phenopolis/pluto/blob/main/BENCHMARKS.md)
 
 ## Contributing
 
-1. Fork it (<https://github.com/phenopolis/pluto/fork>)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+1. Fork it (<https://github.com/phenopolis/pluto/fork>).
+2. Create your feature branch (`git checkout -b my-new-feature`).
+3. Commit your changes (`git commit -am 'Add some feature'`).
+4. Push to the branch (`git push origin my-new-feature`).
+5. Create a new Pull Request.
