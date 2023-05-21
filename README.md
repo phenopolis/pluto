@@ -79,7 +79,7 @@ require "pluto"
 require "stumpy_png"
 
 canvas = StumpyPNG.read("lib/pluto_samples/pluto.png") # => StumpyCore::Canvas
-image = Pluto::ImageRGBA.new(canvas)                   # => Pluto::ImageRGBA
+image = Pluto::ImageRGBA.from_stumpy(canvas)           # => Pluto::ImageRGBA
 image.to_stumpy                                        # => StumpyCore::Canvas
 ```
 
