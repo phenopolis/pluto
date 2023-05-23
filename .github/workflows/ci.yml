@@ -9,11 +9,11 @@ jobs:
   check:
     name: Check
     runs-on: ubuntu-latest
-    container:
-      image: alpine:3.17
     steps:
       - uses: actions/checkout@v3
-      - run: apk add crystal libjpeg-turbo libjpeg-turbo-dev libspng libspng-dev libwebp libwebp-dev make openssl openssl-dev shards yaml yaml-dev
+      - uses: crystal-lang/install-crystal@v1
+      - run: sudo apt-get install libssl-dev libssl3 libturbojpeg libturbojpeg0-dev libwebp-dev libwebp7 libyaml-0-2 libyaml-dev meson
+      - run: curl -L -o libspng-0.7.4.tar.gz https://github.com/randy408/libspng/archive/v0.7.4.tar.gz && tar -xf libspng-0.7.4.tar.gz && cd libspng-0.7.4 && meson build && sudo meson install -C build
       - run: shards install
       - run: bin/ameba
       - run: crystal tool format --check
