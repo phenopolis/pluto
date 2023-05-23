@@ -1,5 +1,42 @@
 # Benchmarks
 
+## 1.0.0
+
+### Intel Core i7-6700K
+
+- Architecture: x86_64
+- Cores/Threads: 4/8
+- Frequency: 4.2 GHz
+- Operating System: Arch Linux
+
+|                                  | Time     | Memory  |
+| -------------------------------- | -------- | ------- |
+| from_jpeg(jpeg_bytes)            | 2.3ms    | 2.05MiB |
+| from_jpeg(jpeg_io)               | 2.05ms   | 2.08MiB |
+| from_png(png_bytes)              | 3.89ms   | 2.35MiB |
+| from_png(png_io)                 | 3.44ms   | 2.57MiB |
+| from_ppm(ppm_bytes)              | 714.55µs | 1.17MiB |
+| from_ppm(ppm_io)                 | 2.4ms    | 1.2MiB  |
+| from_webp(webp_bytes)            | 3.05ms   | 1.17MiB |
+| from_webp(webp_io)               | 2.75ms   | 1.27MiB |
+| to_jpeg(IO::Memory.new)          | 3.43ms   | 964kiB  |
+| to_lossless_webp(IO::Memory.new) | 105.22ms | 1.23MiB |
+| to_lossy_webp(IO::Memory.new)    | 21.13ms  | 1.2MiB  |
+| to_png(IO::Memory.new)           | 37.01ms  | 1.3MiB  |
+| to_ppm(IO::Memory.new)           | 2.34ms   | 2.0MiB  |
+| bilinear_resize!(640, 480)       | 6.41ms   | 1.17MiB |
+| box_blur!(10)                    | 5.6ms    | 600kiB  |
+| brightness!(1.4)                 | 1.87ms   | 0B      |
+| channel_swap!(:red, :blue)       | 70.0ns   | 0B      |
+| contrast!(128)                   | 2.05ms   | 0B      |
+| crop!(200, 200, 100, 100)        | 27.13µs  | 100kiB  |
+| gaussian_blur!(10)               | 17.03ms  | 1.75MiB |
+| horizontal_blur!(10)             | 2.31ms   | 300kiB  |
+| vertical_blur!(10)               | 3.41ms   | 300kiB  |
+
+Total Time: 228.41ms
+Total Memory: 24.7MiB
+
 ## v0.3.1
 
 ### Apple M2 Pro
