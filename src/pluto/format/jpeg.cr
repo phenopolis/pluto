@@ -25,7 +25,7 @@ module Pluto::Format::JPEG
         LibJPEGTurbo::PixelFormat::RGB,
         0
       )
-      check_jpeg handle, LibJPEGTurbo.destroy(handle)
+      LibJPEGTurbo.destroy(handle)
 
       red = Array.new(width * height) { 0u8 }
       green = Array.new(width * height) { 0u8 }
@@ -77,7 +77,7 @@ module Pluto::Format::JPEG
       quality,
       0
     )
-    check_jpeg handle, LibJPEGTurbo.destroy(handle)
+    LibJPEGTurbo.destroy(handle)
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)
