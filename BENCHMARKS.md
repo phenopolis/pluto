@@ -34,8 +34,8 @@
 | horizontal_blur!(10)             | 2.31ms   | 300kiB  |
 | vertical_blur!(10)               | 3.41ms   | 300kiB  |
 
-Total Time: 228.41ms
-Total Memory: 24.7MiB
+- Total Time: 228.41ms
+- Total Memory: 24.7MiB
 
 ## v0.3.1
 
