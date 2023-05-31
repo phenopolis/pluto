@@ -12,10 +12,10 @@ abstract class Pluto::Image
     include Operation::Brightness
     include Operation::ChannelSwap
     include Operation::Contrast
+    include Operation::Crop
     include Operation::GaussianBlur
     include Operation::HorizontalBlur
     include Operation::VerticalBlur
-    include Operation::Crop
   end
 
   abstract def red : Array(UInt8)
