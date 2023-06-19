@@ -50,8 +50,8 @@ def print_result_table(results : Array(Result))
     table.each do |row|
       string << "| " << row.join(" | ") << " |\n"
     end
-    string << "\nTotal Time: " << elapsed_text(results.sum(&.time)) << "\n"
-    string << "Total Memory: " << results.sum(&.memory).humanize_bytes
+    string << "\n- Total Time: " << elapsed_text(results.sum(&.time))
+    string << "\n- Total Memory: " << results.sum(&.memory).humanize_bytes
   end
 
   puts output
