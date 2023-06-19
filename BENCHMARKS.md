@@ -1,5 +1,42 @@
 # Benchmarks
 
+## 1.0.1
+
+### Intel Core i7-6700K
+
+- Architecture: x86_64
+- Cores/Threads: 4/8
+- Frequency: 4.2 GHz
+- Operating System: Arch Linux
+
+|                                  | Time     | Memory  |
+| -------------------------------- | -------- | ------- |
+| from_jpeg(jpeg_bytes)            | 2.31ms   | 2.05MiB |
+| from_jpeg(jpeg_io)               | 2.18ms   | 2.08MiB |
+| from_png(png_bytes)              | 3.41ms   | 2.35MiB |
+| from_png(png_io)                 | 3.52ms   | 2.57MiB |
+| from_ppm(ppm_bytes)              | 761.38µs | 1.17MiB |
+| from_ppm(ppm_io)                 | 2.37ms   | 1.2MiB  |
+| from_webp(webp_bytes)            | 3.03ms   | 1.17MiB |
+| from_webp(webp_io)               | 2.67ms   | 1.27MiB |
+| to_jpeg(IO::Memory.new)          | 3.41ms   | 964kiB  |
+| to_lossless_webp(IO::Memory.new) | 105.24ms | 1.23MiB |
+| to_lossy_webp(IO::Memory.new)    | 21.14ms  | 1.2MiB  |
+| to_png(IO::Memory.new)           | 37.16ms  | 1.3MiB  |
+| to_ppm(IO::Memory.new)           | 2.35ms   | 2.0MiB  |
+| bilinear_resize!(640, 480)       | 6.22ms   | 1.17MiB |
+| box_blur!(10)                    | 5.55ms   | 600kiB  |
+| brightness!(1.4)                 | 1.87ms   | 0B      |
+| channel_swap!(:red, :blue)       | 89.0ns   | 0B      |
+| contrast!(128)                   | 2.08ms   | 0B      |
+| crop!(200, 200, 100, 100)        | 26.94µs  | 100kiB  |
+| gaussian_blur!(10)               | 16.93ms  | 1.75MiB |
+| horizontal_blur!(10)             | 2.26ms   | 300kiB  |
+| vertical_blur!(10)               | 3.3ms    | 300kiB  |
+
+- Total Time: 227.81ms
+- Total Memory: 24.7MiB
+
 ## 1.0.0
 
 ### Intel Core i7-6700K
