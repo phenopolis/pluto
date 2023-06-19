@@ -10,7 +10,7 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     container:
-      image: alpine:3.17
+      image: alpine:3.18
     steps:
       - uses: actions/checkout@v3
       - run: apk add crystal libjpeg-turbo libjpeg-turbo-dev libspng libspng-dev libwebp libwebp-dev make openssl openssl-dev shards yaml yaml-dev
