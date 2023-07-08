@@ -105,5 +105,6 @@ results << benchmark { image_rgba.crop!(200, 200, 100, 100) }
 results << benchmark { image_rgba.gaussian_blur!(10) }
 results << benchmark { image_rgba.horizontal_blur!(10) }
 results << benchmark { image_rgba.vertical_blur!(10) }
+results << benchmark { image_rgba.pad!(100) }
 
 print_result_table(results)
