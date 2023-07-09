@@ -21,7 +21,7 @@
   - PNG (through [libspng](https://libspng.org/))
   - PPM
   - [StumpyCore](https://github.com/stumpycr/stumpy_core)
-  - WebP (through [libwebp](https://developers.google.com/speed/webp) and `libsharpyuv`)
+  - WebP (through [libwebp](https://developers.google.com/speed/webp))
 - Image operations
   - Bilinear resize
   - Box blur

@@ -1,9 +1,9 @@
-module Pluto::Operation::Pad
-  def pad(all : Int32 = 0, *, left : Int32 = 0, right : Int32 = 0, top : Int32 = 0, bottom : Int32 = 0, pad_type : PadType = PadType::Black) : self
-    clone.pad!(all, left: left, right: right, top: top, bottom: bottom, pad_type: pad_type)
+module Pluto::Operation::Padding
+  def padding(all : Int32 = 0, *, left : Int32 = 0, right : Int32 = 0, top : Int32 = 0, bottom : Int32 = 0, pad_type : PadType = PadType::Black) : self
+    clone.padding!(all, left: left, right: right, top: top, bottom: bottom, pad_type: pad_type)
   end
 
-  def pad!(all : Int32 = 0, *, left : Int32 = 0, right : Int32 = 0, top : Int32 = 0, bottom : Int32 = 0, pad_type : PadType = PadType::Black) : self
+  def padding!(all : Int32 = 0, *, left : Int32 = 0, right : Int32 = 0, top : Int32 = 0, bottom : Int32 = 0, pad_type : PadType = PadType::Black) : self
     top = top > 0 ? top : all
     bottom = bottom > 0 ? bottom : all
     left = left > 0 ? left : all
@@ -13,13 +13,13 @@ module Pluto::Operation::Pad
     new_height = top + height + bottom
 
     each_channel do |channel, channel_type|
-      new_channel = Array(UInt8).new((top + height + bottom) * new_width) do |i|
-        next 0u8 if pad_type.black?
-
-        adjusted_y = (i // new_width - top).clamp(0, height - 1)
-
-        (i % new_width) <= left ? channel[adjusted_y * width] : channel[adjusted_y * width + width - 1]
-      end
+      new_channel = case pad_type
+                    in PadType::Black then Array(UInt8).new((top + height + bottom) * new_width) { 0u8 }
+                    in PadType::Repeat then Array(UInt8).new((top + height + bottom) * new_width) do |i|
+                      adjusted_y = (i // new_width - top).clamp(0, height - 1)
+                      channel.unsafe_fetch(adjusted_y * width + (i % new_width - left).clamp(0, width - 1))
+                    end
+                    end
 
       # Now copy the original values into the new raw array at the correct locations
       height.times do |y|
