@@ -22,6 +22,7 @@
   - PPM
   - [StumpyCore](https://github.com/stumpycr/stumpy_core)
   - WebP (through [libwebp](https://developers.google.com/speed/webp))
+    - WebP 1.3+ linking flags are used by default. If you have an older version installed, compile with the `-Dlegacy_webp` flag to skip the requirement for `libsharpyuv`.
 - Image operations
   - Bilinear resize
   - Box blur
@@ -31,6 +32,7 @@
   - Crop
   - Gaussian blur
   - Horizontal blur
+  - Padding
   - Vertical blur
 
 ## Installation
