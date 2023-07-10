@@ -7,9 +7,9 @@ describe Pluto::Operation::BilinearResize do
       downsized_image = image.bilinear_resize(480, 360)
       upsized_image = image.bilinear_resize(800, 600)
 
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest downsized_image, "e99a957526b32dfbfabff4b580335944a1659b67"
-      expect_digest upsized_image, "9fe83c54452750e436da32b42a9cad5e8a904c1b"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest downsized_image, "c9170d334fceaabb2872d77f8ad17a060fe6b8bb"
+      expect_digest upsized_image, "e805444081aca847564403289d958f5c934d72a2"
     end
 
     it "works with ImageRGBA" do
@@ -17,9 +17,9 @@ describe Pluto::Operation::BilinearResize do
       downsized_image = image.bilinear_resize(480, 360)
       upsized_image = image.bilinear_resize(800, 600)
 
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest downsized_image, "7a18aea5a8a33fbb74cd12182172fd266f8b9c60"
-      expect_digest upsized_image, "4091684fe7b44c6d9a61ff732ab8d6f26b129e88"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest downsized_image, "cbd396e1eb36f130c704e08ba241c7d306e52d68"
+      expect_digest upsized_image, "feb78bd9f4ac63e53012acd351facd2882e1bf91"
     end
   end
 
@@ -27,21 +27,21 @@ describe Pluto::Operation::BilinearResize do
     it "works with ImageGA" do
       image = ga_sample
       image.bilinear_resize!(480, 360)
-      expect_digest image, "e99a957526b32dfbfabff4b580335944a1659b67"
+      expect_digest image, "c9170d334fceaabb2872d77f8ad17a060fe6b8bb"
 
       image = ga_sample
       image.bilinear_resize!(800, 600)
-      expect_digest image, "9fe83c54452750e436da32b42a9cad5e8a904c1b"
+      expect_digest image, "e805444081aca847564403289d958f5c934d72a2"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.bilinear_resize!(480, 360)
-      expect_digest image, "7a18aea5a8a33fbb74cd12182172fd266f8b9c60"
+      expect_digest image, "cbd396e1eb36f130c704e08ba241c7d306e52d68"
 
       image = rgba_sample
       image.bilinear_resize!(800, 600)
-      expect_digest image, "4091684fe7b44c6d9a61ff732ab8d6f26b129e88"
+      expect_digest image, "feb78bd9f4ac63e53012acd351facd2882e1bf91"
     end
   end
 end

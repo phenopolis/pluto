@@ -23,9 +23,9 @@ describe Pluto::Operation::Crop do
       whole_image = image.crop(0, 0, image.width, image.height)
       cropped_image = image.crop(200, 200, 100, 100)
 
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest whole_image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest cropped_image, "42c223c282a5ca6419683e98216908520838b717"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest whole_image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest cropped_image, "3d4506051ef8676ec269e2f4567e00c521a531f9"
     end
 
     it "works with ImageRGBA" do
@@ -33,9 +33,9 @@ describe Pluto::Operation::Crop do
       whole_image = image.crop(0, 0, image.width, image.height)
       cropped_image = image.crop(200, 200, 100, 100)
 
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest whole_image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest cropped_image, "d02012cf3aae614ef06f1dbbf4aa8952905b259b"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest whole_image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest cropped_image, "d460916b5b023a2a7f4957f3dbf08d32f4ada941"
     end
   end
 
@@ -43,21 +43,21 @@ describe Pluto::Operation::Crop do
     it "works with ImageGA" do
       image = ga_sample
       image.crop!(0, 0, image.width, image.height)
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
 
       image = ga_sample
       image.crop!(200, 200, 100, 100)
-      expect_digest image, "42c223c282a5ca6419683e98216908520838b717"
+      expect_digest image, "3d4506051ef8676ec269e2f4567e00c521a531f9"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.crop!(0, 0, image.width, image.height)
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
 
       image = rgba_sample
       image.crop!(200, 200, 100, 100)
-      expect_digest image, "d02012cf3aae614ef06f1dbbf4aa8952905b259b"
+      expect_digest image, "d460916b5b023a2a7f4957f3dbf08d32f4ada941"
     end
   end
 end

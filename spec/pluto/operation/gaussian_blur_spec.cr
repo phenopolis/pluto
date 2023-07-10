@@ -6,16 +6,16 @@ describe Pluto::Operation::GaussianBlur do
       image = ga_sample
       blurred_image = image.gaussian_blur(10)
 
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest blurred_image, "df13de316f347c955309abcada06657d00b55bf5"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest blurred_image, "b85901335f1c1c78303678b6b8a0bd4b2fe0ece0"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       blurred_image = image.gaussian_blur(10)
 
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest blurred_image, "245b54db2a7b075bf5404dc34d8b96357349f4d2"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest blurred_image, "fede3d7d1c5aec5a27c904c60fe39772acbc0459"
     end
   end
 
@@ -24,14 +24,14 @@ describe Pluto::Operation::GaussianBlur do
       image = ga_sample
       image.gaussian_blur!(10)
 
-      expect_digest image, "df13de316f347c955309abcada06657d00b55bf5"
+      expect_digest image, "b85901335f1c1c78303678b6b8a0bd4b2fe0ece0"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.gaussian_blur!(10)
 
-      expect_digest image, "245b54db2a7b075bf5404dc34d8b96357349f4d2"
+      expect_digest image, "fede3d7d1c5aec5a27c904c60fe39772acbc0459"
     end
   end
 end
