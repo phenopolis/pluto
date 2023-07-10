@@ -32,7 +32,7 @@ module Pluto::Operation::Padding
       new_channel =
         Array(UInt8).new((top + height + bottom) * new_width) do |i|
           case padding_type
-          in PaddingType::Black then 0u8
+          in PaddingType::Black then channel_type.is_a?(ChannelType::Alpha) ? 255u8 : 0u8
           in PaddingType::Repeat
             adjusted_y = (i // new_width - top).clamp(0, height - 1)
             channel.unsafe_fetch(adjusted_y * width + (i % new_width - left).clamp(0, width - 1))
