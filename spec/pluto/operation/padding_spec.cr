@@ -4,50 +4,44 @@ describe Pluto::Operation::Padding do
   describe "#padding" do
     it "works with ImageGA" do
       image = ga_sample
-      image.crop!(0, 0, image.width // 2, image.height)
-      black_padding = image.padding(40)
-      repeat_padding = image.padding(40, padding_type: Pluto::PaddingType::Repeat)
+      black_padding_image = image.padding(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :black)
+      repeat_padding_image = image.padding(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :repeat)
 
-      expect_digest image, "c699cce8b977af923eed0203127fbe2e14b41ae4"
-      expect_digest black_padding, "eafc48c6cbd575f63473edfc0e1b86ed05659a3c"
-      expect_digest repeat_padding, "73dd639141c31f964dfd854bb405f43b762897ad"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest black_padding_image, "026bfc487c33a3e08faa03ea15028383d6fbcabb"
+      expect_digest repeat_padding_image, "57d142c46c3d226d3baa8bacd8e942b53f85ad02"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
-      image.crop!(0, 0, image.width // 2, image.height)
-      black_padding = image.padding(40)
-      repeat_padding = image.padding(40, padding_type: Pluto::PaddingType::Repeat)
+      black_padding_image = image.padding(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :black)
+      repeat_padding_image = image.padding(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :repeat)
 
-      expect_digest image, "38d1076ce0918f55880fa6dd4082fd944c78bbe3"
-      expect_digest black_padding, "893bd2357a99f33cb68f5ab0423fabfbd2d30b69"
-      expect_digest repeat_padding, "c7edc92797d4cc743d997fae5c064a97e36ce044"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest black_padding_image, "02e0ce76b0c1f7d53abb6debfe0bb59248de35c9"
+      expect_digest repeat_padding_image, "72a80c554b643a38e325590c8a270ec55b9a2666"
     end
   end
 
   describe "#padding!" do
     it "works with ImageGA" do
       image = ga_sample
-      image.crop!(0, 0, image.width // 2, image.height)
-      image.padding!(40)
-      expect_digest image, "eafc48c6cbd575f63473edfc0e1b86ed05659a3c"
+      image.padding!(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :black)
+      expect_digest image, "026bfc487c33a3e08faa03ea15028383d6fbcabb"
 
       image = ga_sample
-      image.crop!(0, 0, image.width // 2, image.height)
-      image.padding!(40, padding_type: Pluto::PaddingType::Repeat)
-      expect_digest image, "73dd639141c31f964dfd854bb405f43b762897ad"
+      image.padding!(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :repeat)
+      expect_digest image, "57d142c46c3d226d3baa8bacd8e942b53f85ad02"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
-      image.crop!(0, 0, image.width // 2, image.height)
-      image.padding!(40)
-      expect_digest image, "893bd2357a99f33cb68f5ab0423fabfbd2d30b69"
+      image.padding!(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :black)
+      expect_digest image, "02e0ce76b0c1f7d53abb6debfe0bb59248de35c9"
 
       image = rgba_sample
-      image.crop!(0, 0, image.width // 2, image.height)
-      image.padding!(40, padding_type: Pluto::PaddingType::Repeat)
-      expect_digest image, "c7edc92797d4cc743d997fae5c064a97e36ce044"
+      image.padding!(100, left: 100, top: 200, right: 300, bottom: 400, padding_type: :repeat)
+      expect_digest image, "72a80c554b643a38e325590c8a270ec55b9a2666"
     end
   end
 end
