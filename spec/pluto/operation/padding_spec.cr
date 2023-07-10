@@ -5,23 +5,23 @@ describe Pluto::Operation::Padding do
     it "works with ImageGA" do
       image = ga_sample
       image.crop!(0, 0, image.width // 2, image.height)
-      black_pad = image.padding(40)
-      repeat_pad = image.padding(40, pad_type: Pluto::PadType::Repeat)
+      black_padding = image.padding(40)
+      repeat_padding = image.padding(40, padding_type: Pluto::PaddingType::Repeat)
 
       expect_digest image, "c699cce8b977af923eed0203127fbe2e14b41ae4"
-      expect_digest black_pad, "eafc48c6cbd575f63473edfc0e1b86ed05659a3c"
-      expect_digest repeat_pad, "73dd639141c31f964dfd854bb405f43b762897ad"
+      expect_digest black_padding, "eafc48c6cbd575f63473edfc0e1b86ed05659a3c"
+      expect_digest repeat_padding, "73dd639141c31f964dfd854bb405f43b762897ad"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.crop!(0, 0, image.width // 2, image.height)
-      black_pad = image.padding(40)
-      repeat_pad = image.padding(40, pad_type: Pluto::PadType::Repeat)
+      black_padding = image.padding(40)
+      repeat_padding = image.padding(40, padding_type: Pluto::PaddingType::Repeat)
 
       expect_digest image, "38d1076ce0918f55880fa6dd4082fd944c78bbe3"
-      expect_digest black_pad, "893bd2357a99f33cb68f5ab0423fabfbd2d30b69"
-      expect_digest repeat_pad, "c7edc92797d4cc743d997fae5c064a97e36ce044"
+      expect_digest black_padding, "893bd2357a99f33cb68f5ab0423fabfbd2d30b69"
+      expect_digest repeat_padding, "c7edc92797d4cc743d997fae5c064a97e36ce044"
     end
   end
 
@@ -34,7 +34,7 @@ describe Pluto::Operation::Padding do
 
       image = ga_sample
       image.crop!(0, 0, image.width // 2, image.height)
-      image.padding!(40, pad_type: Pluto::PadType::Repeat)
+      image.padding!(40, padding_type: Pluto::PaddingType::Repeat)
       expect_digest image, "73dd639141c31f964dfd854bb405f43b762897ad"
     end
 
@@ -46,7 +46,7 @@ describe Pluto::Operation::Padding do
 
       image = rgba_sample
       image.crop!(0, 0, image.width // 2, image.height)
-      image.padding!(40, pad_type: Pluto::PadType::Repeat)
+      image.padding!(40, padding_type: Pluto::PaddingType::Repeat)
       expect_digest image, "c7edc92797d4cc743d997fae5c064a97e36ce044"
     end
   end
