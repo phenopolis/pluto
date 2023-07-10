@@ -22,6 +22,7 @@
   - PPM
   - [StumpyCore](https://github.com/stumpycr/stumpy_core)
   - WebP (through [libwebp](https://developers.google.com/speed/webp))
+    - Webp 1.3 is supported, and requires `libsharpyuv` to be available. If WebP 1.3 isn't needed, the flag `-Dlegacy_webp` can be used to skip that requirement.
 - Image operations
   - Bilinear resize
   - Box blur
