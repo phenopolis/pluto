@@ -59,11 +59,11 @@ end
 
 macro benchmark(&)
   {% for format_name in {"jpeg", "png", "ppm", "webp"} %}
-    {{ format_name.id }}_io = File.open("lib/pluto_samples/pluto.{{ format_name.id }}")
+    {{ format_name.id }}_io = File.open("lib/pluto_samples/desert.{{ format_name.id }}")
     {{ format_name.id }}_bytes = {{ format_name.id }}_io.getb_to_end
     {{ format_name.id }}_io.rewind
   {% end %}
-  image_rgba = File.open("lib/pluto_samples/pluto.ppm") { |file| Pluto::ImageRGBA.from_ppm(file) }
+  image_rgba = File.open("lib/pluto_samples/desert.ppm") { |file| Pluto::ImageRGBA.from_ppm(file) }
 
   memory = 0i64
   time = benchmark_time do

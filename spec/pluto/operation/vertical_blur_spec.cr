@@ -6,16 +6,16 @@ describe Pluto::Operation::VerticalBlur do
       image = ga_sample
       blurred_image = image.vertical_blur(10)
 
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest blurred_image, "38d71a5c13f46afdca6b13ecbdeb97327cd46dd7"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest blurred_image, "d03c020dd139648563ac726ad62f4773b007e250"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       blurred_image = image.vertical_blur(10)
 
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest blurred_image, "d7116d6cea0a14e23cc3a23dbc86ad8bf1fecf2f"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest blurred_image, "5021f57e61fc64143d3c4dcb6ddeb67cd3304b8f"
     end
 
     it "doesn't cause arithmetic overload" do
@@ -31,14 +31,14 @@ describe Pluto::Operation::VerticalBlur do
       image = ga_sample
       image.vertical_blur!(10)
 
-      expect_digest image, "38d71a5c13f46afdca6b13ecbdeb97327cd46dd7"
+      expect_digest image, "d03c020dd139648563ac726ad62f4773b007e250"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.vertical_blur!(10)
 
-      expect_digest image, "d7116d6cea0a14e23cc3a23dbc86ad8bf1fecf2f"
+      expect_digest image, "5021f57e61fc64143d3c4dcb6ddeb67cd3304b8f"
     end
   end
 end

@@ -59,7 +59,7 @@ require "pluto/format/jpeg"
 require "pluto/format/png"
 require "pluto/format/webp"
 
-image = File.open("lib/pluto_samples/pluto.png") do |file|
+image = File.open("lib/pluto_samples/desert.png") do |file|
   Pluto::ImageRGBA.from_png(file)
 end
 
@@ -80,9 +80,9 @@ Pluto can convert to and from [StumpyCore](https://github.com/stumpycr/stumpy_co
 require "pluto"
 require "stumpy_png"
 
-canvas = StumpyPNG.read("lib/pluto_samples/pluto.png") # => StumpyCore::Canvas
-image = Pluto::ImageRGBA.from_stumpy(canvas)           # => Pluto::ImageRGBA
-image.to_stumpy                                        # => StumpyCore::Canvas
+canvas = StumpyPNG.read("lib/pluto_samples/desert.png") # => StumpyCore::Canvas
+image = Pluto::ImageRGBA.from_stumpy(canvas)            # => Pluto::ImageRGBA
+image.to_stumpy                                         # => StumpyCore::Canvas
 ```
 
 > **Note**

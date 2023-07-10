@@ -7,9 +7,9 @@ describe Pluto::Operation::Brightness do
       brightened_image = image.brightness(1.4)
       darkened_image = image.brightness(0.6)
 
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest brightened_image, "16e5ec301a72d75ea53c62c8f7b66b0b583455e4"
-      expect_digest darkened_image, "c3d8d9c5c221ae0672f92def1ccdc8d0aea13d5d"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest brightened_image, "4dbf387343f62918983b6b254eba086066320eb4"
+      expect_digest darkened_image, "60791a4949583fa56304175e0d2bf0d643d11e8f"
     end
 
     it "works with ImageRGBA" do
@@ -17,9 +17,9 @@ describe Pluto::Operation::Brightness do
       brightened_image = image.brightness(1.4)
       darkened_image = image.brightness(0.6)
 
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest brightened_image, "e276fd23c577bf986b0e75c3f8e43cc936307450"
-      expect_digest darkened_image, "f84f1a69db111484616cb1b9bd58e92a608c50e7"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest brightened_image, "27c0f8ddf392e55691dba9e74bdd174e9a84373a"
+      expect_digest darkened_image, "0f84f1c0b8ca27642f244ca1c9ea316737216d61"
     end
   end
 
@@ -27,21 +27,21 @@ describe Pluto::Operation::Brightness do
     it "works with ImageGA" do
       image = ga_sample
       image.brightness!(1.4)
-      expect_digest image, "16e5ec301a72d75ea53c62c8f7b66b0b583455e4"
+      expect_digest image, "4dbf387343f62918983b6b254eba086066320eb4"
 
       image = ga_sample
       image.brightness!(0.6)
-      expect_digest image, "c3d8d9c5c221ae0672f92def1ccdc8d0aea13d5d"
+      expect_digest image, "60791a4949583fa56304175e0d2bf0d643d11e8f"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.brightness!(1.4)
-      expect_digest image, "e276fd23c577bf986b0e75c3f8e43cc936307450"
+      expect_digest image, "27c0f8ddf392e55691dba9e74bdd174e9a84373a"
 
       image = rgba_sample
       image.brightness!(0.6)
-      expect_digest image, "f84f1a69db111484616cb1b9bd58e92a608c50e7"
+      expect_digest image, "0f84f1c0b8ca27642f244ca1c9ea316737216d61"
     end
   end
 end

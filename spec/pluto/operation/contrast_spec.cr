@@ -7,9 +7,9 @@ describe Pluto::Operation::Contrast do
       positive_image = image.contrast(128)
       negative_image = image.contrast(-128)
 
-      expect_digest image, "1a4d4e43e17f3245cefe5dd2c002fb85de079ae8"
-      expect_digest positive_image, "5aa2004129f7267c851b8055cdd93da205ab7483"
-      expect_digest negative_image, "9f6321f4b1387dd03b47a266a32905615e652e26"
+      expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
+      expect_digest positive_image, "cb808af0f18177345e8315118e28ebc4a45f3dc9"
+      expect_digest negative_image, "d9dc489f940cd57ad2dc5f44667af8504cb7e000"
     end
 
     it "works with ImageRGBA" do
@@ -17,9 +17,9 @@ describe Pluto::Operation::Contrast do
       positive_image = image.contrast(128)
       negative_image = image.contrast(-128)
 
-      expect_digest image, "d7fa6faf6eec5350f8de8b41f478bf7e8d217fa9"
-      expect_digest positive_image, "d773339697e9c3ed2ea188ecc1adbbe73dbc1ba5"
-      expect_digest negative_image, "c2269bee571172cf97377547e5e9de9b91e552c5"
+      expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
+      expect_digest positive_image, "98d23f0e0f02cafed7f79e66b49ea2e62517c3f5"
+      expect_digest negative_image, "93fbd42c7a37627e9a3e1914d3ad8dab8e8dd7d0"
     end
   end
 
@@ -27,21 +27,21 @@ describe Pluto::Operation::Contrast do
     it "works with ImageGA" do
       image = ga_sample
       image.contrast!(128)
-      expect_digest image, "5aa2004129f7267c851b8055cdd93da205ab7483"
+      expect_digest image, "cb808af0f18177345e8315118e28ebc4a45f3dc9"
 
       image = ga_sample
       image.contrast!(-128)
-      expect_digest image, "9f6321f4b1387dd03b47a266a32905615e652e26"
+      expect_digest image, "d9dc489f940cd57ad2dc5f44667af8504cb7e000"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.contrast!(128)
-      expect_digest image, "d773339697e9c3ed2ea188ecc1adbbe73dbc1ba5"
+      expect_digest image, "98d23f0e0f02cafed7f79e66b49ea2e62517c3f5"
 
       image = rgba_sample
       image.contrast!(-128)
-      expect_digest image, "c2269bee571172cf97377547e5e9de9b91e552c5"
+      expect_digest image, "93fbd42c7a37627e9a3e1914d3ad8dab8e8dd7d0"
     end
   end
 end
