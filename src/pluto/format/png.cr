@@ -3,24 +3,24 @@ require "./binding/lib_spng"
 module Pluto::Format::PNG
   macro included
     def self.from_png(image_data : Bytes) : self
-      ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::None)
+      ctx = Format::Binding::LibSPNG.ctx_new(Format::Binding::LibSPNG::CtxFlags::None)
       raise ::Pluto::Exception.new("Failed to create a context") unless ctx
 
-      LibSPNG.set_png_buffer(ctx, image_data, image_data.size)
+      Format::Binding::LibSPNG.set_png_buffer(ctx, image_data, image_data.size)
 
-      check_png LibSPNG.get_ihdr(ctx, out ihdr)
-      check_png LibSPNG.decoded_image_size(ctx, LibSPNG::Format::RGBA8, out image_size)
+      check_png Format::Binding::LibSPNG.get_ihdr(ctx, out ihdr)
+      check_png Format::Binding::LibSPNG.decoded_image_size(ctx, Format::Binding::LibSPNG::Format::RGBA8, out image_size)
 
       image = Bytes.new(image_size.to_i, 0u8)
-      check_png LibSPNG.decode_image(
+      check_png Format::Binding::LibSPNG.decode_image(
         ctx,
         image,
         image_size,
-        LibSPNG::Format::RGBA8,
-        LibSPNG::DecodeFlags::None
+        Format::Binding::LibSPNG::Format::RGBA8,
+        Format::Binding::LibSPNG::DecodeFlags::None
       )
 
-      LibSPNG.ctx_free(ctx)
+      Format::Binding::LibSPNG.ctx_free(ctx)
 
       size = image_size // 4
       width = size // ihdr.height
@@ -60,29 +60,29 @@ module Pluto::Format::PNG
       image_data.write_byte(alpha.unsafe_fetch(index))
     end
 
-    ctx = LibSPNG.ctx_new(LibSPNG::CtxFlags::Encoder)
+    ctx = Format::Binding::LibSPNG.ctx_new(Format::Binding::LibSPNG::CtxFlags::Encoder)
     raise ::Pluto::Exception.new("Failed to create a context") unless ctx
 
-    LibSPNG.set_option(ctx, LibSPNG::Option::EncodeToBuffer, true)
-    LibSPNG.set_png_buffer(ctx, image_data.buffer, image_data.size)
+    Format::Binding::LibSPNG.set_option(ctx, Format::Binding::LibSPNG::Option::EncodeToBuffer, true)
+    Format::Binding::LibSPNG.set_png_buffer(ctx, image_data.buffer, image_data.size)
 
-    ihdr = LibSPNG::IHDR.new
+    ihdr = Format::Binding::LibSPNG::IHDR.new
     ihdr.width = @width
     ihdr.height = @height
-    ihdr.color_type = LibSPNG::ColorType::TrueColorAlpha
+    ihdr.color_type = Format::Binding::LibSPNG::ColorType::TrueColorAlpha
     ihdr.bit_depth = 8
-    LibSPNG.set_ihdr(ctx, pointerof(ihdr))
+    Format::Binding::LibSPNG.set_ihdr(ctx, pointerof(ihdr))
 
-    error = LibSPNG.encode_image(
+    error = Format::Binding::LibSPNG.encode_image(
       ctx,
       image_data.buffer,
       image_data.size,
-      LibSPNG::Format::PNG,
-      LibSPNG::EncodeFlags::Finalize
+      Format::Binding::LibSPNG::Format::PNG,
+      Format::Binding::LibSPNG::EncodeFlags::Finalize
     )
     check_png error
 
-    buffer = LibSPNG.get_png_buffer(ctx, out size, pointerof(error))
+    buffer = Format::Binding::LibSPNG.get_png_buffer(ctx, out size, pointerof(error))
     raise ::Pluto::Exception.new("Failed to get a buffer") unless ctx
 
     bytes = Bytes.new(buffer, size)

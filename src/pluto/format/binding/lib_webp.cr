@@ -1,12 +1,14 @@
-{% if flag?(:legacy_webp) %}
-  @[Link(ldflags: "-lwebp")]
-{% else %}
-  @[Link(ldflags: "-lwebp -lsharpyuv")]
-{% end %}
-lib LibWebP
-  fun decode_rgba = WebPDecodeRGBA(data : UInt8*, data_size : LibC::SizeT, width : LibC::Int*, height : LibC::Int*) : UInt8*
-  fun encode_lossless_rgba = WebPEncodeLosslessRGBA(rgba : UInt8*, width : LibC::Int, height : LibC::Int, stride : LibC::Int, output : UInt8**) : LibC::SizeT
-  fun encode_rgba = WebPEncodeRGBA(rgba : UInt8*, width : LibC::Int, height : LibC::Int, stride : LibC::Int, quality_factor : LibC::Float, output : UInt8**) : LibC::SizeT
-  fun free = WebPFree(ptr : Void*)
-  fun get_info = WebPGetInfo(data : UInt8*, data_size : LibC::SizeT, width : LibC::Int*, height : LibC::Int*) : LibC::Int
+module Pluto::Format::Binding
+  {% if flag?(:legacy_webp) %}
+    @[Link(ldflags: "-lwebp")]
+  {% else %}
+    @[Link(ldflags: "-lwebp -lsharpyuv")]
+  {% end %}
+  lib LibWebP
+    fun decode_rgba = WebPDecodeRGBA(data : UInt8*, data_size : LibC::SizeT, width : LibC::Int*, height : LibC::Int*) : UInt8*
+    fun encode_lossless_rgba = WebPEncodeLosslessRGBA(rgba : UInt8*, width : LibC::Int, height : LibC::Int, stride : LibC::Int, output : UInt8**) : LibC::SizeT
+    fun encode_rgba = WebPEncodeRGBA(rgba : UInt8*, width : LibC::Int, height : LibC::Int, stride : LibC::Int, quality_factor : LibC::Float, output : UInt8**) : LibC::SizeT
+    fun free = WebPFree(ptr : Void*)
+    fun get_info = WebPGetInfo(data : UInt8*, data_size : LibC::SizeT, width : LibC::Int*, height : LibC::Int*) : LibC::Int
+  end
 end
