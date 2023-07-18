@@ -2,19 +2,19 @@ require "../../spec_helper"
 
 describe Pluto::Operation::Rotate do
   describe "#rotate" do
-    it "checks pad and radius" do
+    it "checks padding and radius" do
       image = ga_sample
 
-      expect_raises(Exception, "Can't pad image and limit rotation by radius") do
-        image.rotate(0, pad: true, radius: 1)
+      expect_raises(Exception, "Can't padding image and limit rotation by radius") do
+        image.rotate(0, padding: true, radius: 1)
       end
     end
 
     it "works with ImageGA" do
       image = ga_sample
       rotated = image.rotate(45)
-      rotated_pad = image.rotate(45, pad: true)
-      rotated_pad_repeat = image.rotate(45, pad: true, pad_type: Pluto::PaddingType::Repeat)
+      rotated_pad = image.rotate(45, padding: true)
+      rotated_pad_repeat = image.rotate(45, padding: true, padding_type: Pluto::PaddingType::Repeat)
       rotated_off_center = image.rotate(45, center_x: 100, center_y: 100)
 
       expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
@@ -27,8 +27,8 @@ describe Pluto::Operation::Rotate do
     it "works with ImageRGBA" do
       image = rgba_sample
       rotated = image.rotate(45)
-      rotated_pad = image.rotate(45, pad: true)
-      rotated_pad_repeat = image.rotate(45, pad: true, pad_type: Pluto::PaddingType::Repeat)
+      rotated_pad = image.rotate(45, padding: true)
+      rotated_pad_repeat = image.rotate(45, padding: true, padding_type: Pluto::PaddingType::Repeat)
       rotated_off_center = image.rotate(45, center_x: 100, center_y: 100)
 
       expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"

@@ -5,24 +5,22 @@ module Pluto::Operation::Rotate
     center_x : Int32 = width // 2,
     center_y : Int32 = height // 2,
     radius : Int32 = -1,
-    pad : Bool = false,
-    pad_type : PaddingType = PaddingType::Black
+    padding : Bool = false,
+    padding_type : PaddingType = PaddingType::Black
   ) : self
-    clone.rotate!(degrees, center_x: center_x, center_y: center_y, radius: radius, pad: pad, pad_type: pad_type)
+    clone.rotate!(degrees, center_x: center_x, center_y: center_y, radius: radius, padding: padding, padding_type: padding_type)
   end
 
-  # Can't really find good ways to reduce this more than it is, so disabling this check here
-  # ameba:disable Metrics/CyclomaticComplexity
   def rotate!(
     degrees : Float64,
     *,
     center_x : Int32 = width // 2,
     center_y : Int32 = height // 2,
     radius : Int32 = -1,
-    pad : Bool = false,
-    pad_type : PaddingType = PaddingType::Black
+    padding : Bool = false,
+    padding_type : PaddingType = PaddingType::Black
   ) : self
-    raise Exception.new("Can't pad image and limit rotation by radius") if pad && radius >= 0
+    raise Exception.new("Can't padding image and limit rotation by radius") if padding && radius >= 0
 
     # Rotate backwards, so that we can "look back" from the output pixel location into the input pixel location
     radians = -Math::PI * degrees / 180
@@ -30,7 +28,7 @@ module Pluto::Operation::Rotate
     cos = Math.cos(radians)
     radius_sq = radius * radius
 
-    new_width, new_size, out_center_x, out_center_y = output_dimensions(pad, degrees, center_x, center_y)
+    new_width, new_size, out_center_x, out_center_y = output_dimensions(padding, degrees, center_x, center_y)
 
     each_channel do |channel, channel_type|
       new_x = -1
@@ -47,7 +45,7 @@ module Pluto::Operation::Rotate
         orig_x = (cos * (new_x - out_center_x) - sin * (new_y - out_center_y) + center_x).round.to_i
         orig_y = (sin * (new_x - out_center_x) + cos * (new_y - out_center_y) + center_y).round.to_i
 
-        if pad_type.black?
+        if padding_type.black?
           if orig_x < 0 || orig_x >= width || orig_y < 0 || orig_y >= height
             next channel_type.alpha? ? 255u8 : 0u8
           end
@@ -66,8 +64,8 @@ module Pluto::Operation::Rotate
     self
   end
 
-  private def output_dimensions(pad, degrees, center_x, center_y) : Tuple(Int32, Int32, Int32, Int32)
-    if pad
+  private def output_dimensions(padding, degrees, center_x, center_y) : Tuple(Int32, Int32, Int32, Int32)
+    if padding
       mod_radians = Math::PI * (degrees % 180) / 180
       mod_cos = Math.cos(mod_radians)
       mod_sin = Math.sin(mod_radians)
