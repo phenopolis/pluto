@@ -16,6 +16,7 @@ abstract class Pluto::Image
     include Operation::GaussianBlur
     include Operation::HorizontalBlur
     include Operation::Padding
+    include Operation::Rotation
     include Operation::VerticalBlur
   end
 

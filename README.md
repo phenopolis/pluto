@@ -33,6 +33,7 @@
   - Gaussian blur
   - Horizontal blur
   - Padding
+  - Rotation
   - Vertical blur
 
 ## Installation
