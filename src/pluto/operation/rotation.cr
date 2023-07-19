@@ -20,7 +20,7 @@ module Pluto::Operation::Rotation
     padding : Bool = false,
     padding_type : PaddingType = PaddingType::Black
   ) : self
-    raise Exception.new("Can't padding image and limit rotation by radius") if padding && radius >= 0
+    raise Exception.new("Can't pad image and limit rotation by radius") if padding && radius >= 0
 
     # Rotate backwards, so that we can "look back" from the output pixel location into the input pixel location
     radians = -Math::PI * degrees / 180

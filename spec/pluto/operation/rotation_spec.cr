@@ -5,7 +5,7 @@ describe Pluto::Operation::Rotation do
     it "checks padding and radius" do
       image = ga_sample
 
-      expect_raises(Exception, "Can't padding image and limit rotation by radius") do
+      expect_raises(Exception, "Can't pad image and limit rotation by radius") do
         image.rotation(0, padding: true, radius: 1)
       end
     end
