@@ -1,5 +1,5 @@
-module Pluto::Operation::Rotate
-  def rotate(
+module Pluto::Operation::Rotation
+  def rotation(
     degrees : Float64,
     *,
     center_x : Int32 = width // 2,
@@ -8,10 +8,10 @@ module Pluto::Operation::Rotate
     padding : Bool = false,
     padding_type : PaddingType = PaddingType::Black
   ) : self
-    clone.rotate!(degrees, center_x: center_x, center_y: center_y, radius: radius, padding: padding, padding_type: padding_type)
+    clone.rotation!(degrees, center_x: center_x, center_y: center_y, radius: radius, padding: padding, padding_type: padding_type)
   end
 
-  def rotate!(
+  def rotation!(
     degrees : Float64,
     *,
     center_x : Int32 = width // 2,

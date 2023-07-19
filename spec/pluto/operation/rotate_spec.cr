@@ -1,21 +1,21 @@
 require "../../spec_helper"
 
-describe Pluto::Operation::Rotate do
-  describe "#rotate" do
+describe Pluto::Operation::Rotation do
+  describe "#rotation" do
     it "checks padding and radius" do
       image = ga_sample
 
       expect_raises(Exception, "Can't padding image and limit rotation by radius") do
-        image.rotate(0, padding: true, radius: 1)
+        image.rotation(0, padding: true, radius: 1)
       end
     end
 
     it "works with ImageGA" do
       image = ga_sample
-      rotated = image.rotate(45)
-      rotated_pad = image.rotate(45, padding: true)
-      rotated_pad_repeat = image.rotate(45, padding: true, padding_type: Pluto::PaddingType::Repeat)
-      rotated_off_center = image.rotate(45, center_x: 100, center_y: 100)
+      rotated = image.rotation(45)
+      rotated_pad = image.rotation(45, padding: true)
+      rotated_pad_repeat = image.rotation(45, padding: true, padding_type: Pluto::PaddingType::Repeat)
+      rotated_off_center = image.rotation(45, center_x: 100, center_y: 100)
 
       expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
       expect_digest rotated, "6b78ea150f64b2daa041ca3d1b5b15e452a1256e"
@@ -26,10 +26,10 @@ describe Pluto::Operation::Rotate do
 
     it "works with ImageRGBA" do
       image = rgba_sample
-      rotated = image.rotate(45)
-      rotated_pad = image.rotate(45, padding: true)
-      rotated_pad_repeat = image.rotate(45, padding: true, padding_type: Pluto::PaddingType::Repeat)
-      rotated_off_center = image.rotate(45, center_x: 100, center_y: 100)
+      rotated = image.rotation(45)
+      rotated_pad = image.rotation(45, padding: true)
+      rotated_pad_repeat = image.rotation(45, padding: true, padding_type: Pluto::PaddingType::Repeat)
+      rotated_off_center = image.rotation(45, center_x: 100, center_y: 100)
 
       expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
       expect_digest rotated, "061a9d70f2f5e3a2f431d68800c5f1f3f21ee2c1"
@@ -39,16 +39,16 @@ describe Pluto::Operation::Rotate do
     end
   end
 
-  describe "#rotate!" do
+  describe "#rotation!" do
     it "works with ImageGA" do
       image = ga_sample
-      image.rotate!(45)
+      image.rotation!(45)
       expect_digest image, "6b78ea150f64b2daa041ca3d1b5b15e452a1256e"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
-      image.rotate!(45)
+      image.rotation!(45)
       expect_digest image, "061a9d70f2f5e3a2f431d68800c5f1f3f21ee2c1"
     end
   end
