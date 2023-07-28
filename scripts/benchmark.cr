@@ -27,9 +27,9 @@ private def elapsed_text(millis)
 end
 
 def print_result_table(results : Array(Result))
-  name_ljust = results.map(&.name.size).max
-  time_ljust = results.map { |res| elapsed_text(res.time).size }.max
-  memo_ljust = results.map(&.memory.humanize_bytes.size).max
+  name_ljust = results.max_of(&.name.size)
+  time_ljust = results.max_of { |res| elapsed_text(res.time).size }
+  memo_ljust = results.max_of(&.memory.humanize_bytes.size)
 
   # Headers
   table = [

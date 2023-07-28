@@ -8,12 +8,12 @@ dependencies:
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
-    version: ~> 1.4.3
+    commit: 8ef588d
   pluto_samples:
     github: phenopolis/pluto-samples
   stumpy_png:
     github: stumpycr/stumpy_png
 
-crystal: 1.7.2
+crystal: 1.9.2
 
 license: ISC
