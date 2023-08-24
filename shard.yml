@@ -14,6 +14,6 @@ development_dependencies:
   stumpy_png:
     github: stumpycr/stumpy_png
 
-crystal: 1.9.2
+crystal: ">= 1.0.0, < 2.0"
 
 license: ISC
