@@ -87,7 +87,7 @@ module Pluto::Format::WebP
     Format::Binding::LibWebP.free(buffer)
   end
 
-  delegate check_webp, to: self.class
+  protected delegate check_webp, to: self.class
 end
 
 {% for subclass in Pluto::Image.subclasses %}
