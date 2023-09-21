@@ -14,6 +14,13 @@
 
 <p align="center">A fast and convenient image processing library</p>
 
+## Documentation
+
+| Type                  | Links                                                                                |
+| --------------------- | ------------------------------------------------------------------------------------ |
+| Latest Stable Release | [CrystalDoc.info](https://crystaldoc.info/github/phenopolis/pluto/v1.0.1/index.html) |
+| Main Branch           | [CrystalDoc.info](https://crystaldoc.info/github/phenopolis/pluto/main/index.html)   |
+
 ## Currently supported
 
 - Image formats
