@@ -91,7 +91,9 @@ module Pluto::Format::PNG
     LibC.free(buffer)
   end
 
-  protected delegate check_png, to: self.class
+  # :nodoc:
+  @[Deprecated("The visibility of this method will be changing in the future, and it should not be used directly")]
+  delegate check_png, to: self.class
 end
 
 {% for subclass in Pluto::Image.subclasses %}
