@@ -87,8 +87,8 @@ module Pluto::Format::WebP
     Format::Binding::LibWebP.free(buffer)
   end
 
-  # :nodoc:
   @[Deprecated("The visibility of this method will be changing in the future, and it should not be used directly")]
+  # :nodoc:
   delegate check_webp, to: self.class
 end
 
