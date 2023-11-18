@@ -93,8 +93,7 @@ image = Pluto::ImageRGBA.from_stumpy(canvas)            # => Pluto::ImageRGBA
 image.to_stumpy                                         # => StumpyCore::Canvas
 ```
 
-> **Note**
->
+> [!note]
 > Converting from a `StumpyCore::Canvas` created from a 16-bit image will result in a loss of information, since Pluto currently only supports 8 bit.
 
 ### More
