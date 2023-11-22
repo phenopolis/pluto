@@ -16,10 +16,8 @@
 
 ## Documentation
 
-| Type                  | Link                                                                                 |
-| --------------------- | ------------------------------------------------------------------------------------ |
-| Latest Stable Release | [CrystalDoc.info](https://crystaldoc.info/github/phenopolis/pluto/v1.0.1/index.html) |
-| Main Branch           | [CrystalDoc.info](https://crystaldoc.info/github/phenopolis/pluto/main/index.html)   |
+- [Main](https://crystaldoc.info/github/phenopolis/pluto/main/index.html)
+- [Stable](https://crystaldoc.info/github/phenopolis/pluto/v1.0.1/index.html)
 
 ## Currently supported
 
