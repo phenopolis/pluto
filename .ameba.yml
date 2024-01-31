@@ -1,6 +1,9 @@
 Documentation/DocumentationAdmonition:
   Enabled: false
 
+Lint/UselessAssign:
+  Enabled: false
+
 Metrics/CyclomaticComplexity:
   Enabled: false
 
