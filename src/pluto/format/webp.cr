@@ -34,7 +34,7 @@ module Pluto::Format::WebP
     end
 
     protected def self.check_webp(code)
-      raise ::Pluto::Exception.new(code.to_i) if code == 0
+      raise Exception.new(code.to_i) if code == 0
     end
   end
 
