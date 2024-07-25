@@ -19,14 +19,14 @@ describe Pluto::Operation::HorizontalBlur do
     end
 
     it "doesn't cause arithmetic overload" do
-      with_sample("problem_images/28_arithmetic_overflow_in_blur.jpeg") do |io|
+      with_sample("problematic_images/28_arithmetic_overflow_in_blur.jpeg") do |io|
         image = Pluto::ImageRGBA.from_jpeg(io)
         expect_digest image.horizontal_blur(10), "d1e2b9363a2e7a36e738599cda8dab844a828b15"
       end
     end
 
     it "doesn't cause arithmetic overload again" do
-      with_sample("problem_images/46_arithmetic_overflow_in_blur_again.jpeg") do |io|
+      with_sample("problematic_images/46_arithmetic_overflow_in_blur_again.jpeg") do |io|
         image = Pluto::ImageRGBA.from_jpeg(io)
         expect_digest image.horizontal_blur(5), "a6ce6aeb78bc3cc6cff8e39f932b3e778b127950"
       end
