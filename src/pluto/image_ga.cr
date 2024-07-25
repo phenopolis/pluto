@@ -51,7 +51,7 @@ class Pluto::ImageGA < Pluto::Image
     case channel_type
     when ChannelType::Gray  then @gray
     when ChannelType::Alpha then @alpha
-    else                         raise "Unknown channel type #{channel_type} for ImageRGBA"
+    else                         raise Exception.new("Unknown channel type #{channel_type} for ImageRGBA")
     end
   end
 
@@ -59,7 +59,7 @@ class Pluto::ImageGA < Pluto::Image
     case channel_type
     when ChannelType::Gray  then self.gray = channel
     when ChannelType::Alpha then self.alpha = channel
-    else                         raise "Unknown channel type #{channel_type} for ImageGA"
+    else                         raise Exception.new("Unknown channel type #{channel_type} for ImageGA")
     end
   end
 

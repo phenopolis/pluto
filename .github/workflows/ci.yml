@@ -16,6 +16,7 @@ jobs:
       - run: >
           apk add
           crystal
+          git-lfs
           libjpeg-turbo
           libjpeg-turbo-dev
           libspng

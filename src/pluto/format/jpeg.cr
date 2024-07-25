@@ -50,7 +50,7 @@ module Pluto::Format::JPEG
       message = String.new(Format::Binding::LibJPEGTurbo.get_error_str(handle))
       error_code = Format::Binding::LibJPEGTurbo.get_error_code(handle).to_i
 
-      raise ::Pluto::Exception.new(message, error_code) unless code == 0
+      raise Exception.new(message, error_code) unless code == 0
     end
   end
 
