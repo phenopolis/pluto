@@ -85,9 +85,7 @@ module Pluto::Format::JPEG
     Format::Binding::LibJPEGTurbo.free(buffer)
   end
 
-  @[Deprecated("The visibility of this method will be changing in the future, and it should not be used directly.")]
-  # :nodoc:
-  delegate check_jpeg, to: self.class
+  protected delegate check_jpeg, to: self.class
 end
 
 {% for subclass in Pluto::Image.subclasses %}
