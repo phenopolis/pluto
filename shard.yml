@@ -4,13 +4,15 @@ version: 1.0.1
 dependencies:
   stumpy_core:
     github: stumpycr/stumpy_core
+    version: ~> 1.9
 
 development_dependencies:
   ameba:
     github: crystal-ameba/ameba
     version: ~> 1.6.1
   pluto_samples:
-    github: phenopolis/pluto-samples
+    github: phenopolis/pluto
+    branch: samples
   stumpy_png:
     github: stumpycr/stumpy_png
 
