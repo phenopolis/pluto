@@ -25,13 +25,13 @@ module Pluto::Format::PPM
             green.unsafe_put(index, green_byte)
             blue.unsafe_put(index, blue_byte)
           else
-            raise "The image ends prematurely"
+            raise Exception.new("The image ends prematurely")
           end
         end
 
         new(red, green, blue, alpha, width, height)
       else
-        raise "The image doesn't have width or height"
+        raise Exception.new("The image doesn't have width or height")
       end
     end
   end

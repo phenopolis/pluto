@@ -4,7 +4,7 @@ module Pluto::Format::PNG
   macro included
     def self.from_png(image_data : Bytes) : self
       ctx = Format::Binding::LibSPNG.ctx_new(Format::Binding::LibSPNG::CtxFlags::None)
-      raise ::Pluto::Exception.new("Failed to create a context") unless ctx
+      raise Exception.new("Failed to create a context") unless ctx
 
       Format::Binding::LibSPNG.set_png_buffer(ctx, image_data, image_data.size)
 
@@ -47,7 +47,7 @@ module Pluto::Format::PNG
     end
 
     protected def self.check_png(code)
-      raise ::Pluto::Exception.new(code) if code != 0
+      raise Exception.new(code) if code != 0
     end
   end
 
@@ -61,7 +61,7 @@ module Pluto::Format::PNG
     end
 
     ctx = Format::Binding::LibSPNG.ctx_new(Format::Binding::LibSPNG::CtxFlags::Encoder)
-    raise ::Pluto::Exception.new("Failed to create a context") unless ctx
+    raise Exception.new("Failed to create a context") unless ctx
 
     Format::Binding::LibSPNG.set_option(ctx, Format::Binding::LibSPNG::Option::EncodeToBuffer, true)
     Format::Binding::LibSPNG.set_png_buffer(ctx, image_data.buffer, image_data.size)
@@ -83,7 +83,7 @@ module Pluto::Format::PNG
     check_png error
 
     buffer = Format::Binding::LibSPNG.get_png_buffer(ctx, out size, pointerof(error))
-    raise ::Pluto::Exception.new("Failed to get a buffer") unless ctx
+    raise Exception.new("Failed to get a buffer") unless ctx
 
     bytes = Bytes.new(buffer, size)
     io.write(bytes)

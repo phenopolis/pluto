@@ -4,8 +4,8 @@ module Pluto::Operation::Crop
   end
 
   def crop!(x : Int32, y : Int32, new_width : Int32, new_height : Int32) : self
-    raise "Crop dimensions extend #{x + new_width - width} pixels beyond width of the image (#{width})" if (x + new_width) > width
-    raise "Crop dimensions extend #{y + new_height - height} pixels beyond height of the image (#{height})" if (y + new_height) > height
+    raise Exception.new("Crop dimensions extend #{x + new_width - width} pixels beyond width of the image (#{width})") if (x + new_width) > width
+    raise Exception.new("Crop dimensions extend #{y + new_height - height} pixels beyond height of the image (#{height})") if (y + new_height) > height
 
     new_size = new_width * new_height
     height_offset = y * width
