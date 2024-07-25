@@ -5,7 +5,7 @@ describe Pluto::Operation::Crop do
     it "checks image width boundaries" do
       image = ga_sample
 
-      expect_raises(Exception, "Crop dimensions extend 1 pixels beyond width of the image (640)") do
+      expect_raises(Pluto::Exception, "Crop dimensions extend 1 pixels beyond width of the image (640)") do
         image.crop(0, 0, image.width + 1, image.height)
       end
     end
@@ -13,7 +13,7 @@ describe Pluto::Operation::Crop do
     it "checks image height boundaries" do
       image = ga_sample
 
-      expect_raises(Exception, "Crop dimensions extend 1 pixels beyond height of the image (480)") do
+      expect_raises(Pluto::Exception, "Crop dimensions extend 1 pixels beyond height of the image (480)") do
         image.crop(0, 0, image.width, image.height + 1)
       end
     end
