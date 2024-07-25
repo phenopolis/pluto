@@ -2,11 +2,11 @@
   <picture>
     <source
       media="(prefers-color-scheme: dark)"
-      srcset="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-white.png"
+      srcset="https://media.githubusercontent.com/media/phenopolis/pluto/media/logo-white.png"
     />
     <img
       alt="logo"
-      src="https://raw.githubusercontent.com/phenopolis/pluto-logo/main/logo-black.png"
+      src="https://media.githubusercontent.com/media/phenopolis/pluto/media/logo-black.png"
       width="720px"
     />
   </picture>

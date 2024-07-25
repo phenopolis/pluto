@@ -10,7 +10,8 @@ development_dependencies:
     github: crystal-ameba/ameba
     version: ~> 1.6.1
   pluto_samples:
-    github: phenopolis/pluto-samples
+    github: phenopolis/pluto
+    branch: samples
   stumpy_png:
     github: stumpycr/stumpy_png
 
