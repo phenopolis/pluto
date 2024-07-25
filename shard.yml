@@ -4,6 +4,7 @@ version: 1.0.1
 dependencies:
   stumpy_core:
     github: stumpycr/stumpy_core
+    version: ~> 1.9
 
 development_dependencies:
   ameba:
