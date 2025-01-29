@@ -104,6 +104,7 @@ results << benchmark { image_rgba.contrast!(128) }
 results << benchmark { image_rgba.crop!(200, 200, 100, 100) }
 results << benchmark { image_rgba.gaussian_blur!(10) }
 results << benchmark { image_rgba.horizontal_blur!(10) }
+results << benchmark { image_rgba.lanczos_resize!(640, 480) }
 results << benchmark { image_rgba.padding!(100) }
 results << benchmark { image_rgba.rotation!(45) }
 results << benchmark { image_rgba.vertical_blur!(10) }
