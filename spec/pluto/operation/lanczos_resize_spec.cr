@@ -8,8 +8,8 @@ describe Pluto::Operation::LanczosResize do
       upsized_image = image.lanczos_resize(800, 600)
 
       expect_digest image, "91fd39e895dac79f13501d32efbb6301c3558462"
-      expect_digest downsized_image, "4bf6ffe9b120933b7286e3a0531fc13a0ff60d6c"
-      expect_digest upsized_image, "fb736760e9948a69bc732ad16de62552ad5ff1d3"
+      expect_digest downsized_image, "632fa536d3e67c7246fdc01464ad2885cb75db02"
+      expect_digest upsized_image, "050cbc8311c2bd5fc743eddf9c8e853dc4da48d5"
     end
 
     it "works with ImageRGBA" do
@@ -18,8 +18,8 @@ describe Pluto::Operation::LanczosResize do
       upsized_image = image.lanczos_resize(800, 600)
 
       expect_digest image, "13dc397f7b6098b66b9c523f8cf0f715ac5a8e4a"
-      expect_digest downsized_image, "37ba532cf7741899a3557b5cc259d1956a960694"
-      expect_digest upsized_image, "e80e6fdc2f1b9b096cf62bc74e7d75feacac4823"
+      expect_digest downsized_image, "d74d1ca3e015022523b668b6a43861b17f074cdb"
+      expect_digest upsized_image, "e3142be22f65829647fe85f1cf699d4bf0675310"
     end
   end
 
@@ -27,21 +27,21 @@ describe Pluto::Operation::LanczosResize do
     it "works with ImageGA" do
       image = ga_sample
       image.lanczos_resize!(480, 360)
-      expect_digest image, "4bf6ffe9b120933b7286e3a0531fc13a0ff60d6c"
+      expect_digest image, "632fa536d3e67c7246fdc01464ad2885cb75db02"
 
       image = ga_sample
       image.lanczos_resize!(800, 600)
-      expect_digest image, "fb736760e9948a69bc732ad16de62552ad5ff1d3"
+      expect_digest image, "050cbc8311c2bd5fc743eddf9c8e853dc4da48d5"
     end
 
     it "works with ImageRGBA" do
       image = rgba_sample
       image.lanczos_resize!(480, 360)
-      expect_digest image, "37ba532cf7741899a3557b5cc259d1956a960694"
+      expect_digest image, "d74d1ca3e015022523b668b6a43861b17f074cdb"
 
       image = rgba_sample
       image.lanczos_resize!(800, 600)
-      expect_digest image, "e80e6fdc2f1b9b096cf62bc74e7d75feacac4823"
+      expect_digest image, "e3142be22f65829647fe85f1cf699d4bf0675310"
     end
   end
 end
