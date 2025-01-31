@@ -37,6 +37,7 @@
   - Crop
   - Gaussian blur
   - Horizontal blur
+  - Lanczos resize
   - Padding
   - Rotation
   - Vertical blur
